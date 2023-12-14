@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
+import 'AboutTabWidget.dart';
 import 'MainPageWidget.dart';
+import 'PlayTabWidget.dart';
+import 'SettingsTabWidget.dart';
 
 class MainPageWidgetState extends State<MainPageWidget> {
   int _counter = 0;
 
-  void _incrementCounter() {
-    //TODO
+  /*void _incrementCounter() { //TODO
+
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -15,7 +18,7 @@ class MainPageWidgetState extends State<MainPageWidget> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -48,17 +51,17 @@ class MainPageWidgetState extends State<MainPageWidget> {
           bottom: const TabBar(
             tabs: [
               Tab(icon: Icon(Icons.info_outline)),
-              Tab(icon: Icon(Icons.directions_transit)),
-              Tab(icon: Icon(Icons.directions_bike)),
+              Tab(icon: Icon(Icons.settings_outlined)),
+              Tab(icon: Icon(Icons.play_arrow_outlined)),
             ],
           ),
           title: const Text('Tabs Demo'),
         ),
         body: const TabBarView(
           children: [
-            Icon(Icons.directions_car),
-            Icon(Icons.directions_transit),
-            Icon(Icons.directions_bike),
+            AboutTabWidget(),
+            SettingsTabWidget(),
+            PlayTabWidget(),
           ],
         ),
       ),

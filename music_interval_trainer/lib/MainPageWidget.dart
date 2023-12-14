@@ -1,14 +1,9 @@
-import 'MainPageWidgetState.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'MainPageWidgetState.dart';
+
 class MainPageWidget extends StatefulWidget {
-  const MainPageWidget({
-    super.key,
-    //TODO required this.title
-  });
-
-  //TODO final String title;
-
+  const MainPageWidget({super.key});
   @override
   State<MainPageWidget> createState() => MainPageWidgetState();
 }
