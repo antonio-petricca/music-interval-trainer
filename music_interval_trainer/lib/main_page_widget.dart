@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'MainPageWidgetState.dart';
+import 'main_page_widget_state.dart';
 
 class MainPageWidget extends StatefulWidget {
   const MainPageWidget({super.key});

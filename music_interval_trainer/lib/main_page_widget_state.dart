@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'AboutTabWidget.dart';
-import 'MainPageWidget.dart';
-import 'PlayTabWidget.dart';
-import 'SettingsTabWidget.dart';
+import 'about_tab_widget.dart';
+import 'main_page_widget.dart';
+import 'play_tab_widget.dart';
+import 'settings_tab_widget.dart';
 
 class MainPageWidgetState extends State<MainPageWidget> {
   int _counter = 0;
