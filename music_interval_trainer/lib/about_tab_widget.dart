@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class AboutTabWidget extends StatelessWidget {
-  const AboutTabWidget({super.key});
+  AboutTabWidget({super.key});
 
   // Theme.of(context).textTheme.labelMedium,
   // Theme.of(context).textTheme.titleMedium,
@@ -99,30 +100,32 @@ class AboutTabWidget extends StatelessWidget {
 
   Container buildUserGuideBox(BuildContext context) {
     return buildCardWidget(
-        context,
+      context,
       "User Guide", //TODO Localize
-        const Icon(Icons.help_outline_outlined),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+      const Icon(Icons.help_outline_outlined),
+
+      Expanded(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Music Interval Trainer", //TODO Localize
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
-            Text(
-              "Version 1.0.0", //TODO Localize
+              "A video is worth a thousand words!", //TODO Localize
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const Divider(height: 5),
-            Text(
-              "Support email: antonio.petricca@gmail.com",
-              //TODO Localize
-              style: Theme.of(context).textTheme.labelSmall,
+            YoutubePlayer(
+              controller: YoutubePlayerController( //TODO Video as resources?!
+                initialVideoId: 'tIQSV4JJTqI', //TODO Put into resource
+                flags: const YoutubePlayerFlags(
+                  autoPlay: false,
+                  mute: false,
+                  hideControls: false,
+                ),
+              ),
             ),
           ],
         ),
+      ),
     );
   }
-
 }

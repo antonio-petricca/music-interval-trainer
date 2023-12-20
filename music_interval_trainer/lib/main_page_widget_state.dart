@@ -57,7 +57,7 @@ class MainPageWidgetState extends State<MainPageWidget> {
           ),
           title: const Text('Tabs Demo'),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
             AboutTabWidget(),
             SettingsTabWidget(),

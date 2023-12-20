@@ -58,6 +58,13 @@
             </list>
           </value>
         </entry>
+        <entry key="flutter_inappwebview">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_inappwebview-5.8.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter_lints">
           <value>
             <list>
@@ -170,6 +177,13 @@
             </list>
           </value>
         </entry>
+        <entry key="youtube_player_flutter">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/youtube_player_flutter-8.1.2/lib" />
+            </list>
+          </value>
+        </entry>
       </option>
     </properties>
     <CLASSES>
@@ -180,6 +194,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/collection-1.18.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fake_async-1.3.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_inappwebview-5.8.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/lints-2.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/matcher-0.12.16/lib" />
@@ -194,6 +209,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/test_api-0.6.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_math-2.1.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/web-0.3.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/youtube_player_flutter-8.1.2/lib" />
       <root url="file://$USER_HOME$/snap/flutter/common/flutter/bin/cache/pkg/sky_engine/lib" />
       <root url="file://$USER_HOME$/snap/flutter/common/flutter/packages/flutter/lib" />
       <root url="file://$USER_HOME$/snap/flutter/common/flutter/packages/flutter_test/lib" />
