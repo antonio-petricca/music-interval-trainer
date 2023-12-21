@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'home_page.dart';
 
 /*
  https://docs.flutter.dev/cookbook/design/themes
+ https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization
  https://docs.flutter.dev/ui/layout/tutorial
  */
 
@@ -20,17 +20,10 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: Intl.message('', name: 'appTitle'), //TODO
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en', ''),
-        Locale('it', ''),
-      ],
-      home: HomePage(),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: const HomePage(),
     );
   }
 }

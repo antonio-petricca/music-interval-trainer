@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'tab_about.dart';
 import 'home_page.dart';
+import 'tab_about.dart';
 import 'tab_play.dart';
 import 'tab_settings.dart';
 
@@ -34,9 +34,7 @@ class HomePageState extends State<HomePage> {
               Tab(icon: Icon(Icons.play_arrow_outlined)),
             ],
           ),
-          title: Text(
-            Intl.message('', name: 'appTitle'), //TODO
-          ), //TODO Localize
+          title: Text(AppLocalizations.of(context)!.appTitle),
         ),
         body: TabBarView(
           children: [

@@ -1,4 +1,14 @@
 {
-  "@@locale": "it",
-  "appTitle": "Music Interval Trainer"
+  "appTitle": "Interval Music Trainer",
+  "tabAbout_About_Title": "Informazioni Applicazione",
+  "tabAbout_About_SupportEmail": "eMail supporto: antonio.petricca@gmail.com",
+
+  "tabAbout_About_Version": "Versione {version}",
+  "@tabAbout_About_Version": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  }
 }
