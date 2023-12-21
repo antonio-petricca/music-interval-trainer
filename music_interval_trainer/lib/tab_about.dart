@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_interval_trainer/tab_about_information.dart';
-import 'package:music_interval_trainer/tab_about_user_guide.dart';
+import 'package:music_interval_trainer/tab_about_guide.dart';
 
 class TabAbout extends StatelessWidget {
   const TabAbout({super.key});
@@ -15,7 +15,7 @@ class TabAbout extends StatelessWidget {
               children: [
                 TabAboutInformation(),
                 SizedBox(height: 10),
-                TabAboutUserGuide(),
+                TabAboutGuide(),
               ],
             )),
       ]),

@@ -26,7 +26,7 @@ class TabAboutInformationState extends State<TabAboutInformation> {
   @override
   Widget build(BuildContext context) {
     return WidgetCard(
-      AppLocalizations.of(context)!.tabAbout_About_Title,
+      AppLocalizations.of(context)!.tabAbout_Information_Title,
       const Icon(Icons.info_outline_rounded),
       Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -37,12 +37,12 @@ class TabAboutInformationState extends State<TabAboutInformation> {
             style: Theme.of(context).textTheme.labelLarge,
           ),
           Text(
-            AppLocalizations.of(context)!.tabAbout_About_Version(appVersion),
+            AppLocalizations.of(context)!.tabAbout_Information_Version(appVersion),
             style: Theme.of(context).textTheme.labelMedium,
           ),
           const Divider(height: 5),
           Text(
-            AppLocalizations.of(context)!.tabAbout_About_SupportEmail,
+            AppLocalizations.of(context)!.tabAbout_Information_SupportEmail,
             style: Theme.of(context).textTheme.labelSmall,
           ),
         ],

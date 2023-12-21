@@ -1,10 +1,11 @@
 {
   "appTitle": "Interval Music Trainer",
-  "tabAbout_About_Title": "Informazioni Applicazione",
-  "tabAbout_About_SupportEmail": "eMail supporto: antonio.petricca@gmail.com",
-
-  "tabAbout_About_Version": "Versione {version}",
-  "@tabAbout_About_Version": {
+  "tabAbout_Guide_Content": "Un video vale più di mille parole!",
+  "tabAbout_Guide_Title": "Guida utente",
+  "tabAbout_Information_SupportEmail": "eMail supporto: antonio.petricca@gmail.com",
+  "tabAbout_Information_Title": "Informazioni applicazione",
+  "tabAbout_Information_Version": "Versione {version}",
+  "@tabAbout_Information_Version": {
     "placeholders": {
       "version": {
         "type": "String"
