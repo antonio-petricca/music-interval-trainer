@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import 'card_widget.dart';
+import 'widget_card.dart';
 
-class AboutTabWidget extends StatelessWidget {
-  AboutTabWidget({super.key});
+class TabAbout extends StatelessWidget {
+  TabAbout({super.key});
 
   // Theme.of(context).textTheme.labelMedium,
   // Theme.of(context).textTheme.titleMedium,
@@ -27,7 +27,7 @@ class AboutTabWidget extends StatelessWidget {
   }
 
   Widget buildAboutCard(BuildContext context) {
-    return CardWidget(
+    return WidgetCard(
       "Application Information", //TODO Localize
       const Icon(Icons.info_outline_rounded),
       Column(
@@ -54,7 +54,7 @@ class AboutTabWidget extends StatelessWidget {
   }
 
   Widget buildUserGuideCard(BuildContext context) {
-    return CardWidget(
+    return WidgetCard(
       "User Guide", //TODO Localize
       const Icon(Icons.help_outline_outlined),
 

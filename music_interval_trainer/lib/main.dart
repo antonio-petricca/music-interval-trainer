@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 
-import 'main_page_widget.dart';
+import 'home_page.dart';
 
 /*
  https://docs.flutter.dev/cookbook/design/themes
@@ -30,7 +30,7 @@ class Application extends StatelessWidget {
         Locale('en', ''),
         Locale('it', ''),
       ],
-      home: MainPageWidget(),
+      home: HomePage(),
     );
   }
 }

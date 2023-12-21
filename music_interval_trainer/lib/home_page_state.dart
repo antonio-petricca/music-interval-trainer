@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'about_tab_widget.dart';
-import 'main_page_widget.dart';
-import 'play_tab_widget.dart';
-import 'settings_tab_widget.dart';
+import 'tab_about.dart';
+import 'home_page.dart';
+import 'tab_play.dart';
+import 'tab_settings.dart';
 
-class MainPageWidgetState extends State<MainPageWidget> {
+class HomePageState extends State<HomePage> {
   final int _counter = 0;
 
   /*void _incrementCounter() { //TODO
@@ -40,9 +40,9 @@ class MainPageWidgetState extends State<MainPageWidget> {
         ),
         body: TabBarView(
           children: [
-            AboutTabWidget(),
-            const SettingsTabWidget(),
-            const PlayTabWidget(),
+            TabAbout(),
+            const TabSettings(),
+            const TabPlay(),
           ],
         ),
       ),

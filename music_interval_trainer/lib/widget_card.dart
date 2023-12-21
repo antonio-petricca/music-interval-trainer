@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CardWidget extends StatelessWidget {
+class WidgetCard extends StatelessWidget {
   final Icon bodyIcon;
   final Widget bodyWidget;
   final String title;
 
-  const CardWidget(this.title, this.bodyIcon, this.bodyWidget, {super.key});
+  const WidgetCard(this.title, this.bodyIcon, this.bodyWidget, {super.key});
 
   @override
   Widget build(BuildContext context) {

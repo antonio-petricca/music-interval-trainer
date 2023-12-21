@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class SettingsTabWidget extends StatelessWidget {
-  const SettingsTabWidget({super.key});
+class TabSettings extends StatelessWidget {
+  const TabSettings({super.key});
 
   @override
   Widget build(BuildContext context) {

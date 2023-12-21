@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class PlayTabWidget extends StatelessWidget {
-  const PlayTabWidget({super.key});
+class TabPlay extends StatelessWidget {
+  const TabPlay({super.key});
 
   @override
   Widget build(BuildContext context) {
