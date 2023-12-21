@@ -36,11 +36,11 @@ class HomePageState extends State<HomePage> {
           ),
           title: Text(AppLocalizations.of(context)!.appTitle),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             TabAbout(),
-            const TabSettings(),
-            const TabPlay(),
+            TabSettings(),
+            TabPlay(),
           ],
         ),
       ),

@@ -7,19 +7,19 @@ import 'package:package_info/package_info.dart';
 // https://chat.openai.com/share/451881ca-686c-4da7-a599-3f83e6b5b35f
 
 class TabAboutInformationState extends State<TabAboutInformation> {
-  late String appVersion = '?';
+  late String _appVersion = '?';
 
   @override
   void initState() {
     super.initState();
-    getAppVersion();
+    _getAppVersion();
   }
 
-  Future<void> getAppVersion() async {
+  Future<void> _getAppVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
     setState(() {
-      appVersion = packageInfo.version;
+      _appVersion = packageInfo.version;
     });
   }
 
@@ -37,7 +37,7 @@ class TabAboutInformationState extends State<TabAboutInformation> {
             style: Theme.of(context).textTheme.labelLarge,
           ),
           Text(
-            AppLocalizations.of(context)!.tabAbout_Information_Version(appVersion),
+            AppLocalizations.of(context)!.tabAbout_Information_Version(_appVersion), //TODO Into config.json
             style: Theme.of(context).textTheme.labelMedium,
           ),
           const Divider(height: 5),
