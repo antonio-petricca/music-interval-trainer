@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:music_interval_trainer/widget_card.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/widget_card.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class TabAboutGuide extends StatelessWidget {

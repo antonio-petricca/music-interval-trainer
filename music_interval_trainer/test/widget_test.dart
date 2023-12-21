@@ -8,7 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:music_interval_trainer/main.dart';
 
 void main() { //TODO
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
