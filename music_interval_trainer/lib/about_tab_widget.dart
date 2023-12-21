@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import 'card_widget.dart';
+
 class AboutTabWidget extends StatelessWidget {
   AboutTabWidget({super.key});
 
@@ -15,64 +17,17 @@ class AboutTabWidget extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             child: Column(
               children: [
-                buildAboutBox(context),
+                buildAboutCard(context),
                 const SizedBox(height: 10),
-                buildUserGuideBox(context),
+                buildUserGuideCard(context),
               ],
             )),
       ]),
     );
   }
 
-  Container buildCardWidget(
-      BuildContext context, String title, Icon bodyIcon, Widget bodyWidget) {
-    return Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          border: Border.all(),
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(5),
-                  topRight: Radius.circular(5),
-                ),
-                color: Theme.of(context).primaryColorLight,
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(5),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: bodyIcon,
-                  ),
-                  bodyWidget
-                ],
-              ),
-            )
-          ],
-        ));
-  }
-
-  Container buildAboutBox(BuildContext context) {
-    return buildCardWidget(
-      context,
+  Widget buildAboutCard(BuildContext context) {
+    return CardWidget(
       "Application Information", //TODO Localize
       const Icon(Icons.info_outline_rounded),
       Column(
@@ -98,9 +53,8 @@ class AboutTabWidget extends StatelessWidget {
     );
   }
 
-  Container buildUserGuideBox(BuildContext context) {
-    return buildCardWidget(
-      context,
+  Widget buildUserGuideCard(BuildContext context) {
+    return CardWidget(
       "User Guide", //TODO Localize
       const Icon(Icons.help_outline_outlined),
 
