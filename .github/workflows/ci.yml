@@ -51,8 +51,6 @@ jobs:
 
     - name: Install certificate
       run: |
-        echo "${{ secrets.IOS_CERTIFICATE_P12 }}"
-        echo "${{ secrets.IOS_CERTIFICATE_PASSWORD }}"
         echo "${{ secrets.IOS_CERTIFICATE_P12 }}" | base64 --decode > certificate.p12
         security create-keychain -p "" build.keychain
         security import certificate.p12 -k ~/Library/Keychains/build.keychain -P "${{ secrets.IOS_CERTIFICATE_PASSWORD }}"
