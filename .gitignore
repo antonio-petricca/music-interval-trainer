@@ -28,5 +28,5 @@ doc/api/
 
 # My own
 
-resources/certificate/certificate.*
+resources/certificate/cer*
 resources/certificate/*.pem

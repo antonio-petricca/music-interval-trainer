@@ -1,4 +1,5 @@
 # https://chat.openai.com/share/4c492b9e-12aa-4a0c-b68d-a0a3f93ab6e9
+# https://github.com/yorifuji/flutter_github_actions_template/blob/def1020a6913a1e9a5e9dc11a46a17da8324cfbb/.github/workflows/deliver.yml#L113
 
 name: Flutter CI
 
@@ -9,7 +10,7 @@ on:
       - main
 
 jobs:
-  build-android:
+  android:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +20,8 @@ jobs:
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.16.5'
+        channel: 'stable'
+        cache: true
 
     - name: Install dependencies
       working-directory: ./music_interval_trainer
@@ -33,29 +35,46 @@ jobs:
       working-directory: ./music_interval_trainer
       run: flutter test
 
-  build-ios:
+  ios:
     runs-on: macos-latest
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
+    - name: Install certificate
+      env:
+        IOS_CERTIFICATE_P12_BASE64: ${{ secrets.IOS_CERTIFICATE_P12 }}
+        IOS_CERTIFICATE_P12_PASSWORD: ${{ secrets.IOS_CERTIFICATE_P12_PASSWORD }}
+        IOS_KEYCHAIN_PASSWORD: ${{ secrets.IOS_KEYCHAIN_PASSWORD }}
+      run: |
+        CERTIFICATE_PATH=${RUNNER_TEMP}/certificate.p12
+        KEYCHAIN_PATH=${RUNNER_TEMP}/keychain.db
+
+        echo "Importing certificate from secrets"
+
+        echo -n "${IOS_CERTIFICATE_P12_BASE64}" | base64 --decode --output ${CERTIFICATE_PATH}
+
+        echo "Creating temporary keychain..."
+
+        security create-keychain -p "${IOS_KEYCHAIN_PASSWORD}" ${KEYCHAIN_PATH}
+        security set-keychain-settings -lut 21600 ${KEYCHAIN_PATH}
+        security unlock-keychain -p "${IOS_KEYCHAIN_PASSWORD}" ${KEYCHAIN_PATH}
+
+        echo "Importing certificate to keychain..."
+
+        security import ${CERTIFICATE_PATH} -P "${IOS_CERTIFICATE_P12_PASSWORD}" -A -t cert -f pkcs12 -k ${KEYCHAIN_PATH}
+        security list-keychain -d user -s ${KEYCHAIN_PATH}
+
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.16.5'
+        channel: 'stable'
+        cache: true
 
     - name: Install dependencies
       working-directory: ./music_interval_trainer
       run: flutter pub get
-
-    - name: Install certificate
-      run: |
-        security create-keychain -p "" build.keychain
-        #security import certificate.p12 -k ~/Library/Keychains/build.keychain -P "${{ secrets.IOS_CERTIFICATE_PASSWORD }}"
-        security import certificate.p12 -k ~/Library/Keychains/build.keychain
-        security list-keychains -s ~/Library/Keychains/build.keychain
-        security default-keychain -s ~/Library/Keychains/build.keychain
 
     - name: Build for iOS
       working-directory: ./music_interval_trainer
