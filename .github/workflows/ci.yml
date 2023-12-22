@@ -49,6 +49,16 @@ jobs:
       working-directory: ./music_interval_trainer
       run: flutter pub get
 
+    - name: Install certificate
+      run: |
+        echo "${{ secrets.IOS_CERTIFICATE_P12 }}"
+        echo "${{ secrets.IOS_CERTIFICATE_PASSWORD }}"
+        echo "${{ secrets.IOS_CERTIFICATE_P12 }}" | base64 --decode > certificate.p12
+        security create-keychain -p "" build.keychain
+        security import certificate.p12 -k ~/Library/Keychains/build.keychain -P "${{ secrets.IOS_CERTIFICATE_PASSWORD }}"
+        security list-keychains -s ~/Library/Keychains/build.keychain
+        security default-keychain -s ~/Library/Keychains/build.keychain
+
     - name: Build for iOS
       working-directory: ./music_interval_trainer
       run: flutter build ios

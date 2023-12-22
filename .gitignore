@@ -25,3 +25,8 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# My own
+
+resources/certificate/certificate.*
+resources/certificate/*.pem
