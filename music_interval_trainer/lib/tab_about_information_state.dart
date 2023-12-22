@@ -28,25 +28,28 @@ class TabAboutInformationState extends State<TabAboutInformation> {
     return WidgetCardLayout(
       AppLocalizations.of(context)!.tabAbout_Information_Title,
       const Icon(Icons.info_outline_rounded),
-      Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            AppLocalizations.of(context)!.appTitle,
-            style: Theme.of(context).textTheme.labelLarge,
-          ),
-          Text(
-            AppLocalizations.of(context)!.tabAbout_Information_Version(_appVersion), //TODO Into config.json
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
-          const Divider(height: 5),
-          Text(
-            AppLocalizations.of(context)!.tabAbout_Information_SupportEmail,
-            style: Theme.of(context).textTheme.labelSmall,
-          ),
-        ],
-      ),
+      [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              AppLocalizations.of(context)!.appTitle,
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+            Text(
+              AppLocalizations.of(context)!.tabAbout_Information_Version(
+                  _appVersion),
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+            const Divider(height: 5),
+            Text(
+              AppLocalizations.of(context)!.tabAbout_Information_SupportEmail,
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

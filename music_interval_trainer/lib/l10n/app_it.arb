@@ -5,9 +5,21 @@
   "tabAbout_Information_SupportEmail": "eMail supporto: antonio.petricca@gmail.com",
   "tabAbout_Information_Title": "Informazioni applicazione",
   "tabAbout_Information_Version": "Versione {version}",
+  "tabSettings_Exercise_Duration_Button": "Selezione durata",
+  "tabSettings_Exercise_Duration_Label": "Durata dell'esercizio",
+  "tabSettings_Exercise_Interval_Label": "Velocità di esecuzione dell'esercizio",
+  "tabSettings_Exercise_Interval_Value": "Uno ogni {seconds} secondi",
+
   "@tabAbout_Information_Version": {
     "placeholders": {
       "version": {
+        "type": "String"
+      }
+    }
+  },
+  "@tabSettings_Exercise_Interval_Value": {
+    "placeholders": {
+      "seconds": {
         "type": "String"
       }
     }

@@ -34,6 +34,8 @@ dependencies:
     sdk: flutter
   intl: any
   package_info: any
+
+  duration_picker: any
   youtube_player_flutter: any
 
 

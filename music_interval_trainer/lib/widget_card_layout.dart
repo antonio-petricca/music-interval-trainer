@@ -3,10 +3,10 @@ import 'package:io.github.antoniopetricca.music_interval_trainer/widget_icon_lay
 
 class WidgetCardLayout extends StatelessWidget {
   final Icon bodyIcon;
-  final Widget bodyWidget;
+  final List<Widget> bodyWidgets;
   final String title;
 
-  const WidgetCardLayout(this.title, this.bodyIcon, this.bodyWidget,
+  const WidgetCardLayout(this.title, this.bodyIcon, this.bodyWidgets,
       {super.key});
 
   @override
@@ -41,7 +41,7 @@ class WidgetCardLayout extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.all(5),
-              child: WidgetIconLayout(bodyIcon, bodyWidget),
+              child: WidgetIconLayout(bodyIcon, bodyWidgets),
             )
           ],
         ));

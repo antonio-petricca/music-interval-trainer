@@ -1,22 +1,24 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class WidgetIconLayout extends StatelessWidget {
-  final Icon icon;
-  final Widget widget;
+  final List<Widget> widgets;
 
-  const WidgetIconLayout(this.icon, this.widget,
-      {super.key});
+  WidgetIconLayout(Icon icon, List<Widget> widgets, {super.key})
+      : widgets = [
+          Padding(
+            padding: const EdgeInsets.all(5),
+            child: icon,
+          ),
+          ...widgets,
+        ];
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(5),
-          child: icon,
-        ),
-        widget
-      ],
-    );
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: widgets);
   }
 }
