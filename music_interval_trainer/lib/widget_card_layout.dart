@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/widget_icon_layout.dart';
 
 class WidgetCardLayout extends StatelessWidget {
   final Icon bodyIcon;
   final Widget bodyWidget;
   final String title;
 
-  const WidgetCardLayout(this.title, this.bodyIcon, this.bodyWidget, {super.key});
+  const WidgetCardLayout(this.title, this.bodyIcon, this.bodyWidget,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +41,7 @@ class WidgetCardLayout extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.all(5),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: bodyIcon,
-                  ),
-                  bodyWidget
-                ],
-              ),
+              child: WidgetIconLayout(bodyIcon, bodyWidget),
             )
           ],
         ));
