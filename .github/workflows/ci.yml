@@ -52,7 +52,8 @@ jobs:
     - name: Install certificate
       run: |
         security create-keychain -p "" build.keychain
-        security import certificate.p12 -k ~/Library/Keychains/build.keychain -P "${{ secrets.IOS_CERTIFICATE_PASSWORD }}"
+        #security import certificate.p12 -k ~/Library/Keychains/build.keychain -P "${{ secrets.IOS_CERTIFICATE_PASSWORD }}"
+        security import certificate.p12 -k ~/Library/Keychains/build.keychain
         security list-keychains -s ~/Library/Keychains/build.keychain
         security default-keychain -s ~/Library/Keychains/build.keychain
 

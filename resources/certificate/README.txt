@@ -7,4 +7,4 @@ openssl req -new -x509 -key private-key.pem -out certificate.pem -days 365
 openssl pkcs12 -export -out certificate.p12 -inkey private-key.pem -in certificate.pem
 base64 certificate.p12 > certificate.base64
 
-Password: NoPassword2023
+No password!
