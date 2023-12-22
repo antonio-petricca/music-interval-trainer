@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class WidgetCard extends StatelessWidget {
+class WidgetIconLayout extends StatelessWidget {
   final Icon bodyIcon;
   final Widget bodyWidget;
   final String title;
 
-  const WidgetCard(this.title, this.bodyIcon, this.bodyWidget, {super.key});
+  const WidgetIconLayout(this.title, this.bodyIcon, this.bodyWidget, {super.key});
 
   @override
   Widget build(BuildContext context) {
