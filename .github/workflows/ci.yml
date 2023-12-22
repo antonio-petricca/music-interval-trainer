@@ -50,6 +50,7 @@ jobs:
       run: flutter pub get
 
     - name: Build for iOS
+      working-directory: ./music_interval_trainer
       run: flutter build ios
 
     - name: Run tests
