@@ -12,7 +12,7 @@ class TabSettingsState extends State<TabSettings> {
   final double _intervalMax = 50;
 
   Duration _duration = const Duration(minutes: 2, seconds: 30);
-  double _interval = 5;
+  double _interval = 20; // 2 seconds
   late SharedPreferences _preferences;
 
   @override
