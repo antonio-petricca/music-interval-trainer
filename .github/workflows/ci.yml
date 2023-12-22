@@ -29,9 +29,6 @@ jobs:
       working-directory: ./music_interval_trainer
       run: flutter build apk
 
-    - name: Build for iOS
-      run: flutter build ios
-
     - name: Run tests
       working-directory: ./music_interval_trainer
       run: flutter test
@@ -51,10 +48,6 @@ jobs:
     - name: Install dependencies
       working-directory: ./music_interval_trainer
       run: flutter pub get
-
-    - name: Build for Android
-      working-directory: ./music_interval_trainer
-      run: flutter build apk
 
     - name: Build for iOS
       run: flutter build ios
