@@ -12,26 +12,21 @@ class TabSettingsState extends State<TabSettings> {
   Duration _duration = const Duration(minutes: 2, seconds: 30);
   double _interval = 50;
 
-  Duration _getIntervalAsDuration() {
-    return Duration(
-      milliseconds: (_interval.toInt() * 100),
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildLabel(AppLocalizations.of(context)!.tabSettings_Exercise_Duration_Label),
+          _buildDivider(),
+          _buildDurationSelector(context),
+          _buildLabel(AppLocalizations.of(context)!.tabSettings_Exercise_Interval_Label),
+          _buildDivider(),
+          _buildIntervalSelector(context),
+        ],
+      ),
     );
-  }
-
-  String _getDuration() {
-    int minutes = _duration.inMinutes;
-    int seconds = (_duration.inSeconds % 60);
-
-    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-  }
-
-  String _getInterval() {
-    Duration duration = _getIntervalAsDuration();
-
-    int secs = duration.inSeconds;
-    int tenths = ((duration.inMilliseconds - (secs * 1000)) ~/ 100);
-
-    return '${secs.toString()}.${tenths.toString()}';
   }
 
   Widget _buildDivider() {
@@ -107,6 +102,28 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
+  String _getDuration() {
+    int minutes = _duration.inMinutes;
+    int seconds = (_duration.inSeconds % 60);
+
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
+
+  String _getInterval() {
+    Duration duration = _getIntervalAsDuration();
+
+    int secs = duration.inSeconds;
+    int tenths = ((duration.inMilliseconds - (secs * 1000)) ~/ 100);
+
+    return '${secs.toString()}.${tenths.toString()}';
+  }
+
+  Duration _getIntervalAsDuration() {
+    return Duration(
+      milliseconds: (_interval.toInt() * 100),
+    );
+  }
+
   Future<void> _selectDuration(BuildContext context) async {
     final Duration? selectedDuration = await showDurationPicker(
       context: context,
@@ -125,22 +142,5 @@ class TabSettingsState extends State<TabSettings> {
     setState(() {
       _interval = value;
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildLabel(AppLocalizations.of(context)!.tabSettings_Exercise_Duration_Label),
-          _buildDivider(),
-          _buildDurationSelector(context),
-          _buildLabel(AppLocalizations.of(context)!.tabSettings_Exercise_Interval_Label),
-          _buildDivider(),
-          _buildIntervalSelector(context),
-        ],
-      ),
-    );
   }
 }
