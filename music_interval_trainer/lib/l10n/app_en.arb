@@ -5,9 +5,10 @@
   "tabAbout_Information_SupportEmail": "Support email: antonio.petricca@gmail.com",
   "tabAbout_Information_Title": "Application information",
   "tabAbout_Information_Version": "Version {version}",
-  "tabSettings_Exercise_Execution_Section": "Exercise execution mode",
+  "tabSettings_Exercise_Execution_Accidentals": "Include accidentals",
   "tabSettings_Exercise_Execution_Duration": "Select duration",
   "tabSettings_Exercise_Execution_Interval": "One per {seconds} seconds",
+  "tabSettings_Exercise_Execution_Section": "Exercise execution mode",
 
   "@tabAbout_Information_Version": {
     "placeholders": {
