@@ -7,6 +7,7 @@
   "tabAbout_Information_Version": "Versione {version}",
   "tabSettings_Exercise_Execution_Accidentals": "Includi alterazioni",
   "tabSettings_Exercise_Execution_Duration": "Selezione durata",
+  "tabSettings_Exercise_Execution_Extended_Intervals": "Intervalli estesi (9, 11, 13)",
   "tabSettings_Exercise_Execution_Interval": "Uno ogni {seconds} secondi",
   "tabSettings_Exercise_Execution_Section": "Modalità esecuzione esercizio",
   "tabSettings_Exercise_Key_Section": "Suggerimenti tonalità",

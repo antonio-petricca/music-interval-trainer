@@ -7,7 +7,7 @@ import 'package:io.github.antoniopetricca.music_interval_trainer/widget_icon_lay
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TabSettingsState extends State<TabSettings> {
-  final double _infoColumnWidth = 180;
+  final double _infoColumnWidth = 190;
 
   final double _intervalMin = 5;
   final double _intervalMax = 50;
@@ -16,6 +16,8 @@ class TabSettingsState extends State<TabSettings> {
   Duration _selectedExecutionDuration = const Duration(minutes: 2, seconds: 30);
   double _selectedExecutionInterval = 20; // 2 seconds
   bool _selectedKeySuggestActivation = false;
+  bool _selectedKeySuggestExtendedIntervals = false;
+
   // seconds
   late SharedPreferences _preferences;
 
@@ -32,10 +34,10 @@ class TabSettingsState extends State<TabSettings> {
           _buildDivider(),
           _buildExecutionDurationSelector(context),
           _buildExecutionIntervalSelector(context),
-          _buildExecutionIncludeAccidentals(context),
+          _buildExecutionAccidentals(context),
+          _buildExecutionExtendedIntervals(context),
           _buildLabel(
-            AppLocalizations.of(context)!
-                .tabSettings_Exercise_Key_Section,
+            AppLocalizations.of(context)!.tabSettings_Exercise_Key_Section,
           ),
           _buildDivider(),
           _buildKeySuggestActivation(context),
@@ -86,13 +88,16 @@ class TabSettingsState extends State<TabSettings> {
             ),
           ),
           Expanded(
-            child: MaterialButton(
-              color: Theme.of(context).buttonTheme.colorScheme?.primary,
-              textColor: Theme.of(context).textTheme.labelLarge?.color,
-              onPressed: () => _selectExecutionDuration(context),
-              child: Text(
-                AppLocalizations.of(context)!
-                    .tabSettings_Exercise_Execution_Duration,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+              child: MaterialButton(
+                color: Theme.of(context).buttonTheme.colorScheme?.primary,
+                textColor: Theme.of(context).textTheme.labelLarge?.color,
+                onPressed: () => _selectExecutionDuration(context),
+                child: Text(
+                  AppLocalizations.of(context)!
+                      .tabSettings_Exercise_Execution_Duration,
+                ),
               ),
             ),
           ),
@@ -130,7 +135,7 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildExecutionIncludeAccidentals(BuildContext context) {
+  Widget _buildExecutionAccidentals(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
@@ -147,11 +152,9 @@ class TabSettingsState extends State<TabSettings> {
               ),
             ),
           ),
-          Expanded(
-            child: Checkbox(
-              value: _selectedExecutionAccidentals,
-              onChanged: _selectExecutionAccidentals,
-            ),
+          Checkbox(
+            value: _selectedExecutionAccidentals,
+            onChanged: _selectExecutionAccidentals,
           ),
         ],
       ),
@@ -175,11 +178,35 @@ class TabSettingsState extends State<TabSettings> {
               ),
             ),
           ),
-          Expanded(
-            child: Checkbox(
-              value: _selectedKeySuggestActivation,
-              onChanged: _selectKeySuggestActivation,
+          Checkbox(
+            value: _selectedKeySuggestActivation,
+            onChanged: _selectKeySuggestActivation,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildExecutionExtendedIntervals(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: WidgetIconLayout(
+        const Icon(Icons.extension),
+        [
+          SizedBox(
+            width: _infoColumnWidth,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Text(
+                AppLocalizations.of(context)!
+                    .tabSettings_Exercise_Execution_Extended_Intervals,
+                textAlign: TextAlign.right,
+              ),
             ),
+          ),
+          Checkbox(
+            value: _selectedKeySuggestExtendedIntervals,
+            onChanged: _selectKeySuggestExtendedIntervals,
           ),
         ],
       ),
@@ -209,7 +236,8 @@ class TabSettingsState extends State<TabSettings> {
 
     setState(() {
       _selectedExecutionAccidentals =
-          _preferences.getBool(SettingsCatalog.exerciseExecutionAccidentals) ?? false;
+          _preferences.getBool(SettingsCatalog.exerciseExecutionAccidentals) ??
+              false;
 
       int? duration =
           _preferences.getInt(SettingsCatalog.exerciseExecutionDuration);
@@ -223,15 +251,18 @@ class TabSettingsState extends State<TabSettings> {
               _selectedExecutionInterval;
 
       _selectedKeySuggestActivation =
-          _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? false;
+          _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ??
+              false;
+
+      _selectedKeySuggestExtendedIntervals = _preferences
+              .getBool(SettingsCatalog.exerciseKeySuggestExtendedIntervals) ??
+          false;
     });
   }
 
   _saveSettings() {
-    _preferences.setBool(
-      SettingsCatalog.exerciseExecutionAccidentals,
-      _selectedExecutionAccidentals
-    );
+    _preferences.setBool(SettingsCatalog.exerciseExecutionAccidentals,
+        _selectedExecutionAccidentals);
 
     _preferences.setInt(
       SettingsCatalog.exerciseExecutionDuration,
@@ -243,10 +274,11 @@ class TabSettingsState extends State<TabSettings> {
       _selectedExecutionInterval,
     );
 
-    _preferences.setBool(
-        SettingsCatalog.exerciseKeySuggestActivation,
-        _selectedKeySuggestActivation
-    );
+    _preferences.setBool(SettingsCatalog.exerciseKeySuggestActivation,
+        _selectedKeySuggestActivation);
+
+    _preferences.setBool(SettingsCatalog.exerciseKeySuggestExtendedIntervals,
+        _selectedKeySuggestExtendedIntervals);
   }
 
   void _selectExecutionAccidentals(bool? value) {
@@ -281,6 +313,13 @@ class TabSettingsState extends State<TabSettings> {
   void _selectKeySuggestActivation(bool? value) {
     setState(() {
       _selectedKeySuggestActivation = (value ?? false);
+      _saveSettings();
+    });
+  }
+
+  void _selectKeySuggestExtendedIntervals(bool? value) {
+    setState(() {
+      _selectedKeySuggestExtendedIntervals = (value ?? false);
       _saveSettings();
     });
   }
