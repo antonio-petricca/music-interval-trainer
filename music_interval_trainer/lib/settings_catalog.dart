@@ -1,4 +1,4 @@
 class SettingsCatalog {
-  static const String exerciseDuration = "exercise.duration";
-  static const String exerciseInterval = "exercise.interval";
+  static const String exerciseExecutionDuration = "exercise.execution.duration";
+  static const String exerciseExecutionInterval = "exercise.execution.interval";
 }

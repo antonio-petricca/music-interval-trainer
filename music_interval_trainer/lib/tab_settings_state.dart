@@ -7,12 +7,14 @@ import 'package:io.github.antoniopetricca.music_interval_trainer/widget_icon_lay
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TabSettingsState extends State<TabSettings> {
-  final double _infoColumnWidth = 150;
+  final double _infoColumnWidth = 200;
+
   final double _intervalMin = 5;
   final double _intervalMax = 50;
 
-  Duration _duration = const Duration(minutes: 2, seconds: 30);
-  double _interval = 20; // 2 seconds
+  Duration _selectedDuration = const Duration(minutes: 2, seconds: 30);
+  double _selectedInterval = 20; // 2
+  // seconds
   late SharedPreferences _preferences;
 
   @override
@@ -21,14 +23,12 @@ class TabSettingsState extends State<TabSettings> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildLabel(AppLocalizations.of(context)!
-              .tabSettings_Exercise_Duration_Label),
+          _buildLabel(
+            AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Section,
+          ),
           _buildDivider(),
-          _buildDurationSelector(context),
-          _buildLabel(AppLocalizations.of(context)!
-              .tabSettings_Exercise_Interval_Label),
-          _buildDivider(),
-          _buildIntervalSelector(context),
+          _buildExecutionDurationSelector(context),
+          _buildExecutionIntervalSelector(context),
         ],
       ),
     );
@@ -59,7 +59,7 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildDurationSelector(BuildContext context) {
+  Widget _buildExecutionDurationSelector(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
@@ -68,7 +68,7 @@ class TabSettingsState extends State<TabSettings> {
           SizedBox(
             width: _infoColumnWidth,
             child: Text(
-              _getDuration(),
+              _getExecutionDuration(),
               textAlign: TextAlign.center,
             ),
           ),
@@ -76,10 +76,10 @@ class TabSettingsState extends State<TabSettings> {
             child: MaterialButton(
               color: Theme.of(context).buttonTheme.colorScheme?.primary,
               textColor: Theme.of(context).textTheme.labelLarge?.color,
-              onPressed: () => _selectDuration(context),
+              onPressed: () => _selectExecutionDuration(context),
               child: Text(
                 AppLocalizations.of(context)!
-                    .tabSettings_Exercise_Duration_Button,
+                    .tabSettings_Exercise_Execution_Duration,
               ),
             ),
           ),
@@ -88,41 +88,41 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildIntervalSelector(BuildContext context) {
+  Widget _buildExecutionIntervalSelector(BuildContext context) {
     return WidgetIconLayout(
       const Icon(Icons.speed),
       [
         SizedBox(
           width: _infoColumnWidth,
           child: Text(
-            AppLocalizations.of(context)!.tabSettings_Exercise_Interval_Value(
-              _getInterval(),
+            AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Interval(
+              _getExecutionInterval(),
             ),
             textAlign: TextAlign.center,
           ),
         ),
         Expanded(
           child: Slider(
-            value: _interval,
+            value: _selectedInterval,
             min: _intervalMin,
             max: _intervalMax,
-            onChanged: _setInterval,
+            onChanged: _setExecutionInterval,
           ),
         ),
       ],
     );
   }
 
-  String _getDuration() {
-    int minutes = _duration.inMinutes;
-    int seconds = (_duration.inSeconds % 60);
+  String _getExecutionDuration() {
+    int minutes = _selectedDuration.inMinutes;
+    int seconds = (_selectedDuration.inSeconds % 60);
 
     return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
-  String _getInterval() {
+  String _getExecutionInterval() {
     Duration duration = Duration(
-      milliseconds: (_interval.toInt() * 100),
+      milliseconds: (_selectedInterval.toInt() * 100),
     );
 
     int secs = duration.inSeconds;
@@ -135,46 +135,48 @@ class TabSettingsState extends State<TabSettings> {
     _preferences = await SharedPreferences.getInstance();
 
     setState(() {
-      int? duration = _preferences.getInt(SettingsCatalog.exerciseDuration);
+      int? duration = _preferences.getInt(SettingsCatalog.exerciseExecutionDuration);
 
       if (null != duration) {
-        _duration = Duration(milliseconds: duration);
+        _selectedDuration = Duration(milliseconds: duration);
       }
 
-      _interval = _preferences.getDouble(SettingsCatalog.exerciseInterval) ?? _interval;
+      _selectedInterval =
+          _preferences.getDouble(SettingsCatalog.exerciseExecutionInterval) ??
+              _selectedInterval;
     });
   }
 
   _saveSettings() {
     _preferences.setInt(
-      SettingsCatalog.exerciseDuration,
-      _duration.inMilliseconds,
+      SettingsCatalog.exerciseExecutionDuration,
+      _selectedDuration.inMilliseconds,
     );
 
     _preferences.setDouble(
-      SettingsCatalog.exerciseInterval,
-      _interval,
+      SettingsCatalog.exerciseExecutionInterval,
+      _selectedInterval,
     );
   }
 
-  Future<void> _selectDuration(BuildContext context) async {
+  Future<void> _selectExecutionDuration(BuildContext context) async {
     final Duration? selectedDuration = await showDurationPicker(
       context: context,
-      initialTime: _duration,
+      initialTime: _selectedDuration,
       baseUnit: BaseUnit.second,
     );
 
-    if (selectedDuration != _duration) {
+    if (selectedDuration != _selectedDuration) {
       setState(() {
-        _duration = selectedDuration!;
+        _selectedDuration = selectedDuration!;
         _saveSettings();
       });
     }
   }
 
-  Future<void> _setInterval(double value) async {
+  Future<void> _setExecutionInterval(double value) async {
     setState(() {
-      _interval = value;
+      _selectedInterval = value;
       _saveSettings();
     });
   }

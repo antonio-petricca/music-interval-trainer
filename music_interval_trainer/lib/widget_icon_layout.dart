@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class WidgetIconLayout extends StatelessWidget {
@@ -8,7 +7,7 @@ class WidgetIconLayout extends StatelessWidget {
       : widgets = [
           Padding(
             padding: const EdgeInsets.all(5),
-            child: icon,
+            child: Center(child: icon),
           ),
           ...widgets,
         ];

@@ -1,0 +1,3 @@
+- Settings: selezione tonalità di partenza
+- Settings: cambio tonalità ogni N intervalli, progressione per ciclo delle quinte o random
+- Settings: intervalli estesi: 9, 11, 13
