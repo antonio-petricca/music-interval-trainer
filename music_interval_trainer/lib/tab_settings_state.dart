@@ -12,9 +12,9 @@ class TabSettingsState extends State<TabSettings> {
   final double _intervalMin = 5;
   final double _intervalMax = 50;
 
-  bool _selectedAccidentals = false;
-  Duration _selectedDuration = const Duration(minutes: 2, seconds: 30);
-  double _selectedInterval = 20; // 2 seconds
+  bool _selectedExecutionAccidentals = false;
+  Duration _selectedExecutionDuration = const Duration(minutes: 2, seconds: 30);
+  double _selectedExecutionInterval = 20; // 2 seconds
   // seconds
   late SharedPreferences _preferences;
 
@@ -32,6 +32,12 @@ class TabSettingsState extends State<TabSettings> {
           _buildExecutionDurationSelector(context),
           _buildExecutionIntervalSelector(context),
           _buildExecutionIncludeAccidentals(context),
+          _buildLabel(
+            AppLocalizations.of(context)!
+                .tabSettings_Exercise_Key_Section,
+          ),
+          _buildDivider(),
+          _buildKeySuggestActivation(context),
         ],
       ),
     );
@@ -113,7 +119,7 @@ class TabSettingsState extends State<TabSettings> {
         ),
         Expanded(
           child: Slider(
-            value: _selectedInterval,
+            value: _selectedExecutionInterval,
             min: _intervalMin,
             max: _intervalMax,
             onChanged: _setExecutionInterval,
@@ -142,8 +148,36 @@ class TabSettingsState extends State<TabSettings> {
           ),
           Expanded(
             child: Checkbox(
-              value: _selectedAccidentals,
-              onChanged: _selectedExecutionAccidentals,
+              value: _selectedExecutionAccidentals,
+              onChanged: _selectExecutionAccidentals,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildKeySuggestActivation(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: WidgetIconLayout(
+        const Icon(Icons.toggle_on),
+        [
+          SizedBox(
+            width: _infoColumnWidth,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Text(
+                AppLocalizations.of(context)!
+                    .tabSettings_Exercise_Key_Enable,
+                textAlign: TextAlign.right,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Checkbox(
+              value: _selectedExecutionAccidentals,
+              onChanged: _selectExecutionAccidentals,
             ),
           ),
         ],
@@ -152,15 +186,15 @@ class TabSettingsState extends State<TabSettings> {
   }
 
   String _getExecutionDuration() {
-    int minutes = _selectedDuration.inMinutes;
-    int seconds = (_selectedDuration.inSeconds % 60);
+    int minutes = _selectedExecutionDuration.inMinutes;
+    int seconds = (_selectedExecutionDuration.inSeconds % 60);
 
     return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
   String _getExecutionInterval() {
     Duration duration = Duration(
-      milliseconds: (_selectedInterval.toInt() * 100),
+      milliseconds: (_selectedExecutionInterval.toInt() * 100),
     );
 
     int secs = duration.inSeconds;
@@ -173,42 +207,42 @@ class TabSettingsState extends State<TabSettings> {
     _preferences = await SharedPreferences.getInstance();
 
     setState(() {
-      _selectedAccidentals =
+      _selectedExecutionAccidentals =
           _preferences.getBool(SettingsCatalog.exerciseExecutionAccidentals) ?? false;
 
       int? duration =
           _preferences.getInt(SettingsCatalog.exerciseExecutionDuration);
 
       if (null != duration) {
-        _selectedDuration = Duration(milliseconds: duration);
+        _selectedExecutionDuration = Duration(milliseconds: duration);
       }
 
-      _selectedInterval =
+      _selectedExecutionInterval =
           _preferences.getDouble(SettingsCatalog.exerciseExecutionInterval) ??
-              _selectedInterval;
+              _selectedExecutionInterval;
     });
   }
 
   _saveSettings() {
     _preferences.setBool(
       SettingsCatalog.exerciseExecutionAccidentals,
-      _selectedAccidentals
+      _selectedExecutionAccidentals
     );
 
     _preferences.setInt(
       SettingsCatalog.exerciseExecutionDuration,
-      _selectedDuration.inMilliseconds,
+      _selectedExecutionDuration.inMilliseconds,
     );
 
     _preferences.setDouble(
       SettingsCatalog.exerciseExecutionInterval,
-      _selectedInterval,
+      _selectedExecutionInterval,
     );
   }
 
-  void _selectedExecutionAccidentals(bool? value) {
+  void _selectExecutionAccidentals(bool? value) {
     setState(() {
-      _selectedAccidentals = (value ?? false);
+      _selectedExecutionAccidentals = (value ?? false);
       _saveSettings();
     });
   }
@@ -216,13 +250,13 @@ class TabSettingsState extends State<TabSettings> {
   Future<void> _selectExecutionDuration(BuildContext context) async {
     final Duration? selectedDuration = await showDurationPicker(
       context: context,
-      initialTime: _selectedDuration,
+      initialTime: _selectedExecutionDuration,
       baseUnit: BaseUnit.second,
     );
 
-    if (selectedDuration != _selectedDuration) {
+    if (selectedDuration != _selectedExecutionDuration) {
       setState(() {
-        _selectedDuration = selectedDuration!;
+        _selectedExecutionDuration = selectedDuration!;
         _saveSettings();
       });
     }
@@ -230,7 +264,7 @@ class TabSettingsState extends State<TabSettings> {
 
   Future<void> _setExecutionInterval(double value) async {
     setState(() {
-      _selectedInterval = value;
+      _selectedExecutionInterval = value;
       _saveSettings();
     });
   }
