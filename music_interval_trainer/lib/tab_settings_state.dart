@@ -15,6 +15,7 @@ class TabSettingsState extends State<TabSettings> {
   bool _selectedExecutionAccidentals = false;
   Duration _selectedExecutionDuration = const Duration(minutes: 2, seconds: 30);
   double _selectedExecutionInterval = 20; // 2 seconds
+  bool _selectedKeySuggestActivation = false;
   // seconds
   late SharedPreferences _preferences;
 
@@ -169,15 +170,15 @@ class TabSettingsState extends State<TabSettings> {
               padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
               child: Text(
                 AppLocalizations.of(context)!
-                    .tabSettings_Exercise_Key_Enable,
+                    .tabSettings_Exercise_KeySuggest_Activation,
                 textAlign: TextAlign.right,
               ),
             ),
           ),
           Expanded(
             child: Checkbox(
-              value: _selectedExecutionAccidentals,
-              onChanged: _selectExecutionAccidentals,
+              value: _selectedKeySuggestActivation,
+              onChanged: _selectKeySuggestActivation,
             ),
           ),
         ],
@@ -220,6 +221,9 @@ class TabSettingsState extends State<TabSettings> {
       _selectedExecutionInterval =
           _preferences.getDouble(SettingsCatalog.exerciseExecutionInterval) ??
               _selectedExecutionInterval;
+
+      _selectedKeySuggestActivation =
+          _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? false;
     });
   }
 
@@ -237,6 +241,11 @@ class TabSettingsState extends State<TabSettings> {
     _preferences.setDouble(
       SettingsCatalog.exerciseExecutionInterval,
       _selectedExecutionInterval,
+    );
+
+    _preferences.setBool(
+        SettingsCatalog.exerciseKeySuggestActivation,
+        _selectedKeySuggestActivation
     );
   }
 
@@ -265,6 +274,13 @@ class TabSettingsState extends State<TabSettings> {
   Future<void> _setExecutionInterval(double value) async {
     setState(() {
       _selectedExecutionInterval = value;
+      _saveSettings();
+    });
+  }
+
+  void _selectKeySuggestActivation(bool? value) {
+    setState(() {
+      _selectedKeySuggestActivation = (value ?? false);
       _saveSettings();
     });
   }

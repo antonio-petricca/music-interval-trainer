@@ -10,7 +10,7 @@
   "tabSettings_Exercise_Execution_Interval": "One per {seconds} seconds",
   "tabSettings_Exercise_Execution_Section": "Exercise execution mode",
   "tabSettings_Exercise_Key_Section": "Key suggestions",
-  "tabSettings_Exercise_Key_Enable": "Enable/Disable",
+  "tabSettings_Exercise_KeySuggest_Activation": "Activate / Deactivate",
 
   "@tabAbout_Information_Version": {
     "placeholders": {
