@@ -21,7 +21,6 @@ class TabAboutInformationState extends State<TabAboutInformation> {
     super.initState();
 
     _getAppVersion();
-
     _configuration.load(context);
   }
 
