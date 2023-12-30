@@ -1,18 +1,29 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/configuration.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/tab_about_information.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/widget_card_layout.dart';
 import 'package:package_info/package_info.dart';
 
+import 'configuration.dart';
+
 // https://chat.openai.com/share/451881ca-686c-4da7-a599-3f83e6b5b35f
 
 class TabAboutInformationState extends State<TabAboutInformation> {
+  final Configuration _configuration = Configuration();
+
   late String _appVersion = '?';
+  late String _supportEmail = '?';
 
   @override
   void initState() {
     super.initState();
+
     _getAppVersion();
+
+    _configuration.load(context);
   }
 
   Future<void> _getAppVersion() async {
@@ -25,6 +36,8 @@ class TabAboutInformationState extends State<TabAboutInformation> {
 
   @override
   Widget build(BuildContext context) {
+    _supportEmail = _configuration.get("supportEmail");
+
     return WidgetCardLayout(
       AppLocalizations.of(context)!.tabAbout_Information_Title,
       const Icon(Icons.info_outline_rounded),
@@ -38,13 +51,14 @@ class TabAboutInformationState extends State<TabAboutInformation> {
               style: Theme.of(context).textTheme.labelLarge,
             ),
             Text(
-              AppLocalizations.of(context)!.tabAbout_Information_Version(
-                  _appVersion),
+              AppLocalizations.of(context)!
+                  .tabAbout_Information_Version(_appVersion),
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const Divider(height: 5),
             Text(
-              AppLocalizations.of(context)!.tabAbout_Information_SupportEmail,
+              AppLocalizations.of(context)!
+                  .tabAbout_Information_SupportEmail(_supportEmail),
               style: Theme.of(context).textTheme.labelSmall,
             ),
           ],
