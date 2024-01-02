@@ -20,7 +20,7 @@ class TabSettingsState extends State<TabSettings> {
   Duration _selectedExecutionDuration = const Duration(minutes: 2, seconds: 30);
   double _selectedExecutionInterval = 20; // 2 seconds
   bool _selectedKeySuggestActivation = false;
-  bool _selectedKeySuggestExtendedIntervals = false;
+  bool _selectedExecutionExtendedIntervals = false;
   int _selectedKeySuggestStartingKey = 0;
 
   @override
@@ -185,7 +185,7 @@ class TabSettingsState extends State<TabSettings> {
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Switch(
-              value: _selectedKeySuggestExtendedIntervals,
+              value: _selectedExecutionExtendedIntervals,
               onChanged: _selectKeySuggestExtendedIntervals,
             ),
           ),
@@ -299,7 +299,7 @@ class TabSettingsState extends State<TabSettings> {
       _selectedExecutionInterval = _preferences.getDouble(SettingsCatalog.exerciseExecutionInterval) ?? _selectedExecutionInterval;
       _selectedKeySuggestActivation = _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? false;
 
-      _selectedKeySuggestExtendedIntervals = _preferences.getBool(SettingsCatalog.exerciseKeySuggestExtendedIntervals) ?? false;
+      _selectedExecutionExtendedIntervals = _preferences.getBool(SettingsCatalog.exerciseKeySuggestExtendedIntervals) ?? false;
       _selectedKeySuggestStartingKey = _preferences.getInt(SettingsCatalog.exerciseKeySuggestStartingKey) ?? 0;
     });
   }
@@ -327,7 +327,7 @@ class TabSettingsState extends State<TabSettings> {
 
     _preferences.setBool(
       SettingsCatalog.exerciseKeySuggestExtendedIntervals,
-      _selectedKeySuggestExtendedIntervals,
+      _selectedExecutionExtendedIntervals,
     );
 
     _preferences.setInt(
@@ -381,7 +381,7 @@ class TabSettingsState extends State<TabSettings> {
 
   void _selectKeySuggestExtendedIntervals(bool? value) {
     setState(() {
-      _selectedKeySuggestExtendedIntervals = (value ?? false);
+      _selectedExecutionExtendedIntervals = (value ?? false);
       _saveSettings();
     });
   }
