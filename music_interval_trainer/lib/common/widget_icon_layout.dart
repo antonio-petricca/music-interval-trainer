@@ -15,8 +15,9 @@ class WidgetIconLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: widgets);
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: widgets,
+    );
   }
 }

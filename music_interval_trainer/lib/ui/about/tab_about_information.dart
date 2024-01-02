@@ -4,7 +4,6 @@ import 'package:io.github.antoniopetricca.music_interval_trainer/ui/about/tab_ab
 // https://chat.openai.com/share/451881ca-686c-4da7-a599-3f83e6b5b35f
 
 class TabAboutInformation extends StatefulWidget {
-
   const TabAboutInformation({super.key});
 
   @override

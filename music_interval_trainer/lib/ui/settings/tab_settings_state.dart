@@ -29,8 +29,7 @@ class TabSettingsState extends State<TabSettings> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildLabel(
-            AppLocalizations.of(context)!
-                .tabSettings_Exercise_Execution_Section,
+            AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Section,
           ),
           _buildDivider(),
           _buildExecutionDurationSelector(context),
@@ -96,8 +95,7 @@ class TabSettingsState extends State<TabSettings> {
                 textColor: Theme.of(context).textTheme.labelLarge?.color,
                 onPressed: () => _selectExecutionDuration(context),
                 child: Text(
-                  AppLocalizations.of(context)!
-                      .tabSettings_Exercise_Execution_Duration,
+                  AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Duration,
                 ),
               ),
             ),
@@ -118,8 +116,7 @@ class TabSettingsState extends State<TabSettings> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
               child: Text(
-                AppLocalizations.of(context)!
-                    .tabSettings_Exercise_Execution_Interval(
+                AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Interval(
                   _getExecutionInterval(),
                 ),
                 textAlign: TextAlign.right,
@@ -150,8 +147,7 @@ class TabSettingsState extends State<TabSettings> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
               child: Text(
-                AppLocalizations.of(context)!
-                    .tabSettings_Exercise_Execution_Accidentals,
+                AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Accidentals,
                 textAlign: TextAlign.right,
               ),
             ),
@@ -176,8 +172,7 @@ class TabSettingsState extends State<TabSettings> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
               child: Text(
-                AppLocalizations.of(context)!
-                    .tabSettings_Exercise_KeySuggest_Activation,
+                AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_Activation,
                 textAlign: TextAlign.right,
               ),
             ),
@@ -202,8 +197,7 @@ class TabSettingsState extends State<TabSettings> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
               child: Text(
-                AppLocalizations.of(context)!
-                    .tabSettings_Exercise_Execution_Extended_Intervals,
+                AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Extended_Intervals,
                 textAlign: TextAlign.right,
               ),
             ),
@@ -239,34 +233,24 @@ class TabSettingsState extends State<TabSettings> {
     _preferences = await SharedPreferences.getInstance();
 
     setState(() {
-      _selectedExecutionAccidentals =
-          _preferences.getBool(SettingsCatalog.exerciseExecutionAccidentals) ??
-              false;
+      _selectedExecutionAccidentals = _preferences.getBool(SettingsCatalog.exerciseExecutionAccidentals) ?? false;
 
-      int? duration =
-          _preferences.getInt(SettingsCatalog.exerciseExecutionDuration);
+      int? duration = _preferences.getInt(SettingsCatalog.exerciseExecutionDuration);
 
       if (null != duration) {
         _selectedExecutionDuration = Duration(milliseconds: duration);
       }
 
-      _selectedExecutionInterval =
-          _preferences.getDouble(SettingsCatalog.exerciseExecutionInterval) ??
-              _selectedExecutionInterval;
+      _selectedExecutionInterval = _preferences.getDouble(SettingsCatalog.exerciseExecutionInterval) ?? _selectedExecutionInterval;
 
-      _selectedKeySuggestActivation =
-          _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ??
-              false;
+      _selectedKeySuggestActivation = _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? false;
 
-      _selectedKeySuggestExtendedIntervals = _preferences
-              .getBool(SettingsCatalog.exerciseKeySuggestExtendedIntervals) ??
-          false;
+      _selectedKeySuggestExtendedIntervals = _preferences.getBool(SettingsCatalog.exerciseKeySuggestExtendedIntervals) ?? false;
     });
   }
 
   _saveSettings() {
-    _preferences.setBool(SettingsCatalog.exerciseExecutionAccidentals,
-        _selectedExecutionAccidentals);
+    _preferences.setBool(SettingsCatalog.exerciseExecutionAccidentals, _selectedExecutionAccidentals);
 
     _preferences.setInt(
       SettingsCatalog.exerciseExecutionDuration,
@@ -278,11 +262,9 @@ class TabSettingsState extends State<TabSettings> {
       _selectedExecutionInterval,
     );
 
-    _preferences.setBool(SettingsCatalog.exerciseKeySuggestActivation,
-        _selectedKeySuggestActivation);
+    _preferences.setBool(SettingsCatalog.exerciseKeySuggestActivation, _selectedKeySuggestActivation);
 
-    _preferences.setBool(SettingsCatalog.exerciseKeySuggestExtendedIntervals,
-        _selectedKeySuggestExtendedIntervals);
+    _preferences.setBool(SettingsCatalog.exerciseKeySuggestExtendedIntervals, _selectedKeySuggestExtendedIntervals);
   }
 
   void _selectExecutionAccidentals(bool? value) {

@@ -1,11 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/common/configuration.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/ui/about/tab_about_information.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/common/widget_card_layout.dart';
 import 'package:package_info/package_info.dart';
-
 
 // https://chat.openai.com/share/451881ca-686c-4da7-a599-3f83e6b5b35f
 
@@ -47,14 +45,12 @@ class TabAboutInformationState extends State<TabAboutInformation> {
               style: Theme.of(context).textTheme.labelLarge,
             ),
             Text(
-              AppLocalizations.of(context)!
-                  .tabAbout_Information_Version(_appVersion),
+              AppLocalizations.of(context)!.tabAbout_Information_Version(_appVersion),
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const Divider(height: 5),
             Text(
-              AppLocalizations.of(context)!
-                  .tabAbout_Information_SupportEmail(supportEmail),
+              AppLocalizations.of(context)!.tabAbout_Information_SupportEmail(supportEmail),
               style: Theme.of(context).textTheme.labelSmall,
             ),
           ],

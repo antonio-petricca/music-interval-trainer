@@ -6,8 +6,7 @@ class WidgetCardLayout extends StatelessWidget {
   final List<Widget> bodyWidgets;
   final String title;
 
-  const WidgetCardLayout(this.title, this.bodyIcon, this.bodyWidgets,
-      {super.key});
+  const WidgetCardLayout(this.title, this.bodyIcon, this.bodyWidgets, {super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,6 @@ import 'ui/settings/tab_settings.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

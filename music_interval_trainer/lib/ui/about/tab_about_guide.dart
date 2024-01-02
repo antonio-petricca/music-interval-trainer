@@ -43,11 +43,11 @@ class TabAboutGuide extends StatelessWidget {
                     controller: YoutubePlayerController(
                       initialVideoId: _videoId,
                       flags: YoutubePlayerFlags(
-                          autoPlay: false,
-                          mute: false,
-                          hideControls: false,
-                          captionLanguage:
-                              AppLocalizations.of(context)!.localeName),
+                        autoPlay: false,
+                        mute: false,
+                        hideControls: false,
+                        captionLanguage: AppLocalizations.of(context)!.localeName,
+                      ),
                     ),
                   ),
                 ),
