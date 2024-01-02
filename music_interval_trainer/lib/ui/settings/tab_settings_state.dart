@@ -1,5 +1,6 @@
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/common/keys_manager.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/common/settings_catalog.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/ui/settings/tab_settings.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../common/widget_icon_layout.dart';
 
 class TabSettingsState extends State<TabSettings> {
+  late SharedPreferences _preferences;
+
   final double _infoColumnWidth = 190;
 
   final double _intervalMin = 5;
@@ -18,9 +21,7 @@ class TabSettingsState extends State<TabSettings> {
   double _selectedExecutionInterval = 20; // 2 seconds
   bool _selectedKeySuggestActivation = false;
   bool _selectedKeySuggestExtendedIntervals = false;
-
-  // seconds
-  late SharedPreferences _preferences;
+  int _selectedKeySuggestStartingKey = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +42,7 @@ class TabSettingsState extends State<TabSettings> {
           ),
           _buildDivider(),
           _buildKeySuggestActivation(context),
+          _buildKeySuggestStartKey(context),
         ],
       ),
     );
@@ -161,6 +163,31 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
+  Widget _buildExecutionExtendedIntervals(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: WidgetIconLayout(
+        const Icon(Icons.queue_music),
+        [
+          SizedBox(
+            width: _infoColumnWidth,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Text(
+                AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Extended_Intervals,
+                textAlign: TextAlign.right,
+              ),
+            ),
+          ),
+          Checkbox(
+            value: _selectedKeySuggestExtendedIntervals,
+            onChanged: _selectKeySuggestExtendedIntervals,
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildKeySuggestActivation(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
@@ -186,25 +213,44 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildExecutionExtendedIntervals(BuildContext context) {
+  Widget _buildKeySuggestStartKey(BuildContext context) {
+    KeysManager keysManager = KeysManager(context);
+    List<String> keyItems = keysManager.getList();
+
+    List<DropdownMenuItem<int>> ddItems = [];
+    int ddIndex = 0;
+
+    for (var item in keyItems) {
+      ddItems.add(DropdownMenuItem(
+        value: ddIndex++,
+        child: Text(item),
+      ));
+    }
+
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
-        const Icon(Icons.queue_music),
+        const Icon(Icons.vpn_key),
         [
           SizedBox(
             width: _infoColumnWidth,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
               child: Text(
-                AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Extended_Intervals,
+                AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_StartKey,
                 textAlign: TextAlign.right,
               ),
             ),
           ),
-          Checkbox(
-            value: _selectedKeySuggestExtendedIntervals,
-            onChanged: _selectKeySuggestExtendedIntervals,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: DropdownButton<int>(
+                value: _selectedKeySuggestStartingKey,
+                items: ddItems,
+                onChanged: _selectKeySuggestStartingKey,
+              ),
+            ),
           ),
         ],
       ),
@@ -242,15 +288,18 @@ class TabSettingsState extends State<TabSettings> {
       }
 
       _selectedExecutionInterval = _preferences.getDouble(SettingsCatalog.exerciseExecutionInterval) ?? _selectedExecutionInterval;
-
       _selectedKeySuggestActivation = _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? false;
 
       _selectedKeySuggestExtendedIntervals = _preferences.getBool(SettingsCatalog.exerciseKeySuggestExtendedIntervals) ?? false;
+      _selectedKeySuggestStartingKey = _preferences.getInt(SettingsCatalog.exerciseKeySuggestStartingKey) ?? 0;
     });
   }
 
   _saveSettings() {
-    _preferences.setBool(SettingsCatalog.exerciseExecutionAccidentals, _selectedExecutionAccidentals);
+    _preferences.setBool(
+      SettingsCatalog.exerciseExecutionAccidentals,
+      _selectedExecutionAccidentals,
+    );
 
     _preferences.setInt(
       SettingsCatalog.exerciseExecutionDuration,
@@ -262,9 +311,20 @@ class TabSettingsState extends State<TabSettings> {
       _selectedExecutionInterval,
     );
 
-    _preferences.setBool(SettingsCatalog.exerciseKeySuggestActivation, _selectedKeySuggestActivation);
+    _preferences.setBool(
+      SettingsCatalog.exerciseKeySuggestActivation,
+      _selectedKeySuggestActivation,
+    );
 
-    _preferences.setBool(SettingsCatalog.exerciseKeySuggestExtendedIntervals, _selectedKeySuggestExtendedIntervals);
+    _preferences.setBool(
+      SettingsCatalog.exerciseKeySuggestExtendedIntervals,
+      _selectedKeySuggestExtendedIntervals,
+    );
+
+    _preferences.setInt(
+      SettingsCatalog.exerciseKeySuggestStartingKey,
+      _selectedKeySuggestStartingKey,
+    );
   }
 
   void _selectExecutionAccidentals(bool? value) {
@@ -287,6 +347,13 @@ class TabSettingsState extends State<TabSettings> {
         _saveSettings();
       });
     }
+  }
+
+  void _selectKeySuggestStartingKey(int? value) {
+    setState(() {
+      _selectedKeySuggestStartingKey = value!;
+      _saveSettings();
+    });
   }
 
   Future<void> _setExecutionInterval(double value) async {

@@ -1,2 +1,6 @@
-- Settings: selezione tonalità di partenza
-- Settings: cambio tonalità ogni N intervalli, progressione fissa, per ciclo delle quinte o random
+- Key suggest as premium feature.
+- List tile ( https://api.flutter.dev/flutter/material/ListTile-class.html ).
+- Settings: cambio tonalità ogni N intervalli
+- Settings: progressione per ciclo delle quinte o random
+- Settings: switches ( https://api.flutter.dev/flutter/material/Switch-class.html )
+- Settings: cards ( https://api.flutter.dev/flutter/material/Card-class.html )

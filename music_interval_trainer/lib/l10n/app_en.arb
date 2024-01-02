@@ -1,5 +1,6 @@
 {
   "appTitle": "Interval Music Trainer",
+  "keys": "C,G,D,A,E,B/Cb,F#/Gb,C#/Db,Ab,Eb,Bb,F",
   "tabAbout_Guide_Content": "A video is worth a thousand words!",
   "tabAbout_Guide_Title": "User guide",
   "tabAbout_Information_SupportEmail": "Support email: {email}",
@@ -12,6 +13,7 @@
   "tabSettings_Exercise_Execution_Section": "Exercise execution mode",
   "tabSettings_Exercise_Key_Section": "Key suggestions",
   "tabSettings_Exercise_KeySuggest_Activation": "Activate / Deactivate",
+  "tabSettings_Exercise_KeySuggest_StartKey": "Starting key",
 
   "@tabAbout_Information_Version": {
     "placeholders": {
