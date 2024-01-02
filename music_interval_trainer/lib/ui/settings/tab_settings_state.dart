@@ -13,8 +13,10 @@ class TabSettingsState extends State<TabSettings> {
 
   final double _infoColumnWidth = 190;
 
-  final double _intervalMin = 5;
-  final double _intervalMax = 50;
+  final double _executionIntervalMin = 5;
+  final double _executionIntervalMax = 50;
+  final double _keySuggestIntervalMin = 0;
+  final double _keySuggestIntervalMax = 100;
 
   bool _selectedExecutionAccidentals = false;
   Duration _selectedExecutionDuration = const Duration(minutes: 2, seconds: 30);
@@ -22,7 +24,8 @@ class TabSettingsState extends State<TabSettings> {
   bool _selectedKeySuggestActivation = false;
   bool _selectedExecutionExtendedIntervals = false;
   bool _selectedKeySuggestionKeyProgression = false;
-  int _selectedKeySuggestStartingKey = 0;
+  int _selectedKeySuggestInterval = 7;
+  int _selectedKeySuggestStart = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +37,8 @@ class TabSettingsState extends State<TabSettings> {
             AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Section,
           ),
           _buildDivider(),
-          _buildExecutionDurationSelector(context),
-          _buildExecutionIntervalSelector(context),
+          _buildExecutionDuration(context),
+          _buildExecutionInterval(context),
           _buildExecutionAccidentals(context),
           _buildExecutionExtendedIntervals(context),
           _buildLabel(
@@ -45,6 +48,7 @@ class TabSettingsState extends State<TabSettings> {
           _buildKeySuggestActivation(context),
           _buildKeySuggestStartKey(context),
           _buildKeySuggestKeyProgression(context),
+          _buildKeySuggestInterval(context),
         ],
       ),
     );
@@ -103,7 +107,7 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildExecutionDurationSelector(BuildContext context) {
+  Widget _buildExecutionDuration(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
@@ -137,7 +141,7 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildExecutionIntervalSelector(BuildContext context) {
+  Widget _buildExecutionInterval(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
@@ -158,9 +162,9 @@ class TabSettingsState extends State<TabSettings> {
           Expanded(
             child: Slider(
               value: _selectedExecutionInterval,
-              min: _intervalMin,
-              max: _intervalMax,
-              onChanged: _setExecutionInterval,
+              min: _executionIntervalMin,
+              max: _executionIntervalMax,
+              onChanged: _selectExecutionInterval,
             ),
           ),
         ],
@@ -224,6 +228,37 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
+  Widget _buildKeySuggestInterval(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: WidgetIconLayout(
+        const Icon(Icons.trending_up),
+        [
+          SizedBox(
+            width: _infoColumnWidth,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Text(
+                AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_Interval(
+                  _selectedKeySuggestInterval.toInt(),
+                ),
+                textAlign: TextAlign.right,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Slider(
+              value: _selectedKeySuggestInterval.toDouble(),
+              min: _keySuggestIntervalMin,
+              max: _keySuggestIntervalMax,
+              onChanged: _selectKeySuggestInterval,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildKeySuggestKeyProgression(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
@@ -235,7 +270,7 @@ class TabSettingsState extends State<TabSettings> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
               child: Text(
-                AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_KeyProgression,
+                AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_Progression,
                 textAlign: TextAlign.right,
               ),
             ),
@@ -285,9 +320,9 @@ class TabSettingsState extends State<TabSettings> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: DropdownButton<int>(
-                value: _selectedKeySuggestStartingKey,
+                value: _selectedKeySuggestStart,
                 items: ddItems,
-                onChanged: _selectKeySuggestStartingKey,
+                onChanged: _selectKeySuggestStart,
               ),
             ),
           ),
@@ -331,7 +366,8 @@ class TabSettingsState extends State<TabSettings> {
 
       _selectedKeySuggestActivation = _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? false;
       _selectedKeySuggestionKeyProgression = _preferences.getBool(SettingsCatalog.exerciseKeySuggestKeyProgression) ?? false;
-      _selectedKeySuggestStartingKey = _preferences.getInt(SettingsCatalog.exerciseKeySuggestStartingKey) ?? 0;
+      _selectedKeySuggestInterval = _preferences.getInt(SettingsCatalog.exerciseKeySuggestInterval) ?? 0;
+      _selectedKeySuggestStart = _preferences.getInt(SettingsCatalog.exerciseKeySuggestStart) ?? 0;
     });
   }
 
@@ -367,8 +403,13 @@ class TabSettingsState extends State<TabSettings> {
     );
 
     _preferences.setInt(
-      SettingsCatalog.exerciseKeySuggestStartingKey,
-      _selectedKeySuggestStartingKey,
+      SettingsCatalog.exerciseKeySuggestInterval,
+      _selectedKeySuggestInterval,
+    );
+
+    _preferences.setInt(
+      SettingsCatalog.exerciseKeySuggestStart,
+      _selectedKeySuggestStart,
     );
   }
 
@@ -401,7 +442,7 @@ class TabSettingsState extends State<TabSettings> {
     });
   }
 
-  Future<void> _setExecutionInterval(double value) async {
+  Future<void> _selectExecutionInterval(double value) async {
     setState(() {
       _selectedExecutionInterval = value;
       _saveSettings();
@@ -415,6 +456,13 @@ class TabSettingsState extends State<TabSettings> {
     });
   }
 
+  Future<void> _selectKeySuggestInterval(double value) async {
+    setState(() {
+      _selectedKeySuggestInterval = value.toInt();
+      _saveSettings();
+    });
+  }
+
   void _selectKeySuggestKeySuggestion(bool? value) {
     setState(() {
       _selectedKeySuggestionKeyProgression = (value ?? false);
@@ -422,9 +470,9 @@ class TabSettingsState extends State<TabSettings> {
     });
   }
 
-  void _selectKeySuggestStartingKey(int? value) {
+  void _selectKeySuggestStart(int? value) {
     setState(() {
-      _selectedKeySuggestStartingKey = value!;
+      _selectedKeySuggestStart = value!;
       _saveSettings();
     });
   }

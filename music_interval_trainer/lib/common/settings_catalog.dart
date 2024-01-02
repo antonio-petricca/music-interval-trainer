@@ -1,10 +1,13 @@
 class SettingsCatalog {
-  static const String exerciseExecutionDuration = "exercise.execution.duration";
-  static const String exerciseExecutionAccidentals = "exercise.execution.accidentals";
-  static const String exerciseExecutionExtendedIntervals = "exercise.key-suggestions.extended-intervals";
-  static const String exerciseExecutionInterval = "exercise.execution.interval";
+  static const String _exerciseExecution = "exercise.execution";
+  static const String exerciseExecutionDuration = "$_exerciseExecution.duration";
+  static const String exerciseExecutionAccidentals = "$_exerciseExecution.accidentals";
+  static const String exerciseExecutionExtendedIntervals = "$_exerciseExecution.extended-intervals";
+  static const String exerciseExecutionInterval = "$_exerciseExecution.interval";
 
-  static const String exerciseKeySuggestActivation = "exercise.key-suggestions.active";
-  static const String exerciseKeySuggestKeyProgression = "exercise.key-suggestions.key-progression";
-  static const String exerciseKeySuggestStartingKey = "exercise.key-suggestions.starting-key";
+  static const String _exerciseKeySuggest = "exercise.key-suggestions";
+  static const String exerciseKeySuggestActivation = "$_exerciseKeySuggest.active";
+  static const String exerciseKeySuggestInterval = "$_exerciseKeySuggest.interval";
+  static const String exerciseKeySuggestKeyProgression = "$_exerciseKeySuggest.progression";
+  static const String exerciseKeySuggestStart = "$_exerciseKeySuggest.start";
 }

@@ -13,28 +13,7 @@
   "tabSettings_Exercise_Execution_Section": "Modalità esecuzione esercizio",
   "tabSettings_Exercise_Key_Section": "Suggerimenti tonalità",
   "tabSettings_Exercise_KeySuggest_Activation": "Attiva / Disattiva",
-  "tabSettings_Exercise_KeySuggest_KeyProgression": "Progressione casuale",
-  "tabSettings_Exercise_KeySuggest_StartKey": "Tonalità di partenza",
-
-  "@tabAbout_Information_Version": {
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
-  "@tabAbout_Information_SupportEmail": {
-    "placeholders": {
-      "email": {
-        "type": "String"
-      }
-    }
-  },
-  "@tabSettings_Exercise_Execution_Interval": {
-    "placeholders": {
-      "seconds": {
-        "type": "String"
-      }
-    }
-  }
+  "tabSettings_Exercise_KeySuggest_Interval": "Ogni {intervals} intervalli",
+  "tabSettings_Exercise_KeySuggest_Progression": "Progressione casuale",
+  "tabSettings_Exercise_KeySuggest_StartKey": "Tonalità di partenza"
 }
