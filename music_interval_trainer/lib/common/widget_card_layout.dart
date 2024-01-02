@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/widget_icon_layout.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/common/widget_icon_layout.dart';
 
 class WidgetCardLayout extends StatelessWidget {
   final Icon bodyIcon;

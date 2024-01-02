@@ -1,10 +1,11 @@
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/settings_catalog.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/tab_settings.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/common/settings_catalog.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/ui/settings/tab_settings.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/widget_icon_layout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../common/widget_icon_layout.dart';
 
 class TabSettingsState extends State<TabSettings> {
   final double _infoColumnWidth = 190;

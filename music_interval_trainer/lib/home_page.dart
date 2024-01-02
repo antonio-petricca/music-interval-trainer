@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'tab_about.dart';
-import 'tab_play.dart';
-import 'tab_settings.dart';
+import 'ui/about/tab_about.dart';
+import 'ui/play/tab_play.dart';
+import 'ui/settings/tab_settings.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
