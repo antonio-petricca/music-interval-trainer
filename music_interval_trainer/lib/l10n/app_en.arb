@@ -13,6 +13,7 @@
   "tabSettings_Exercise_Execution_Section": "Exercise execution mode",
   "tabSettings_Exercise_Key_Section": "Key suggestions",
   "tabSettings_Exercise_KeySuggest_Activation": "Activate / Deactivate",
+  "tabSettings_Exercise_KeySuggest_KeyProgression": "Random progression",
   "tabSettings_Exercise_KeySuggest_StartKey": "Starting key",
 
   "@tabAbout_Information_Version": {

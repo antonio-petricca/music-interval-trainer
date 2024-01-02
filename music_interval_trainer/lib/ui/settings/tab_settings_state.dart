@@ -21,6 +21,7 @@ class TabSettingsState extends State<TabSettings> {
   double _selectedExecutionInterval = 20; // 2 seconds
   bool _selectedKeySuggestActivation = false;
   bool _selectedExecutionExtendedIntervals = false;
+  bool _selectedKeySuggestionKeyProgression = false;
   int _selectedKeySuggestStartingKey = 0;
 
   @override
@@ -43,6 +44,7 @@ class TabSettingsState extends State<TabSettings> {
           _buildDivider(),
           _buildKeySuggestActivation(context),
           _buildKeySuggestStartKey(context),
+          _buildKeySuggestKeyProgression(context),
         ],
       ),
     );
@@ -186,7 +188,7 @@ class TabSettingsState extends State<TabSettings> {
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Switch(
               value: _selectedExecutionExtendedIntervals,
-              onChanged: _selectKeySuggestExtendedIntervals,
+              onChanged: _selectExecutionExtendedIntervals,
             ),
           ),
         ],
@@ -215,6 +217,34 @@ class TabSettingsState extends State<TabSettings> {
             child: Switch(
               value: _selectedKeySuggestActivation,
               onChanged: _selectKeySuggestActivation,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildKeySuggestKeyProgression(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: WidgetIconLayout(
+        const Icon(Icons.loop),
+        [
+          SizedBox(
+            width: _infoColumnWidth,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Text(
+                AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_KeyProgression,
+                textAlign: TextAlign.right,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Switch(
+              value: _selectedKeySuggestionKeyProgression,
+              onChanged: _selectKeySuggestKeySuggestion,
             ),
           ),
         ],
@@ -296,10 +326,11 @@ class TabSettingsState extends State<TabSettings> {
         _selectedExecutionDuration = Duration(milliseconds: duration);
       }
 
+      _selectedExecutionExtendedIntervals = _preferences.getBool(SettingsCatalog.exerciseExecutionExtendedIntervals) ?? false;
       _selectedExecutionInterval = _preferences.getDouble(SettingsCatalog.exerciseExecutionInterval) ?? _selectedExecutionInterval;
-      _selectedKeySuggestActivation = _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? false;
 
-      _selectedExecutionExtendedIntervals = _preferences.getBool(SettingsCatalog.exerciseKeySuggestExtendedIntervals) ?? false;
+      _selectedKeySuggestActivation = _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? false;
+      _selectedKeySuggestionKeyProgression = _preferences.getBool(SettingsCatalog.exerciseKeySuggestKeyProgression) ?? false;
       _selectedKeySuggestStartingKey = _preferences.getInt(SettingsCatalog.exerciseKeySuggestStartingKey) ?? 0;
     });
   }
@@ -315,6 +346,11 @@ class TabSettingsState extends State<TabSettings> {
       _selectedExecutionDuration.inMilliseconds,
     );
 
+    _preferences.setBool(
+      SettingsCatalog.exerciseExecutionExtendedIntervals,
+      _selectedExecutionExtendedIntervals,
+    );
+
     _preferences.setDouble(
       SettingsCatalog.exerciseExecutionInterval,
       _selectedExecutionInterval,
@@ -326,8 +362,8 @@ class TabSettingsState extends State<TabSettings> {
     );
 
     _preferences.setBool(
-      SettingsCatalog.exerciseKeySuggestExtendedIntervals,
-      _selectedExecutionExtendedIntervals,
+      SettingsCatalog.exerciseKeySuggestKeyProgression,
+      _selectedKeySuggestionKeyProgression,
     );
 
     _preferences.setInt(
@@ -358,9 +394,9 @@ class TabSettingsState extends State<TabSettings> {
     }
   }
 
-  void _selectKeySuggestStartingKey(int? value) {
+  void _selectExecutionExtendedIntervals(bool? value) {
     setState(() {
-      _selectedKeySuggestStartingKey = value!;
+      _selectedExecutionExtendedIntervals = (value ?? false);
       _saveSettings();
     });
   }
@@ -379,9 +415,16 @@ class TabSettingsState extends State<TabSettings> {
     });
   }
 
-  void _selectKeySuggestExtendedIntervals(bool? value) {
+  void _selectKeySuggestKeySuggestion(bool? value) {
     setState(() {
-      _selectedExecutionExtendedIntervals = (value ?? false);
+      _selectedKeySuggestionKeyProgression = (value ?? false);
+      _saveSettings();
+    });
+  }
+
+  void _selectKeySuggestStartingKey(int? value) {
+    setState(() {
+      _selectedKeySuggestStartingKey = value!;
       _saveSettings();
     });
   }

@@ -1,5 +1,4 @@
 - Key suggest as premium feature.
 - List tile ( https://api.flutter.dev/flutter/material/ListTile-class.html ).
 - Settings: cambio tonalità ogni N intervalli
-- Settings: progressione per ciclo delle quinte o random
 - Settings: cards ( https://api.flutter.dev/flutter/material/Card-class.html )
