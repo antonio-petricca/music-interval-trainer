@@ -108,31 +108,34 @@ class TabSettingsState extends State<TabSettings> {
   }
 
   Widget _buildExecutionIntervalSelector(BuildContext context) {
-    return WidgetIconLayout(
-      const Icon(Icons.schedule),
-      [
-        SizedBox(
-          width: _infoColumnWidth,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-            child: Text(
-              AppLocalizations.of(context)!
-                  .tabSettings_Exercise_Execution_Interval(
-                _getExecutionInterval(),
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: WidgetIconLayout(
+        const Icon(Icons.schedule),
+        [
+          SizedBox(
+            width: _infoColumnWidth,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Text(
+                AppLocalizations.of(context)!
+                    .tabSettings_Exercise_Execution_Interval(
+                  _getExecutionInterval(),
+                ),
+                textAlign: TextAlign.right,
               ),
-              textAlign: TextAlign.right,
             ),
           ),
-        ),
-        Expanded(
-          child: Slider(
-            value: _selectedExecutionInterval,
-            min: _intervalMin,
-            max: _intervalMax,
-            onChanged: _setExecutionInterval,
+          Expanded(
+            child: Slider(
+              value: _selectedExecutionInterval,
+              min: _intervalMin,
+              max: _intervalMax,
+              onChanged: _setExecutionInterval,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
