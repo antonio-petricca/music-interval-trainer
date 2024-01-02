@@ -71,11 +71,36 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
+  Widget _buildExecutionAccidentals(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: WidgetIconLayout(
+        const Icon(Icons.queue_music),
+        [
+          SizedBox(
+            width: _infoColumnWidth,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Text(
+                AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Accidentals,
+                textAlign: TextAlign.right,
+              ),
+            ),
+          ),
+          Checkbox(
+            value: _selectedExecutionAccidentals,
+            onChanged: _selectExecutionAccidentals,
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildExecutionDurationSelector(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
-        const Icon(Icons.alarm),
+        const Icon(Icons.timer_outlined),
         [
           SizedBox(
             width: _infoColumnWidth,
@@ -109,7 +134,7 @@ class TabSettingsState extends State<TabSettings> {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
-        const Icon(Icons.schedule),
+        const Icon(Icons.timelapse_outlined),
         [
           SizedBox(
             width: _infoColumnWidth,
@@ -136,36 +161,11 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildExecutionAccidentals(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: WidgetIconLayout(
-        const Icon(Icons.translate),
-        [
-          SizedBox(
-            width: _infoColumnWidth,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-              child: Text(
-                AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Accidentals,
-                textAlign: TextAlign.right,
-              ),
-            ),
-          ),
-          Checkbox(
-            value: _selectedExecutionAccidentals,
-            onChanged: _selectExecutionAccidentals,
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildKeySuggestActivation(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
-        const Icon(Icons.toggle_on),
+        const Icon(Icons.power_settings_new),
         [
           SizedBox(
             width: _infoColumnWidth,
@@ -190,7 +190,7 @@ class TabSettingsState extends State<TabSettings> {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
-        const Icon(Icons.extension),
+        const Icon(Icons.queue_music),
         [
           SizedBox(
             width: _infoColumnWidth,
