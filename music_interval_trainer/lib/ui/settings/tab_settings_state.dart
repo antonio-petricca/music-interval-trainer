@@ -89,9 +89,12 @@ class TabSettingsState extends State<TabSettings> {
               ),
             ),
           ),
-          Checkbox(
-            value: _selectedExecutionAccidentals,
-            onChanged: _selectExecutionAccidentals,
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Switch(
+              value: _selectedExecutionAccidentals,
+              onChanged: _selectExecutionAccidentals,
+            ),
           ),
         ],
       ),
@@ -179,9 +182,12 @@ class TabSettingsState extends State<TabSettings> {
               ),
             ),
           ),
-          Checkbox(
-            value: _selectedKeySuggestExtendedIntervals,
-            onChanged: _selectKeySuggestExtendedIntervals,
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Switch(
+              value: _selectedKeySuggestExtendedIntervals,
+              onChanged: _selectKeySuggestExtendedIntervals,
+            ),
           ),
         ],
       ),
@@ -204,9 +210,12 @@ class TabSettingsState extends State<TabSettings> {
               ),
             ),
           ),
-          Checkbox(
-            value: _selectedKeySuggestActivation,
-            onChanged: _selectKeySuggestActivation,
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: Switch(
+              value: _selectedKeySuggestActivation,
+              onChanged: _selectKeySuggestActivation,
+            ),
           ),
         ],
       ),
