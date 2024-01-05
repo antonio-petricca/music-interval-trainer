@@ -1,6 +1,6 @@
 {
   "appTitle": "Interval Music Trainer",
-  "keys": "C,G,D,A,E,B,Gb,Db,Ab,Eb,Bb,F",
+  "keys": "C,G,D,A,E,B,F,Bb,Eb,Ab,Db,Gb,Db",
   "tabAbout_Guide_Content": "A video is worth a thousand words!",
   "tabAbout_Guide_Title": "User guide",
   "tabAbout_Information_SupportEmail": "Support email: {email}",

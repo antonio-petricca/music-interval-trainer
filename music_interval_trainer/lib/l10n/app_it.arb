@@ -1,6 +1,6 @@
 {
   "appTitle": "Interval Music Trainer",
-  "keys": "DO,SOL,RE,LA,MI,SIb,SOLb,REb,LAb,MIb,SIb,FA",
+  "keys": "DO,SOL,RE,LA,MI,SI,FA,SIb,MIb,LAb,REb,SOLb",
   "tabAbout_Guide_Content": "Un video vale più di mille parole!",
   "tabAbout_Guide_Title": "Guida utente",
   "tabAbout_Information_SupportEmail": "eMail supporto: {email}",

@@ -7,6 +7,7 @@ import 'package:io.github.antoniopetricca.music_interval_trainer/ui/settings/tab
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../common/widget_icon_layout.dart';
+import '../../common/widget_two_state_button.dart';
 
 class TabSettingsState extends State<TabSettings> {
   late List<String> _keyLabels;
@@ -26,6 +27,7 @@ class TabSettingsState extends State<TabSettings> {
   bool _selectedExecutionExtendedIntervals = false;
   bool _selectedKeySuggestionKeyProgression = false;
   int _selectedKeySuggestInterval = 7;
+  List<bool> _selectedKeySuggestKeys = List.filled(12, false);
 
   @override
   Widget build(BuildContext context) {
@@ -297,9 +299,15 @@ class TabSettingsState extends State<TabSettings> {
   }
 
   Widget _buildKeySuggestKeysGridCell(int index) {
-    return Text(
-      _keyLabels[index],
-      textAlign: TextAlign.center,
+    return Padding(
+      padding: const EdgeInsets.all(2),
+      child: WidgetTwoStateButton(
+        isOn: false,
+        offColor: Theme.of(context).buttonTheme.colorScheme?.secondaryContainer,
+        onColor: Theme.of(context).buttonTheme.colorScheme?.primary,
+        text: _keyLabels[index],
+        textColor: Theme.of(context).colorScheme.background,
+      ),
     );
   }
 
