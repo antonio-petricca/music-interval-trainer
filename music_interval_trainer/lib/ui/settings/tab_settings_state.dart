@@ -1,17 +1,18 @@
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/common/keys_manager.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/common/settings_catalog.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/ui/settings/tab_settings.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../common/widget_icon_layout.dart';
 
 class TabSettingsState extends State<TabSettings> {
+  late List<String> _keyLabels;
   late SharedPreferences _preferences;
 
-  final double _infoColumnWidth = 190;
+  final double _infoColumnWidth = 180;
 
   final double _executionIntervalMin = 5;
   final double _executionIntervalMax = 50;
@@ -25,10 +26,11 @@ class TabSettingsState extends State<TabSettings> {
   bool _selectedExecutionExtendedIntervals = false;
   bool _selectedKeySuggestionKeyProgression = false;
   int _selectedKeySuggestInterval = 7;
-  int _selectedKeySuggestStart = 0;
 
   @override
   Widget build(BuildContext context) {
+    _keyLabels = KeysManager(context).getList();
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +48,7 @@ class TabSettingsState extends State<TabSettings> {
           ),
           _buildDivider(),
           _buildKeySuggestActivation(context),
-          _buildKeySuggestStartKey(context),
+          _buildKeySuggestKeys(context),
           _buildKeySuggestKeyProgression(context),
           _buildKeySuggestInterval(context),
         ],
@@ -259,6 +261,48 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
+  Widget _buildKeySuggestKeys(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: WidgetIconLayout(
+        const Icon(Icons.vpn_key),
+        [
+          SizedBox(
+            width: _infoColumnWidth,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              child: Text(
+                AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_Keys,
+                textAlign: TextAlign.right,
+              ),
+            ),
+          ),
+          Expanded(
+            child: _buildKeySuggestKeysGrid(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildKeySuggestKeysGrid() {
+    return GridView.count(
+      shrinkWrap: true,
+      crossAxisCount: 3,
+      children: List.generate(
+        12,
+        _buildKeySuggestKeysGridCell,
+      ),
+    );
+  }
+
+  Widget _buildKeySuggestKeysGridCell(int index) {
+    return Text(
+      _keyLabels[index],
+      textAlign: TextAlign.center,
+    );
+  }
+
   Widget _buildKeySuggestKeyProgression(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
@@ -280,50 +324,6 @@ class TabSettingsState extends State<TabSettings> {
             child: Switch(
               value: _selectedKeySuggestionKeyProgression,
               onChanged: _selectKeySuggestKeySuggestion,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildKeySuggestStartKey(BuildContext context) {
-    KeysManager keysManager = KeysManager(context);
-    List<String> keyItems = keysManager.getList();
-
-    List<DropdownMenuItem<int>> ddItems = [];
-    int ddIndex = 0;
-
-    for (var item in keyItems) {
-      ddItems.add(DropdownMenuItem(
-        value: ddIndex++,
-        child: Text(item),
-      ));
-    }
-
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: WidgetIconLayout(
-        const Icon(Icons.vpn_key),
-        [
-          SizedBox(
-            width: _infoColumnWidth,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-              child: Text(
-                AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_StartKey,
-                textAlign: TextAlign.right,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: DropdownButton<int>(
-                value: _selectedKeySuggestStart,
-                items: ddItems,
-                onChanged: _selectKeySuggestStart,
-              ),
             ),
           ),
         ],
@@ -367,7 +367,6 @@ class TabSettingsState extends State<TabSettings> {
       _selectedKeySuggestActivation = _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? false;
       _selectedKeySuggestionKeyProgression = _preferences.getBool(SettingsCatalog.exerciseKeySuggestKeyProgression) ?? false;
       _selectedKeySuggestInterval = _preferences.getInt(SettingsCatalog.exerciseKeySuggestInterval) ?? 0;
-      _selectedKeySuggestStart = _preferences.getInt(SettingsCatalog.exerciseKeySuggestStart) ?? 0;
     });
   }
 
@@ -405,11 +404,6 @@ class TabSettingsState extends State<TabSettings> {
     _preferences.setInt(
       SettingsCatalog.exerciseKeySuggestInterval,
       _selectedKeySuggestInterval,
-    );
-
-    _preferences.setInt(
-      SettingsCatalog.exerciseKeySuggestStart,
-      _selectedKeySuggestStart,
     );
   }
 
@@ -466,13 +460,6 @@ class TabSettingsState extends State<TabSettings> {
   void _selectKeySuggestKeySuggestion(bool? value) {
     setState(() {
       _selectedKeySuggestionKeyProgression = (value ?? false);
-      _saveSettings();
-    });
-  }
-
-  void _selectKeySuggestStart(int? value) {
-    setState(() {
-      _selectedKeySuggestStart = value!;
       _saveSettings();
     });
   }
