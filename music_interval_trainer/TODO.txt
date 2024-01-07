@@ -3,4 +3,5 @@
 - List tile ( https://api.flutter.dev/flutter/material/ListTile-class.html ).
 - Settings: cards ( https://api.flutter.dev/flutter/material/Card-class.html )
 - Settings: rename "KeySuggest" to "KeyChallenge".
-- Settings: settings manager (accessors).
+- Settings: Padding as function.
+- Settings: Remove execution duration.
