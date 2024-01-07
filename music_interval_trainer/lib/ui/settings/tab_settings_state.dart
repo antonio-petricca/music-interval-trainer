@@ -11,7 +11,9 @@ class TabSettingsState extends State<TabSettings> {
   late List<String> _keyLabels;
   final SettingsManager _settingsManager = SettingsManager();
 
+  final EdgeInsetsGeometry _editorColumnPadding = const EdgeInsets.fromLTRB(20, 0, 20, 0);
   final double _infoColumnWidth = 180;
+  final EdgeInsetsGeometry _infoColumnPadding = const EdgeInsets.fromLTRB(0, 0, 10, 0);
 
   final double _executionIntervalMin = 5;
   final double _executionIntervalMax = 50;
@@ -52,7 +54,7 @@ class TabSettingsState extends State<TabSettings> {
 
     _settingsManager.load(
       () => setState(() {
-        // Refresh UI
+        // Refresh UI with loaded settings.
       }),
     );
   }
@@ -85,7 +87,7 @@ class TabSettingsState extends State<TabSettings> {
           SizedBox(
             width: _infoColumnWidth,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              padding: _infoColumnPadding,
               child: Text(
                 AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Accidentals,
                 textAlign: TextAlign.right,
@@ -93,7 +95,7 @@ class TabSettingsState extends State<TabSettings> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            padding: _editorColumnPadding,
             child: Switch(
               value: _settingsManager.executionAccidentals,
               onChanged: _onExecutionAccidentalsPressed,
@@ -113,7 +115,7 @@ class TabSettingsState extends State<TabSettings> {
           SizedBox(
             width: _infoColumnWidth,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              padding: _infoColumnPadding,
               child: Text(
                 AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Interval(
                   _getExecutionInterval(),
@@ -144,7 +146,7 @@ class TabSettingsState extends State<TabSettings> {
           SizedBox(
             width: _infoColumnWidth,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              padding: _infoColumnPadding,
               child: Text(
                 AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Extended_Intervals,
                 textAlign: TextAlign.right,
@@ -152,7 +154,7 @@ class TabSettingsState extends State<TabSettings> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            padding: _editorColumnPadding,
             child: Switch(
               value: _settingsManager.executionExtendedIntervals,
               onChanged: _onExecutionExtendedIntervalsPressed,
@@ -172,7 +174,7 @@ class TabSettingsState extends State<TabSettings> {
           SizedBox(
             width: _infoColumnWidth,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              padding: _infoColumnPadding,
               child: Text(
                 AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_Activation,
                 textAlign: TextAlign.right,
@@ -180,7 +182,7 @@ class TabSettingsState extends State<TabSettings> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            padding: _editorColumnPadding,
             child: Switch(
               value: _settingsManager.keySuggestActivation,
               onChanged: _onKeySuggestActivationPressed,
@@ -200,7 +202,7 @@ class TabSettingsState extends State<TabSettings> {
           SizedBox(
             width: _infoColumnWidth,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              padding: _infoColumnPadding,
               child: Text(
                 AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_Interval(
                   _settingsManager.keySuggestInterval,
@@ -231,7 +233,7 @@ class TabSettingsState extends State<TabSettings> {
           SizedBox(
             width: _infoColumnWidth,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              padding: _infoColumnPadding,
               child: Text(
                 AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_Keys,
                 textAlign: TextAlign.right,
@@ -239,20 +241,16 @@ class TabSettingsState extends State<TabSettings> {
             ),
           ),
           Expanded(
-            child: _buildKeySuggestKeysGrid(),
+            child: GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 3,
+              children: List.generate(
+                12,
+                _buildKeySuggestKeysGridCell,
+              ),
+            ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildKeySuggestKeysGrid() {
-    return GridView.count(
-      shrinkWrap: true,
-      crossAxisCount: 3,
-      children: List.generate(
-        12,
-        _buildKeySuggestKeysGridCell,
       ),
     );
   }
@@ -281,7 +279,7 @@ class TabSettingsState extends State<TabSettings> {
           SizedBox(
             width: _infoColumnWidth,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+              padding: _infoColumnPadding,
               child: Text(
                 AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_Progression,
                 textAlign: TextAlign.right,
@@ -289,7 +287,7 @@ class TabSettingsState extends State<TabSettings> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            padding: _editorColumnPadding,
             child: Switch(
               value: _settingsManager.keySuggestionKeyProgression,
               onChanged: _onKeySuggestProgressionPressed,
