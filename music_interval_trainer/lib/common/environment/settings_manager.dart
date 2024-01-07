@@ -5,28 +5,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SettingsManager {
   late SharedPreferences _preferences;
 
-  bool _executionAccidentals = false;
-  bool _executionExtendedIntervals = false;
-  double _executionInterval = 20; // 2 seconds (10 tenths of second * 2)
+  bool _intervalsAccidentals = false;
+  bool _intervalsExtended = false;
+  double _intervalsSpeed = 20; // 2 seconds (10 tenths of second * 2)
   bool _keySuggestActivation = false;
   bool _keySuggestionKeyProgression = false;
   int _keySuggestInterval = 7;
   List<bool> _keySuggestKeys = [true, false, false, false, false, false, false, false, false, false, false, false];
 
-  bool get executionAccidentals => _executionAccidentals;
+  bool get executionAccidentals => _intervalsAccidentals;
 
   set executionAccidentals(bool value) {
-    _executionAccidentals = value;
+    _intervalsAccidentals = value;
     _save();
   }
 
   load(VoidCallback callback) async {
     _preferences = await SharedPreferences.getInstance();
 
-    _executionAccidentals = _preferences.getBool(SettingsCatalog.exerciseExecutionAccidentals) ?? _executionAccidentals;
+    _intervalsAccidentals = _preferences.getBool(SettingsCatalog.intervalsAccidentals) ?? _intervalsAccidentals;
 
-    _executionExtendedIntervals = _preferences.getBool(SettingsCatalog.exerciseExecutionExtendedIntervals) ?? _executionExtendedIntervals;
-    _executionInterval = _preferences.getDouble(SettingsCatalog.exerciseExecutionInterval) ?? _executionInterval;
+    _intervalsExtended = _preferences.getBool(SettingsCatalog.intervalsExtendedIntervals) ?? _intervalsExtended;
+    _intervalsSpeed = _preferences.getDouble(SettingsCatalog.intervalsSpeed) ?? _intervalsSpeed;
 
     _keySuggestActivation = _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? _keySuggestActivation;
     _keySuggestionKeyProgression = _preferences.getBool(SettingsCatalog.exerciseKeySuggestKeyProgression) ?? _keySuggestionKeyProgression;
@@ -43,18 +43,18 @@ class SettingsManager {
 
   _save() {
     _preferences.setBool(
-      SettingsCatalog.exerciseExecutionAccidentals,
-      _executionAccidentals,
+      SettingsCatalog.intervalsAccidentals,
+      _intervalsAccidentals,
     );
 
     _preferences.setBool(
-      SettingsCatalog.exerciseExecutionExtendedIntervals,
-      _executionExtendedIntervals,
+      SettingsCatalog.intervalsExtendedIntervals,
+      _intervalsExtended,
     );
 
     _preferences.setDouble(
-      SettingsCatalog.exerciseExecutionInterval,
-      _executionInterval,
+      SettingsCatalog.intervalsSpeed,
+      _intervalsSpeed,
     );
 
     _preferences.setBool(
@@ -80,17 +80,17 @@ class SettingsManager {
     );
   }
 
-  bool get executionExtendedIntervals => _executionExtendedIntervals;
+  bool get executionExtendedIntervals => _intervalsExtended;
 
   set executionExtendedIntervals(bool value) {
-    _executionExtendedIntervals = value;
+    _intervalsExtended = value;
     _save();
   }
 
-  double get executionInterval => _executionInterval;
+  double get executionInterval => _intervalsSpeed;
 
   set executionInterval(double value) {
-    _executionInterval = value;
+    _intervalsSpeed = value;
     _save();
   }
 

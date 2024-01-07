@@ -1,5 +1,4 @@
 - Full help (no more video).
-- Key suggest as premium feature.
+- Keys as premium feature.
 - List tile ( https://api.flutter.dev/flutter/material/ListTile-class.html ).
 - Settings: cards ( https://api.flutter.dev/flutter/material/Card-class.html )
-- Settings: rename "KeySuggest" to "KeyChallenge".

@@ -15,8 +15,8 @@ class TabSettingsState extends State<TabSettings> {
   final double _infoColumnWidth = 180;
   final EdgeInsetsGeometry _infoColumnPadding = const EdgeInsets.fromLTRB(0, 0, 10, 0);
 
-  final double _executionIntervalMin = 5;
-  final double _executionIntervalMax = 50;
+  final double _intervalsSpeedMin = 5;
+  final double _intervalsSpeedMax = 50;
   final double _keySuggestIntervalMin = 1;
   final double _keySuggestIntervalMax = 100;
 
@@ -29,14 +29,14 @@ class TabSettingsState extends State<TabSettings> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildLabel(
-            AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Section,
+            AppLocalizations.of(context)!.tabSettings_Intervals_Section,
           ),
           _buildDivider(),
-          _buildExecutionInterval(context),
-          _buildExecutionAccidentals(context),
-          _buildExecutionExtendedIntervals(context),
+          _buildIntervalsSpeed(context),
+          _buildIntervalsAccidentals(context),
+          _buildIntervalsExtended(context),
           _buildLabel(
-            AppLocalizations.of(context)!.tabSettings_Exercise_Key_Section,
+            AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggestion_Section,
           ),
           _buildDivider(),
           _buildKeySuggestActivation(context),
@@ -78,7 +78,7 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildExecutionAccidentals(BuildContext context) {
+  Widget _buildIntervalsAccidentals(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
@@ -89,7 +89,7 @@ class TabSettingsState extends State<TabSettings> {
             child: Padding(
               padding: _infoColumnPadding,
               child: Text(
-                AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Accidentals,
+                AppLocalizations.of(context)!.tabSettings_Intervals_Accidentals,
                 textAlign: TextAlign.right,
               ),
             ),
@@ -98,7 +98,7 @@ class TabSettingsState extends State<TabSettings> {
             padding: _editorColumnPadding,
             child: Switch(
               value: _settingsManager.executionAccidentals,
-              onChanged: _onExecutionAccidentalsPressed,
+              onChanged: _onIntervalsAccidentalsChanged,
             ),
           ),
         ],
@@ -106,7 +106,7 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildExecutionInterval(BuildContext context) {
+  Widget _buildIntervalsSpeed(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
@@ -117,8 +117,8 @@ class TabSettingsState extends State<TabSettings> {
             child: Padding(
               padding: _infoColumnPadding,
               child: Text(
-                AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Interval(
-                  _getExecutionInterval(),
+                AppLocalizations.of(context)!.tabSettings_Intervals_Speed(
+                  _getIntervalsSpeed(),
                 ),
                 textAlign: TextAlign.right,
               ),
@@ -127,9 +127,9 @@ class TabSettingsState extends State<TabSettings> {
           Expanded(
             child: Slider(
               value: _settingsManager.executionInterval,
-              min: _executionIntervalMin,
-              max: _executionIntervalMax,
-              onChanged: _onExecutionIntervalPressed,
+              min: _intervalsSpeedMin,
+              max: _intervalsSpeedMax,
+              onChanged: _onIntervalsSpeedChanged,
             ),
           ),
         ],
@@ -137,7 +137,7 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildExecutionExtendedIntervals(BuildContext context) {
+  Widget _buildIntervalsExtended(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
@@ -148,7 +148,7 @@ class TabSettingsState extends State<TabSettings> {
             child: Padding(
               padding: _infoColumnPadding,
               child: Text(
-                AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Extended_Intervals,
+                AppLocalizations.of(context)!.tabSettings_Intervals_Extended,
                 textAlign: TextAlign.right,
               ),
             ),
@@ -157,7 +157,7 @@ class TabSettingsState extends State<TabSettings> {
             padding: _editorColumnPadding,
             child: Switch(
               value: _settingsManager.executionExtendedIntervals,
-              onChanged: _onExecutionExtendedIntervalsPressed,
+              onChanged: _onIntervalsExtendedChanged,
             ),
           ),
         ],
@@ -298,13 +298,7 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  void _onExecutionAccidentalsPressed(bool? value) {
-    setState(() {
-      _settingsManager.executionAccidentals = (value ?? false);
-    });
-  }
-
-  String _getExecutionInterval() {
+  String _getIntervalsSpeed() {
     Duration duration = Duration(
       milliseconds: (_settingsManager.executionInterval.toInt() * 100),
     );
@@ -315,13 +309,19 @@ class TabSettingsState extends State<TabSettings> {
     return '${secs.toString()}.${tenths.toString()}';
   }
 
-  void _onExecutionExtendedIntervalsPressed(bool? value) {
+  void _onIntervalsAccidentalsChanged(bool? value) {
+    setState(() {
+      _settingsManager.executionAccidentals = (value ?? false);
+    });
+  }
+
+  void _onIntervalsExtendedChanged(bool? value) {
     setState(() {
       _settingsManager.executionExtendedIntervals = (value ?? false);
     });
   }
 
-  Future<void> _onExecutionIntervalPressed(double value) async {
+  Future<void> _onIntervalsSpeedChanged(double value) async {
     setState(() {
       _settingsManager.executionInterval = value;
     });

@@ -6,12 +6,12 @@
   "tabAbout_Information_SupportEmail": "Support email: {email}",
   "tabAbout_Information_Title": "Application information",
   "tabAbout_Information_Version": "Version {version}",
-  "tabSettings_Exercise_Execution_Accidentals": "Include accidentals",
-  "tabSettings_Exercise_Execution_Duration": "Select duration",
-  "tabSettings_Exercise_Execution_Extended_Intervals": "Extended intervals (9, 11, 13)",
-  "tabSettings_Exercise_Execution_Interval": "One per {seconds} seconds",
-  "tabSettings_Exercise_Execution_Section": "Exercise execution mode",
-  "tabSettings_Exercise_Key_Section": "Key suggestions",
+  "tabSettings_Intervals_Accidentals": "Include accidentals",
+  "tabSettings_Intervals_Duration": "Select duration",
+  "tabSettings_Intervals_Extended": "Extended intervals (9, 11, 13)",
+  "tabSettings_Intervals_Speed": "One per {seconds} seconds",
+  "tabSettings_Intervals_Section": "Intervals settings",
+  "tabSettings_Exercise_KeySuggestion_Section": "Key suggestions",
   "tabSettings_Exercise_KeySuggest_Activation": "Activate / Deactivate",
   "tabSettings_Exercise_KeySuggest_Interval": "Each {intervals} interval(s)",
   "tabSettings_Exercise_KeySuggest_Keys": "Keys selection",
@@ -31,7 +31,7 @@
       }
     }
   },
-  "@tabSettings_Exercise_Execution_Interval": {
+  "@tabSettings_Intervals_Speed": {
     "placeholders": {
       "seconds": {
         "type": "String"
