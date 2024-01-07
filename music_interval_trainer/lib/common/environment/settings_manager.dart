@@ -6,7 +6,6 @@ class SettingsManager {
   late SharedPreferences _preferences;
 
   bool _executionAccidentals = false;
-  Duration _executionDuration = const Duration(minutes: 2, seconds: 30);
   bool _executionExtendedIntervals = false;
   double _executionInterval = 20; // 2 seconds (10 tenths of second * 2)
   bool _keySuggestActivation = false;
@@ -24,13 +23,7 @@ class SettingsManager {
   load(VoidCallback callback) async {
     _preferences = await SharedPreferences.getInstance();
 
-    _executionAccidentals = _preferences.getBool(SettingsCatalog.exerciseExecutionAccidentals) ?? false;
-
-    int? duration = _preferences.getInt(SettingsCatalog.exerciseExecutionDuration);
-
-    if (null != duration) {
-      _executionDuration = Duration(milliseconds: duration);
-    }
+    _executionAccidentals = _preferences.getBool(SettingsCatalog.exerciseExecutionAccidentals) ?? _executionAccidentals;
 
     _executionExtendedIntervals = _preferences.getBool(SettingsCatalog.exerciseExecutionExtendedIntervals) ?? _executionExtendedIntervals;
     _executionInterval = _preferences.getDouble(SettingsCatalog.exerciseExecutionInterval) ?? _executionInterval;
@@ -52,11 +45,6 @@ class SettingsManager {
     _preferences.setBool(
       SettingsCatalog.exerciseExecutionAccidentals,
       _executionAccidentals,
-    );
-
-    _preferences.setInt(
-      SettingsCatalog.exerciseExecutionDuration,
-      _executionDuration.inMilliseconds,
     );
 
     _preferences.setBool(
@@ -90,13 +78,6 @@ class SettingsManager {
       SettingsCatalog.exerciseKeySuggestKeys,
       stateKeySuggestKeys,
     );
-  }
-
-  Duration get executionDuration => _executionDuration;
-
-  set executionDuration(Duration value) {
-    _executionDuration = value;
-    _save();
   }
 
   bool get executionExtendedIntervals => _executionExtendedIntervals;

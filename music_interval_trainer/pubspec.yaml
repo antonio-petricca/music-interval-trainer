@@ -38,7 +38,6 @@ dependencies:
   pubspec: any
   shared_preferences: any
 
-  duration_picker: any
   youtube_player_flutter: any
 
   # The following adds the Cupertino Icons font to your application.

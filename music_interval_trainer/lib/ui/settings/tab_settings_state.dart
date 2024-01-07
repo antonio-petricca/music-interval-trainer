@@ -1,4 +1,3 @@
-import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/common/environment/keys_manager.dart';
@@ -31,7 +30,6 @@ class TabSettingsState extends State<TabSettings> {
             AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Section,
           ),
           _buildDivider(),
-          _buildExecutionDuration(context),
           _buildExecutionInterval(context),
           _buildExecutionAccidentals(context),
           _buildExecutionExtendedIntervals(context),
@@ -99,40 +97,6 @@ class TabSettingsState extends State<TabSettings> {
             child: Switch(
               value: _settingsManager.executionAccidentals,
               onChanged: _onExecutionAccidentalsPressed,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildExecutionDuration(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: WidgetIconLayout(
-        const Icon(Icons.timer_outlined),
-        [
-          SizedBox(
-            width: _infoColumnWidth,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-              child: Text(
-                _getExecutionDuration(),
-                textAlign: TextAlign.right,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-              child: MaterialButton(
-                color: Theme.of(context).buttonTheme.colorScheme?.primary,
-                textColor: Theme.of(context).textTheme.labelLarge?.color,
-                onPressed: () => _onExecutionDurationPressed(context),
-                child: Text(
-                  AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Duration,
-                ),
-              ),
             ),
           ),
         ],
@@ -342,14 +306,6 @@ class TabSettingsState extends State<TabSettings> {
     });
   }
 
-  String _getExecutionDuration() {
-    Duration duration = _settingsManager.executionDuration;
-    int minutes = duration.inMinutes;
-    int seconds = (duration.inSeconds % 60);
-
-    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-  }
-
   String _getExecutionInterval() {
     Duration duration = Duration(
       milliseconds: (_settingsManager.executionInterval.toInt() * 100),
@@ -359,22 +315,6 @@ class TabSettingsState extends State<TabSettings> {
     int tenths = ((duration.inMilliseconds - (secs * 1000)) ~/ 100);
 
     return '${secs.toString()}.${tenths.toString()}';
-  }
-
-  Future<void> _onExecutionDurationPressed(BuildContext context) async {
-    Duration duration = _settingsManager.executionDuration;
-
-    final Duration? selectedDuration = await showDurationPicker(
-      context: context,
-      initialTime: duration,
-      baseUnit: BaseUnit.second,
-    );
-
-    if (selectedDuration != duration) {
-      setState(() {
-        _settingsManager.executionDuration = selectedDuration!;
-      });
-    }
   }
 
   void _onExecutionExtendedIntervalsPressed(bool? value) {
