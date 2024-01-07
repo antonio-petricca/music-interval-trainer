@@ -5,17 +5,18 @@ class WidgetTwoStateButtonState extends State<WidgetTwoStateButton> {
   void _onPressed() {
     setState(() {
       widget.isOn = !widget.isOn;
+      widget.onPressed!(widget);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      padding: const EdgeInsets.all(0),
+      color: widget.isOn ? widget.colorOn : widget.colorOff,
       minWidth: double.infinity,
       onPressed: _onPressed,
-      color: widget.isOn ? widget.onColor : widget.offColor,
-      textColor: widget.textColor,
+      padding: const EdgeInsets.all(0),
+      textColor: widget.colorText,
       child: Text(widget.text),
     );
   }

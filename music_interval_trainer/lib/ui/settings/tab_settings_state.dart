@@ -103,7 +103,7 @@ class TabSettingsState extends State<TabSettings> {
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Switch(
               value: _selectedExecutionAccidentals,
-              onChanged: _selectExecutionAccidentals,
+              onChanged: _onExecutionAccidentalsPressed,
             ),
           ),
         ],
@@ -133,7 +133,7 @@ class TabSettingsState extends State<TabSettings> {
               child: MaterialButton(
                 color: Theme.of(context).buttonTheme.colorScheme?.primary,
                 textColor: Theme.of(context).textTheme.labelLarge?.color,
-                onPressed: () => _selectExecutionDuration(context),
+                onPressed: () => _onExecutionDurationPressed(context),
                 child: Text(
                   AppLocalizations.of(context)!.tabSettings_Exercise_Execution_Duration,
                 ),
@@ -168,7 +168,7 @@ class TabSettingsState extends State<TabSettings> {
               value: _selectedExecutionInterval,
               min: _executionIntervalMin,
               max: _executionIntervalMax,
-              onChanged: _selectExecutionInterval,
+              onChanged: _onExecutionIntervalPressed,
             ),
           ),
         ],
@@ -196,7 +196,7 @@ class TabSettingsState extends State<TabSettings> {
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Switch(
               value: _selectedExecutionExtendedIntervals,
-              onChanged: _selectExecutionExtendedIntervals,
+              onChanged: _onExecutionExtendedIntervalsPressed,
             ),
           ),
         ],
@@ -224,7 +224,7 @@ class TabSettingsState extends State<TabSettings> {
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Switch(
               value: _selectedKeySuggestActivation,
-              onChanged: _selectKeySuggestActivation,
+              onChanged: _onKeySuggestActivationPressed,
             ),
           ),
         ],
@@ -255,7 +255,7 @@ class TabSettingsState extends State<TabSettings> {
               value: _selectedKeySuggestInterval.toDouble(),
               min: _keySuggestIntervalMin,
               max: _keySuggestIntervalMax,
-              onChanged: _selectKeySuggestInterval,
+              onChanged: _onKeySuggestIntervalPressed,
             ),
           ),
         ],
@@ -302,11 +302,13 @@ class TabSettingsState extends State<TabSettings> {
     return Padding(
       padding: const EdgeInsets.all(2),
       child: WidgetTwoStateButton(
+        context: index,
         isOn: false,
-        offColor: Theme.of(context).buttonTheme.colorScheme?.secondaryContainer,
-        onColor: Theme.of(context).buttonTheme.colorScheme?.primary,
+        onPressed: _onKeySuggestKeysGridCellPressed,
+        colorOff: Theme.of(context).buttonTheme.colorScheme?.secondaryContainer,
+        colorOn: Theme.of(context).buttonTheme.colorScheme?.primary,
+        colorText: Theme.of(context).colorScheme.background,
         text: _keyLabels[index],
-        textColor: Theme.of(context).colorScheme.background,
       ),
     );
   }
@@ -331,7 +333,7 @@ class TabSettingsState extends State<TabSettings> {
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Switch(
               value: _selectedKeySuggestionKeyProgression,
-              onChanged: _selectKeySuggestKeySuggestion,
+              onChanged: _onKeySuggestKeySuggestionPressed,
             ),
           ),
         ],
@@ -378,6 +380,60 @@ class TabSettingsState extends State<TabSettings> {
     });
   }
 
+  Future<void> _onExecutionDurationPressed(BuildContext context) async {
+    final Duration? selectedDuration = await showDurationPicker(
+      context: context,
+      initialTime: _selectedExecutionDuration,
+      baseUnit: BaseUnit.second,
+    );
+
+    if (selectedDuration != _selectedExecutionDuration) {
+      setState(() {
+        _selectedExecutionDuration = selectedDuration!;
+        _saveSettings();
+      });
+    }
+  }
+
+  void _onExecutionExtendedIntervalsPressed(bool? value) {
+    setState(() {
+      _selectedExecutionExtendedIntervals = (value ?? false);
+      _saveSettings();
+    });
+  }
+
+  Future<void> _onExecutionIntervalPressed(double value) async {
+    setState(() {
+      _selectedExecutionInterval = value;
+      _saveSettings();
+    });
+  }
+
+  void _onKeySuggestActivationPressed(bool? value) {
+    setState(() {
+      _selectedKeySuggestActivation = (value ?? false);
+      _saveSettings();
+    });
+  }
+
+  void _onKeySuggestKeysGridCellPressed(WidgetTwoStateButton sender) {
+    _saveSettings(); //TODO
+  }
+
+  Future<void> _onKeySuggestIntervalPressed(double value) async {
+    setState(() {
+      _selectedKeySuggestInterval = value.toInt();
+      _saveSettings();
+    });
+  }
+
+  void _onKeySuggestKeySuggestionPressed(bool? value) {
+    setState(() {
+      _selectedKeySuggestionKeyProgression = (value ?? false);
+      _saveSettings();
+    });
+  }
+
   _saveSettings() {
     _preferences.setBool(
       SettingsCatalog.exerciseExecutionAccidentals,
@@ -415,59 +471,9 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  void _selectExecutionAccidentals(bool? value) {
+  void _onExecutionAccidentalsPressed(bool? value) {
     setState(() {
       _selectedExecutionAccidentals = (value ?? false);
-      _saveSettings();
-    });
-  }
-
-  Future<void> _selectExecutionDuration(BuildContext context) async {
-    final Duration? selectedDuration = await showDurationPicker(
-      context: context,
-      initialTime: _selectedExecutionDuration,
-      baseUnit: BaseUnit.second,
-    );
-
-    if (selectedDuration != _selectedExecutionDuration) {
-      setState(() {
-        _selectedExecutionDuration = selectedDuration!;
-        _saveSettings();
-      });
-    }
-  }
-
-  void _selectExecutionExtendedIntervals(bool? value) {
-    setState(() {
-      _selectedExecutionExtendedIntervals = (value ?? false);
-      _saveSettings();
-    });
-  }
-
-  Future<void> _selectExecutionInterval(double value) async {
-    setState(() {
-      _selectedExecutionInterval = value;
-      _saveSettings();
-    });
-  }
-
-  void _selectKeySuggestActivation(bool? value) {
-    setState(() {
-      _selectedKeySuggestActivation = (value ?? false);
-      _saveSettings();
-    });
-  }
-
-  Future<void> _selectKeySuggestInterval(double value) async {
-    setState(() {
-      _selectedKeySuggestInterval = value.toInt();
-      _saveSettings();
-    });
-  }
-
-  void _selectKeySuggestKeySuggestion(bool? value) {
-    setState(() {
-      _selectedKeySuggestionKeyProgression = (value ?? false);
       _saveSettings();
     });
   }
