@@ -4,7 +4,7 @@ import 'package:io.github.antoniopetricca.music_interval_trainer/common/ui/widge
 typedef WidgetTwoStateButtonCallback = void Function(WidgetTwoStateButton sender);
 
 class WidgetTwoStateButton extends StatefulWidget {
-  dynamic? context;
+  dynamic context;
 
   bool isOn;
   final WidgetTwoStateButtonCallback? onPressed;
