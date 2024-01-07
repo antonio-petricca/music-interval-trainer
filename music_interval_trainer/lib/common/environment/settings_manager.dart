@@ -8,14 +8,14 @@ class SettingsManager {
   bool _intervalsAccidentals = false;
   bool _intervalsExtended = false;
   double _intervalsSpeed = 20; // 2 seconds (10 tenths of second * 2)
-  bool _keySuggestActivation = false;
-  bool _keySuggestionKeyProgression = false;
-  int _keySuggestInterval = 7;
-  List<bool> _keySuggestKeys = [true, false, false, false, false, false, false, false, false, false, false, false];
+  bool _keysActive = false;
+  bool _keysRandom = false;
+  int _keysInterval = 7;
+  List<bool> _keysList = [true, false, false, false, false, false, false, false, false, false, false, false];
 
-  bool get executionAccidentals => _intervalsAccidentals;
+  bool get intervalsAccidentals => _intervalsAccidentals;
 
-  set executionAccidentals(bool value) {
+  set intervalsAccidentals(bool value) {
     _intervalsAccidentals = value;
     _save();
   }
@@ -28,14 +28,14 @@ class SettingsManager {
     _intervalsExtended = _preferences.getBool(SettingsCatalog.intervalsExtendedIntervals) ?? _intervalsExtended;
     _intervalsSpeed = _preferences.getDouble(SettingsCatalog.intervalsSpeed) ?? _intervalsSpeed;
 
-    _keySuggestActivation = _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? _keySuggestActivation;
-    _keySuggestionKeyProgression = _preferences.getBool(SettingsCatalog.exerciseKeySuggestKeyProgression) ?? _keySuggestionKeyProgression;
-    _keySuggestInterval = _preferences.getInt(SettingsCatalog.exerciseKeySuggestInterval) ?? _keySuggestInterval;
+    _keysActive = _preferences.getBool(SettingsCatalog.keysActive) ?? _keysActive;
+    _keysRandom = _preferences.getBool(SettingsCatalog.keysRandom) ?? _keysRandom;
+    _keysInterval = _preferences.getInt(SettingsCatalog.keysInterval) ?? _keysInterval;
 
-    List<String> stateKeySuggestKeys = _preferences.getStringList(SettingsCatalog.exerciseKeySuggestKeys) ?? [];
+    List<String> tmpKeysList = _preferences.getStringList(SettingsCatalog.keysList) ?? [];
 
-    if (stateKeySuggestKeys.isNotEmpty) {
-      _keySuggestKeys = stateKeySuggestKeys.map((element) => bool.parse(element)).toList();
+    if (tmpKeysList.isNotEmpty) {
+      _keysList = tmpKeysList.map((element) => bool.parse(element)).toList();
     }
 
     callback();
@@ -58,25 +58,25 @@ class SettingsManager {
     );
 
     _preferences.setBool(
-      SettingsCatalog.exerciseKeySuggestActivation,
-      _keySuggestActivation,
+      SettingsCatalog.keysActive,
+      _keysActive,
     );
 
     _preferences.setBool(
-      SettingsCatalog.exerciseKeySuggestKeyProgression,
-      _keySuggestionKeyProgression,
+      SettingsCatalog.keysRandom,
+      _keysRandom,
     );
 
     _preferences.setInt(
-      SettingsCatalog.exerciseKeySuggestInterval,
-      _keySuggestInterval,
+      SettingsCatalog.keysInterval,
+      _keysInterval,
     );
 
-    List<String> stateKeySuggestKeys = _keySuggestKeys.map((element) => element.toString()).toList();
+    List<String> tmpKeysList = _keysList.map((element) => element.toString()).toList();
 
     _preferences.setStringList(
-      SettingsCatalog.exerciseKeySuggestKeys,
-      stateKeySuggestKeys,
+      SettingsCatalog.keysList,
+      tmpKeysList,
     );
   }
 
@@ -94,37 +94,37 @@ class SettingsManager {
     _save();
   }
 
-  bool get keySuggestActivation => _keySuggestActivation;
+  bool get keysActive => _keysActive;
 
-  set keySuggestActivation(bool value) {
-    _keySuggestActivation = value;
+  set keysActive(bool value) {
+    _keysActive = value;
     _save();
   }
 
-  bool get keySuggestionKeyProgression => _keySuggestionKeyProgression;
+  bool get keysRandom => _keysRandom;
 
-  set keySuggestionKeyProgression(bool value) {
-    _keySuggestionKeyProgression = value;
+  set keysRandom(bool value) {
+    _keysRandom = value;
     _save();
   }
 
-  int get keySuggestInterval => _keySuggestInterval;
+  int get keysInterval => _keysInterval;
 
-  set keySuggestInterval(int value) {
-    _keySuggestInterval = value;
+  set keysInterval(int value) {
+    _keysInterval = value;
     _save();
   }
 
-  List<bool> get keySuggestKeys => _keySuggestKeys;
+  List<bool> get keysList => _keysList;
 
-  void setKeySuggestKeys(int index, bool value) {
-    List<bool> newKeys = [ ..._keySuggestKeys ];
+  void keysListItem(int index, bool value) {
+    List<bool> newKeys = [ ..._keysList ];
     newKeys[index] = value;
 
     int trueCount = newKeys.where((element) => (true == element)).toList().length;
 
     if (trueCount > 0) {
-      _keySuggestKeys = newKeys;
+      _keysList = newKeys;
       _save();
     }
   }

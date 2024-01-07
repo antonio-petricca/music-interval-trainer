@@ -4,9 +4,9 @@ class SettingsCatalog {
   static const String intervalsExtendedIntervals = "$_intervals.extended";
   static const String intervalsSpeed = "$_intervals.speed";
 
-  static const String _exerciseKeySuggest = "key-suggestions";
-  static const String exerciseKeySuggestActivation = "$_exerciseKeySuggest.active";
-  static const String exerciseKeySuggestInterval = "$_exerciseKeySuggest.interval";
-  static const String exerciseKeySuggestKeys = "$_exerciseKeySuggest.keys";
-  static const String exerciseKeySuggestKeyProgression = "$_exerciseKeySuggest.progression";
+  static const String _keys = "keys";
+  static const String keysActive = "$_keys.active";
+  static const String keysInterval = "$_keys.interval";
+  static const String keysList = "$_keys.list";
+  static const String keysRandom = "$_keys.random";
 }

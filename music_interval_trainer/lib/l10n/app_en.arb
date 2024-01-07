@@ -10,12 +10,12 @@
   "tabSettings_Intervals_Duration": "Select duration",
   "tabSettings_Intervals_Extended": "Extended intervals (9, 11, 13)",
   "tabSettings_Intervals_Speed": "One per {seconds} seconds",
-  "tabSettings_Intervals_Section": "Intervals settings",
-  "tabSettings_Exercise_KeySuggestion_Section": "Key suggestions",
-  "tabSettings_Exercise_KeySuggest_Activation": "Activate / Deactivate",
-  "tabSettings_Exercise_KeySuggest_Interval": "Each {intervals} interval(s)",
-  "tabSettings_Exercise_KeySuggest_Keys": "Keys selection",
-  "tabSettings_Exercise_KeySuggest_Progression": "Random progression",
+  "tabSettings_Intervals_Section": "Intervals",
+  "tabSettings_Keys_Section": "Keys challenge",
+  "tabSettings_Keys_Activation": "Activate / Deactivate",
+  "tabSettings_Keys_Interval": "Each {intervals} interval(s)",
+  "tabSettings_Keys_Keys": "Keys selection",
+  "tabSettings_Keys_Random": "Random progression",
 
   "@tabAbout_Information_Version": {
     "placeholders": {
@@ -38,7 +38,7 @@
       }
     }
   },
-  "@tabSettings_Exercise_KeySuggest_Interval": {
+  "@tabSettings_Keys_Interval": {
     "placeholders": {
       "intervals": {
         "type": "int"

@@ -10,10 +10,10 @@
   "tabSettings_Intervals_Duration": "Selezione durata",
   "tabSettings_Intervals_Extended": "Intervalli estesi (9, 11, 13)",
   "tabSettings_Intervals_Speed": "Uno ogni {seconds} secondi",
-  "tabSettings_Intervals_Section": "Impostazioni intervalli",
-  "tabSettings_Exercise_KeySuggestion_Section": "Suggerimenti tonalità",
-  "tabSettings_Exercise_KeySuggest_Activation": "Attiva / Disattiva",
-  "tabSettings_Exercise_KeySuggest_Interval": "Ogni {intervals} intervalli",
-  "tabSettings_Exercise_KeySuggest_Keys": "Selezione tonalità",
-  "tabSettings_Exercise_KeySuggest_Progression": "Progressione casuale"
+  "tabSettings_Intervals_Section": "Intervalli",
+  "tabSettings_Keys_Section": "Sfida delle tonalità",
+  "tabSettings_Keys_Activation": "Attiva / Disattiva",
+  "tabSettings_Keys_Interval": "Ogni {intervals} intervalli",
+  "tabSettings_Keys_Keys": "Selezione tonalità",
+  "tabSettings_Keys_Random": "Progressione casuale"
 }

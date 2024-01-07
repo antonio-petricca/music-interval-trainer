@@ -36,13 +36,13 @@ class TabSettingsState extends State<TabSettings> {
           _buildIntervalsAccidentals(context),
           _buildIntervalsExtended(context),
           _buildLabel(
-            AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggestion_Section,
+            AppLocalizations.of(context)!.tabSettings_Keys_Section,
           ),
           _buildDivider(),
-          _buildKeySuggestActivation(context),
-          _buildKeySuggestKeys(context),
-          _buildKeySuggestKeyProgression(context),
-          _buildKeySuggestInterval(context),
+          _buildKeysActive(context),
+          _buildKeysList(context),
+          _buildKeysRandom(context),
+          _buildKeysInterval(context),
         ],
       ),
     );
@@ -97,7 +97,7 @@ class TabSettingsState extends State<TabSettings> {
           Padding(
             padding: _editorColumnPadding,
             child: Switch(
-              value: _settingsManager.executionAccidentals,
+              value: _settingsManager.intervalsAccidentals,
               onChanged: _onIntervalsAccidentalsChanged,
             ),
           ),
@@ -165,7 +165,7 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildKeySuggestActivation(BuildContext context) {
+  Widget _buildKeysActive(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
@@ -176,7 +176,7 @@ class TabSettingsState extends State<TabSettings> {
             child: Padding(
               padding: _infoColumnPadding,
               child: Text(
-                AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_Activation,
+                AppLocalizations.of(context)!.tabSettings_Keys_Activation,
                 textAlign: TextAlign.right,
               ),
             ),
@@ -184,8 +184,8 @@ class TabSettingsState extends State<TabSettings> {
           Padding(
             padding: _editorColumnPadding,
             child: Switch(
-              value: _settingsManager.keySuggestActivation,
-              onChanged: _onKeySuggestActivationPressed,
+              value: _settingsManager.keysActive,
+              onChanged: _onKeysActivateChanged,
             ),
           ),
         ],
@@ -193,7 +193,7 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildKeySuggestInterval(BuildContext context) {
+  Widget _buildKeysInterval(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
@@ -204,8 +204,8 @@ class TabSettingsState extends State<TabSettings> {
             child: Padding(
               padding: _infoColumnPadding,
               child: Text(
-                AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_Interval(
-                  _settingsManager.keySuggestInterval,
+                AppLocalizations.of(context)!.tabSettings_Keys_Interval(
+                  _settingsManager.keysInterval,
                 ),
                 textAlign: TextAlign.right,
               ),
@@ -213,10 +213,10 @@ class TabSettingsState extends State<TabSettings> {
           ),
           Expanded(
             child: Slider(
-              value: _settingsManager.keySuggestInterval.toDouble(),
+              value: _settingsManager.keysInterval.toDouble(),
               min: _keySuggestIntervalMin,
               max: _keySuggestIntervalMax,
-              onChanged: _onKeySuggestIntervalPressed,
+              onChanged: _onKeysIntervalChanged,
             ),
           ),
         ],
@@ -224,7 +224,7 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildKeySuggestKeys(BuildContext context) {
+  Widget _buildKeysList(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
@@ -235,7 +235,7 @@ class TabSettingsState extends State<TabSettings> {
             child: Padding(
               padding: _infoColumnPadding,
               child: Text(
-                AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_Keys,
+                AppLocalizations.of(context)!.tabSettings_Keys_Keys,
                 textAlign: TextAlign.right,
               ),
             ),
@@ -246,7 +246,7 @@ class TabSettingsState extends State<TabSettings> {
               crossAxisCount: 3,
               children: List.generate(
                 12,
-                _buildKeySuggestKeysGridCell,
+                _buildKeysListGridItem,
               ),
             ),
           ),
@@ -255,13 +255,13 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildKeySuggestKeysGridCell(int index) {
+  Widget _buildKeysListGridItem(int index) {
     return Padding(
       padding: const EdgeInsets.all(2),
       child: WidgetTwoStateButton(
         context: index,
-        isOn: _settingsManager.keySuggestKeys[index],
-        onPressed: _onKeySuggestKeysGridCellPressed,
+        isOn: _settingsManager.keysList[index],
+        onPressed: _onKeysGridItemChanged,
         colorOff: Theme.of(context).buttonTheme.colorScheme?.secondaryContainer,
         colorOn: Theme.of(context).buttonTheme.colorScheme?.primary,
         colorText: Theme.of(context).colorScheme.background,
@@ -270,7 +270,7 @@ class TabSettingsState extends State<TabSettings> {
     );
   }
 
-  Widget _buildKeySuggestKeyProgression(BuildContext context) {
+  Widget _buildKeysRandom(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: WidgetIconLayout(
@@ -281,7 +281,7 @@ class TabSettingsState extends State<TabSettings> {
             child: Padding(
               padding: _infoColumnPadding,
               child: Text(
-                AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_Progression,
+                AppLocalizations.of(context)!.tabSettings_Keys_Random,
                 textAlign: TextAlign.right,
               ),
             ),
@@ -289,8 +289,8 @@ class TabSettingsState extends State<TabSettings> {
           Padding(
             padding: _editorColumnPadding,
             child: Switch(
-              value: _settingsManager.keySuggestionKeyProgression,
-              onChanged: _onKeySuggestProgressionPressed,
+              value: _settingsManager.keysRandom,
+              onChanged: _onKeysRandomChanged,
             ),
           ),
         ],
@@ -311,7 +311,7 @@ class TabSettingsState extends State<TabSettings> {
 
   void _onIntervalsAccidentalsChanged(bool? value) {
     setState(() {
-      _settingsManager.executionAccidentals = (value ?? false);
+      _settingsManager.intervalsAccidentals = (value ?? false);
     });
   }
 
@@ -327,30 +327,30 @@ class TabSettingsState extends State<TabSettings> {
     });
   }
 
-  void _onKeySuggestActivationPressed(bool? value) {
+  void _onKeysActivateChanged(bool? value) {
     setState(() {
-      _settingsManager.keySuggestActivation = (value ?? false);
+      _settingsManager.keysActive = (value ?? false);
     });
   }
 
-  void _onKeySuggestKeysGridCellPressed(WidgetTwoStateButton sender) {
+  void _onKeysGridItemChanged(WidgetTwoStateButton sender) {
     setState(() {
-      _settingsManager.setKeySuggestKeys(
+      _settingsManager.keysListItem(
         sender.context,
         sender.isOn,
       );
     });
   }
 
-  Future<void> _onKeySuggestIntervalPressed(double value) async {
+  Future<void> _onKeysIntervalChanged(double value) async {
     setState(() {
-      _settingsManager.keySuggestInterval = value.toInt();
+      _settingsManager.keysInterval = value.toInt();
     });
   }
 
-  void _onKeySuggestProgressionPressed(bool? value) {
+  void _onKeysRandomChanged(bool? value) {
     setState(() {
-      _settingsManager.keySuggestionKeyProgression = (value ?? false);
+      _settingsManager.keysRandom = (value ?? false);
     });
   }
 }
