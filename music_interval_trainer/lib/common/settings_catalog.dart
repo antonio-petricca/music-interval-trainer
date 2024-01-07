@@ -8,5 +8,6 @@ class SettingsCatalog {
   static const String _exerciseKeySuggest = "exercise.key-suggestions";
   static const String exerciseKeySuggestActivation = "$_exerciseKeySuggest.active";
   static const String exerciseKeySuggestInterval = "$_exerciseKeySuggest.interval";
+  static const String exerciseKeySuggestKeys = "$_exerciseKeySuggest.keys";
   static const String exerciseKeySuggestKeyProgression = "$_exerciseKeySuggest.progression";
 }

@@ -27,7 +27,7 @@ class TabSettingsState extends State<TabSettings> {
   bool _stateExecutionExtendedIntervals = false;
   bool _stateKeySuggestionKeyProgression = false;
   int _stateKeySuggestInterval = 7;
-  final List<bool> _stateKeySuggestKeys = [true, false, false, false, false, false, false, false, false, false, false, false];
+  List<bool> _stateKeySuggestKeys = [true, false, false, false, false, false, false, false, false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -450,6 +450,9 @@ class TabSettingsState extends State<TabSettings> {
       _stateKeySuggestActivation = _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? false;
       _stateKeySuggestionKeyProgression = _preferences.getBool(SettingsCatalog.exerciseKeySuggestKeyProgression) ?? false;
       _stateKeySuggestInterval = _preferences.getInt(SettingsCatalog.exerciseKeySuggestInterval) ?? 0;
+
+      List<String> stateKeySuggestKeys = _preferences.getStringList(SettingsCatalog.exerciseKeySuggestKeys) ?? [];
+      _stateKeySuggestKeys = stateKeySuggestKeys.map((element) => bool.parse(element)).toList();
     });
   }
 
@@ -487,6 +490,13 @@ class TabSettingsState extends State<TabSettings> {
     _preferences.setInt(
       SettingsCatalog.exerciseKeySuggestInterval,
       _stateKeySuggestInterval,
+    );
+
+    List<String> stateKeySuggestKeys = _stateKeySuggestKeys.map((element) => element.toString()).toList();
+
+    _preferences.setStringList(
+      SettingsCatalog.exerciseKeySuggestKeys,
+      stateKeySuggestKeys,
     );
   }
 }
