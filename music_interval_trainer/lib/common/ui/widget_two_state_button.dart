@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/common/widget_two_state_button_state.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/common/ui/widget_two_state_button_state.dart';
 
 typedef WidgetTwoStateButtonCallback = void Function(WidgetTwoStateButton sender);
 

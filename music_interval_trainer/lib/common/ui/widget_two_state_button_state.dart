@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/common/widget_two_state_button.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/common/ui/widget_two_state_button.dart';
 
 class WidgetTwoStateButtonState extends State<WidgetTwoStateButton> {
   void _onPressed() {

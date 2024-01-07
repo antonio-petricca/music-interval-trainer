@@ -1,13 +1,13 @@
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/common/keys_manager.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/common/settings_catalog.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/common/environment/keys_manager.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/common/environment/settings_catalog.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/ui/settings/tab_settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../common/widget_icon_layout.dart';
-import '../../common/widget_two_state_button.dart';
+import '../../common/ui/widget_icon_layout.dart';
+import '../../common/ui/widget_two_state_button.dart';
 
 class TabSettingsState extends State<TabSettings> {
   late List<String> _keyLabels;
