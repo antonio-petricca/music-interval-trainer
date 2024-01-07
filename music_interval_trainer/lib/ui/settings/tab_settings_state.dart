@@ -20,14 +20,14 @@ class TabSettingsState extends State<TabSettings> {
   final double _keySuggestIntervalMin = 0;
   final double _keySuggestIntervalMax = 100;
 
-  bool _selectedExecutionAccidentals = false;
-  Duration _selectedExecutionDuration = const Duration(minutes: 2, seconds: 30);
-  double _selectedExecutionInterval = 20; // 2 seconds
-  bool _selectedKeySuggestActivation = false;
-  bool _selectedExecutionExtendedIntervals = false;
-  bool _selectedKeySuggestionKeyProgression = false;
-  int _selectedKeySuggestInterval = 7;
-  List<bool> _selectedKeySuggestKeys = List.filled(12, false);
+  bool _stateExecutionAccidentals = false;
+  Duration _stateExecutionDuration = const Duration(minutes: 2, seconds: 30);
+  double _stateExecutionInterval = 20; // 2 seconds
+  bool _stateKeySuggestActivation = false;
+  bool _stateExecutionExtendedIntervals = false;
+  bool _stateKeySuggestionKeyProgression = false;
+  int _stateKeySuggestInterval = 7;
+  final List<bool> _stateKeySuggestKeys = [true, false, false, false, false, false, false, false, false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class TabSettingsState extends State<TabSettings> {
   @override
   void initState() {
     super.initState();
-    _loadSettings();
+    _settingsLoad();
   }
 
   Widget _buildDivider() {
@@ -102,7 +102,7 @@ class TabSettingsState extends State<TabSettings> {
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Switch(
-              value: _selectedExecutionAccidentals,
+              value: _stateExecutionAccidentals,
               onChanged: _onExecutionAccidentalsPressed,
             ),
           ),
@@ -165,7 +165,7 @@ class TabSettingsState extends State<TabSettings> {
           ),
           Expanded(
             child: Slider(
-              value: _selectedExecutionInterval,
+              value: _stateExecutionInterval,
               min: _executionIntervalMin,
               max: _executionIntervalMax,
               onChanged: _onExecutionIntervalPressed,
@@ -195,7 +195,7 @@ class TabSettingsState extends State<TabSettings> {
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Switch(
-              value: _selectedExecutionExtendedIntervals,
+              value: _stateExecutionExtendedIntervals,
               onChanged: _onExecutionExtendedIntervalsPressed,
             ),
           ),
@@ -223,7 +223,7 @@ class TabSettingsState extends State<TabSettings> {
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Switch(
-              value: _selectedKeySuggestActivation,
+              value: _stateKeySuggestActivation,
               onChanged: _onKeySuggestActivationPressed,
             ),
           ),
@@ -244,7 +244,7 @@ class TabSettingsState extends State<TabSettings> {
               padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
               child: Text(
                 AppLocalizations.of(context)!.tabSettings_Exercise_KeySuggest_Interval(
-                  _selectedKeySuggestInterval.toInt(),
+                  _stateKeySuggestInterval.toInt(),
                 ),
                 textAlign: TextAlign.right,
               ),
@@ -252,7 +252,7 @@ class TabSettingsState extends State<TabSettings> {
           ),
           Expanded(
             child: Slider(
-              value: _selectedKeySuggestInterval.toDouble(),
+              value: _stateKeySuggestInterval.toDouble(),
               min: _keySuggestIntervalMin,
               max: _keySuggestIntervalMax,
               onChanged: _onKeySuggestIntervalPressed,
@@ -303,7 +303,7 @@ class TabSettingsState extends State<TabSettings> {
       padding: const EdgeInsets.all(2),
       child: WidgetTwoStateButton(
         context: index,
-        isOn: false,
+        isOn: _stateKeySuggestKeys[index],
         onPressed: _onKeySuggestKeysGridCellPressed,
         colorOff: Theme.of(context).buttonTheme.colorScheme?.secondaryContainer,
         colorOn: Theme.of(context).buttonTheme.colorScheme?.primary,
@@ -332,7 +332,7 @@ class TabSettingsState extends State<TabSettings> {
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Switch(
-              value: _selectedKeySuggestionKeyProgression,
+              value: _stateKeySuggestionKeyProgression,
               onChanged: _onKeySuggestKeySuggestionPressed,
             ),
           ),
@@ -342,15 +342,15 @@ class TabSettingsState extends State<TabSettings> {
   }
 
   String _getExecutionDuration() {
-    int minutes = _selectedExecutionDuration.inMinutes;
-    int seconds = (_selectedExecutionDuration.inSeconds % 60);
+    int minutes = _stateExecutionDuration.inMinutes;
+    int seconds = (_stateExecutionDuration.inSeconds % 60);
 
     return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
   String _getExecutionInterval() {
     Duration duration = Duration(
-      milliseconds: (_selectedExecutionInterval.toInt() * 100),
+      milliseconds: (_stateExecutionInterval.toInt() * 100),
     );
 
     int secs = duration.inSeconds;
@@ -359,122 +359,134 @@ class TabSettingsState extends State<TabSettings> {
     return '${secs.toString()}.${tenths.toString()}';
   }
 
-  _loadSettings() async {
-    _preferences = await SharedPreferences.getInstance();
-
-    setState(() {
-      _selectedExecutionAccidentals = _preferences.getBool(SettingsCatalog.exerciseExecutionAccidentals) ?? false;
-
-      int? duration = _preferences.getInt(SettingsCatalog.exerciseExecutionDuration);
-
-      if (null != duration) {
-        _selectedExecutionDuration = Duration(milliseconds: duration);
-      }
-
-      _selectedExecutionExtendedIntervals = _preferences.getBool(SettingsCatalog.exerciseExecutionExtendedIntervals) ?? false;
-      _selectedExecutionInterval = _preferences.getDouble(SettingsCatalog.exerciseExecutionInterval) ?? _selectedExecutionInterval;
-
-      _selectedKeySuggestActivation = _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? false;
-      _selectedKeySuggestionKeyProgression = _preferences.getBool(SettingsCatalog.exerciseKeySuggestKeyProgression) ?? false;
-      _selectedKeySuggestInterval = _preferences.getInt(SettingsCatalog.exerciseKeySuggestInterval) ?? 0;
-    });
-  }
-
   Future<void> _onExecutionDurationPressed(BuildContext context) async {
     final Duration? selectedDuration = await showDurationPicker(
       context: context,
-      initialTime: _selectedExecutionDuration,
+      initialTime: _stateExecutionDuration,
       baseUnit: BaseUnit.second,
     );
 
-    if (selectedDuration != _selectedExecutionDuration) {
+    if (selectedDuration != _stateExecutionDuration) {
       setState(() {
-        _selectedExecutionDuration = selectedDuration!;
-        _saveSettings();
+        _stateExecutionDuration = selectedDuration!;
+        _settingsSave();
       });
     }
   }
 
   void _onExecutionExtendedIntervalsPressed(bool? value) {
     setState(() {
-      _selectedExecutionExtendedIntervals = (value ?? false);
-      _saveSettings();
+      _stateExecutionExtendedIntervals = (value ?? false);
+      _settingsSave();
     });
   }
 
   Future<void> _onExecutionIntervalPressed(double value) async {
     setState(() {
-      _selectedExecutionInterval = value;
-      _saveSettings();
+      _stateExecutionInterval = value;
+      _settingsSave();
     });
   }
 
   void _onKeySuggestActivationPressed(bool? value) {
     setState(() {
-      _selectedKeySuggestActivation = (value ?? false);
-      _saveSettings();
+      _stateKeySuggestActivation = (value ?? false);
+      _settingsSave();
     });
   }
 
   void _onKeySuggestKeysGridCellPressed(WidgetTwoStateButton sender) {
-    _saveSettings(); //TODO
+    int index = sender.context;
+
+    setState(() {
+      _stateKeySuggestKeys[index] = sender.isOn;
+
+      int setCount = _stateKeySuggestKeys.where((element) => (true == element)).toList().length;
+
+      if (0 == setCount) {
+        _stateKeySuggestKeys[index] = true;
+      }
+
+      _settingsSave();
+    });
   }
 
   Future<void> _onKeySuggestIntervalPressed(double value) async {
     setState(() {
-      _selectedKeySuggestInterval = value.toInt();
-      _saveSettings();
+      _stateKeySuggestInterval = value.toInt();
+      _settingsSave();
     });
   }
 
   void _onKeySuggestKeySuggestionPressed(bool? value) {
     setState(() {
-      _selectedKeySuggestionKeyProgression = (value ?? false);
-      _saveSettings();
+      _stateKeySuggestionKeyProgression = (value ?? false);
+      _settingsSave();
     });
-  }
-
-  _saveSettings() {
-    _preferences.setBool(
-      SettingsCatalog.exerciseExecutionAccidentals,
-      _selectedExecutionAccidentals,
-    );
-
-    _preferences.setInt(
-      SettingsCatalog.exerciseExecutionDuration,
-      _selectedExecutionDuration.inMilliseconds,
-    );
-
-    _preferences.setBool(
-      SettingsCatalog.exerciseExecutionExtendedIntervals,
-      _selectedExecutionExtendedIntervals,
-    );
-
-    _preferences.setDouble(
-      SettingsCatalog.exerciseExecutionInterval,
-      _selectedExecutionInterval,
-    );
-
-    _preferences.setBool(
-      SettingsCatalog.exerciseKeySuggestActivation,
-      _selectedKeySuggestActivation,
-    );
-
-    _preferences.setBool(
-      SettingsCatalog.exerciseKeySuggestKeyProgression,
-      _selectedKeySuggestionKeyProgression,
-    );
-
-    _preferences.setInt(
-      SettingsCatalog.exerciseKeySuggestInterval,
-      _selectedKeySuggestInterval,
-    );
   }
 
   void _onExecutionAccidentalsPressed(bool? value) {
     setState(() {
-      _selectedExecutionAccidentals = (value ?? false);
-      _saveSettings();
+      _stateExecutionAccidentals = (value ?? false);
+      _settingsSave();
     });
+  }
+
+  _settingsLoad() async {
+    _preferences = await SharedPreferences.getInstance();
+
+    setState(() {
+      _stateExecutionAccidentals = _preferences.getBool(SettingsCatalog.exerciseExecutionAccidentals) ?? false;
+
+      int? duration = _preferences.getInt(SettingsCatalog.exerciseExecutionDuration);
+
+      if (null != duration) {
+        _stateExecutionDuration = Duration(milliseconds: duration);
+      }
+
+      _stateExecutionExtendedIntervals = _preferences.getBool(SettingsCatalog.exerciseExecutionExtendedIntervals) ?? false;
+      _stateExecutionInterval = _preferences.getDouble(SettingsCatalog.exerciseExecutionInterval) ?? _stateExecutionInterval;
+
+      _stateKeySuggestActivation = _preferences.getBool(SettingsCatalog.exerciseKeySuggestActivation) ?? false;
+      _stateKeySuggestionKeyProgression = _preferences.getBool(SettingsCatalog.exerciseKeySuggestKeyProgression) ?? false;
+      _stateKeySuggestInterval = _preferences.getInt(SettingsCatalog.exerciseKeySuggestInterval) ?? 0;
+    });
+  }
+
+  _settingsSave() {
+    _preferences.setBool(
+      SettingsCatalog.exerciseExecutionAccidentals,
+      _stateExecutionAccidentals,
+    );
+
+    _preferences.setInt(
+      SettingsCatalog.exerciseExecutionDuration,
+      _stateExecutionDuration.inMilliseconds,
+    );
+
+    _preferences.setBool(
+      SettingsCatalog.exerciseExecutionExtendedIntervals,
+      _stateExecutionExtendedIntervals,
+    );
+
+    _preferences.setDouble(
+      SettingsCatalog.exerciseExecutionInterval,
+      _stateExecutionInterval,
+    );
+
+    _preferences.setBool(
+      SettingsCatalog.exerciseKeySuggestActivation,
+      _stateKeySuggestActivation,
+    );
+
+    _preferences.setBool(
+      SettingsCatalog.exerciseKeySuggestKeyProgression,
+      _stateKeySuggestionKeyProgression,
+    );
+
+    _preferences.setInt(
+      SettingsCatalog.exerciseKeySuggestInterval,
+      _stateKeySuggestInterval,
+    );
   }
 }
