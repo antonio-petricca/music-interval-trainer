@@ -8,7 +8,7 @@
   "tabAbout_Information_Version": "Versione {version}",
   "tabSettings_Intervals_Accidentals": "Includi alterazioni",
   "tabSettings_Intervals_Duration": "Selezione durata",
-  "tabSettings_Intervals_Extended": "Intervalli estesi (9, 11, 13)",
+  "tabSettings_Intervals_Extended": "Estesi (9, 11, 13)",
   "tabSettings_Intervals_Speed": "Uno ogni {seconds} secondi",
   "tabSettings_Intervals_Section": "Intervalli",
   "tabSettings_Keys_Section": "Sfida delle tonalità",

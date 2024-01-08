@@ -2,22 +2,28 @@ import 'package:flutter/material.dart';
 
 class WidgetIconLayoutExt extends StatelessWidget {
   final Icon icon;
-  final String title;
-  final ListTileTitleAlignment titleAlignment;
-  final List<Widget> widgets;
+  final ListTileTitleAlignment iconAlignment;
+  final String? title;
+  final List<Widget> children;
 
-  const WidgetIconLayoutExt({super.key, required this.title, required this.icon, required this.widgets, this.titleAlignment = ListTileTitleAlignment.top});
+  const WidgetIconLayoutExt({
+    super.key,
+    this.title,
+    required this.icon,
+    this.iconAlignment = ListTileTitleAlignment.top,
+    required this.children,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: icon,
-      title: Text(title),
-      titleAlignment: titleAlignment,
+      title: ((null != title) ? Text(title!) : null),
+      titleAlignment: iconAlignment,
       subtitle: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: widgets,
+        children: children,
       ),
     );
   }

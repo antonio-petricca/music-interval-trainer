@@ -8,7 +8,7 @@
   "tabAbout_Information_Version": "Version {version}",
   "tabSettings_Intervals_Accidentals": "Include accidentals",
   "tabSettings_Intervals_Duration": "Select duration",
-  "tabSettings_Intervals_Extended": "Extended intervals (9, 11, 13)",
+  "tabSettings_Intervals_Extended": "Extended (9, 11, 13)",
   "tabSettings_Intervals_Speed": "One per {seconds} seconds",
   "tabSettings_Intervals_Section": "Intervals",
   "tabSettings_Keys_Section": "Keys challenge",

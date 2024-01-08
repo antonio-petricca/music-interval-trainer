@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/common/environment/keys_manager.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/common/ui/widget_icon_layout_ext.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/ui/settings/tab_settings.dart';
 
 import '../../common/environment/settings_manager.dart';
-import '../../common/ui/widget_icon_layout.dart';
 import '../../common/ui/widget_two_state_button.dart';
 
 class TabSettingsState extends State<TabSettings> {
@@ -12,7 +12,7 @@ class TabSettingsState extends State<TabSettings> {
   final SettingsManager _settingsManager = SettingsManager();
 
   final EdgeInsetsGeometry _editorColumnPadding = const EdgeInsets.fromLTRB(20, 0, 20, 0);
-  final double _infoColumnWidth = 180;
+  final double _infoColumnWidth = 150;
   final EdgeInsetsGeometry _infoColumnPadding = const EdgeInsets.fromLTRB(0, 0, 10, 0);
 
   final double _intervalsSpeedMin = 5;
@@ -79,179 +79,167 @@ class TabSettingsState extends State<TabSettings> {
   }
 
   Widget _buildIntervalsAccidentals(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: WidgetIconLayout(
-        const Icon(Icons.queue_music),
-        [
-          SizedBox(
-            width: _infoColumnWidth,
-            child: Padding(
-              padding: _infoColumnPadding,
-              child: Text(
-                AppLocalizations.of(context)!.tabSettings_Intervals_Accidentals,
-                textAlign: TextAlign.right,
-              ),
+    return WidgetIconLayoutExt(
+      icon: const Icon(Icons.queue_music),
+      iconAlignment: ListTileTitleAlignment.center,
+      children: [
+        SizedBox(
+          width: _infoColumnWidth,
+          child: Padding(
+            padding: _infoColumnPadding,
+            child: Text(
+              AppLocalizations.of(context)!.tabSettings_Intervals_Accidentals,
+              textAlign: TextAlign.right,
             ),
           ),
-          Padding(
-            padding: _editorColumnPadding,
-            child: Switch(
-              value: _settingsManager.intervalsAccidentals,
-              onChanged: _onIntervalsAccidentalsChanged,
-            ),
+        ),
+        Padding(
+          padding: _editorColumnPadding,
+          child: Switch(
+            value: _settingsManager.intervalsAccidentals,
+            onChanged: _onIntervalsAccidentalsChanged,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _buildIntervalsSpeed(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: WidgetIconLayout(
-        const Icon(Icons.timelapse_outlined),
-        [
-          SizedBox(
-            width: _infoColumnWidth,
-            child: Padding(
-              padding: _infoColumnPadding,
-              child: Text(
-                AppLocalizations.of(context)!.tabSettings_Intervals_Speed(
-                  _getIntervalsSpeed(),
-                ),
-                textAlign: TextAlign.right,
+    return WidgetIconLayoutExt(
+      icon: const Icon(Icons.timelapse_outlined),
+      iconAlignment: ListTileTitleAlignment.center,
+      children: [
+        SizedBox(
+          width: _infoColumnWidth,
+          child: Padding(
+            padding: _infoColumnPadding,
+            child: Text(
+              AppLocalizations.of(context)!.tabSettings_Intervals_Speed(
+                _getIntervalsSpeed(),
               ),
+              textAlign: TextAlign.right,
             ),
           ),
-          Expanded(
-            child: Slider(
-              value: _settingsManager.executionInterval,
-              min: _intervalsSpeedMin,
-              max: _intervalsSpeedMax,
-              onChanged: _onIntervalsSpeedChanged,
-            ),
+        ),
+        Expanded(
+          child: Slider(
+            value: _settingsManager.executionInterval,
+            min: _intervalsSpeedMin,
+            max: _intervalsSpeedMax,
+            onChanged: _onIntervalsSpeedChanged,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _buildIntervalsExtended(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: WidgetIconLayout(
-        const Icon(Icons.queue_music),
-        [
-          SizedBox(
-            width: _infoColumnWidth,
-            child: Padding(
-              padding: _infoColumnPadding,
-              child: Text(
-                AppLocalizations.of(context)!.tabSettings_Intervals_Extended,
-                textAlign: TextAlign.right,
-              ),
+    return WidgetIconLayoutExt(
+      icon: const Icon(Icons.queue_music),
+      iconAlignment: ListTileTitleAlignment.center,
+      children: [
+        SizedBox(
+          width: _infoColumnWidth,
+          child: Padding(
+            padding: _infoColumnPadding,
+            child: Text(
+              AppLocalizations.of(context)!.tabSettings_Intervals_Extended,
+              textAlign: TextAlign.right,
             ),
           ),
-          Padding(
-            padding: _editorColumnPadding,
-            child: Switch(
-              value: _settingsManager.executionExtendedIntervals,
-              onChanged: _onIntervalsExtendedChanged,
-            ),
+        ),
+        Padding(
+          padding: _editorColumnPadding,
+          child: Switch(
+            value: _settingsManager.executionExtendedIntervals,
+            onChanged: _onIntervalsExtendedChanged,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _buildKeysActive(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: WidgetIconLayout(
-        const Icon(Icons.power_settings_new),
-        [
-          SizedBox(
-            width: _infoColumnWidth,
-            child: Padding(
-              padding: _infoColumnPadding,
-              child: Text(
-                AppLocalizations.of(context)!.tabSettings_Keys_Activation,
-                textAlign: TextAlign.right,
-              ),
+    return WidgetIconLayoutExt(
+      icon: const Icon(Icons.power_settings_new),
+      iconAlignment: ListTileTitleAlignment.center,
+      children: [
+        SizedBox(
+          width: _infoColumnWidth,
+          child: Padding(
+            padding: _infoColumnPadding,
+            child: Text(
+              AppLocalizations.of(context)!.tabSettings_Keys_Activation,
+              textAlign: TextAlign.right,
             ),
           ),
-          Padding(
-            padding: _editorColumnPadding,
-            child: Switch(
-              value: _settingsManager.keysActive,
-              onChanged: _onKeysActivateChanged,
-            ),
+        ),
+        Padding(
+          padding: _editorColumnPadding,
+          child: Switch(
+            value: _settingsManager.keysActive,
+            onChanged: _onKeysActivateChanged,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _buildKeysInterval(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: WidgetIconLayout(
-        const Icon(Icons.trending_up),
-        [
-          SizedBox(
-            width: _infoColumnWidth,
-            child: Padding(
-              padding: _infoColumnPadding,
-              child: Text(
-                AppLocalizations.of(context)!.tabSettings_Keys_Interval(
-                  _settingsManager.keysInterval,
-                ),
-                textAlign: TextAlign.right,
+    return WidgetIconLayoutExt(
+      icon: const Icon(Icons.trending_up),
+      iconAlignment: ListTileTitleAlignment.center,
+      children: [
+        SizedBox(
+          width: _infoColumnWidth,
+          child: Padding(
+            padding: _infoColumnPadding,
+            child: Text(
+              AppLocalizations.of(context)!.tabSettings_Keys_Interval(
+                _settingsManager.keysInterval,
               ),
+              textAlign: TextAlign.right,
             ),
           ),
-          Expanded(
-            child: Slider(
-              value: _settingsManager.keysInterval.toDouble(),
-              min: _keySuggestIntervalMin,
-              max: _keySuggestIntervalMax,
-              onChanged: _onKeysIntervalChanged,
-            ),
+        ),
+        Expanded(
+          child: Slider(
+            value: _settingsManager.keysInterval.toDouble(),
+            min: _keySuggestIntervalMin,
+            max: _keySuggestIntervalMax,
+            onChanged: _onKeysIntervalChanged,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _buildKeysList(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: WidgetIconLayout(
-        const Icon(Icons.vpn_key),
-        [
-          SizedBox(
-            width: _infoColumnWidth,
-            child: Padding(
-              padding: _infoColumnPadding,
-              child: Text(
-                AppLocalizations.of(context)!.tabSettings_Keys_Keys,
-                textAlign: TextAlign.right,
-              ),
+    return WidgetIconLayoutExt(
+      icon: const Icon(Icons.vpn_key),
+      iconAlignment: ListTileTitleAlignment.center,
+      children: [
+        SizedBox(
+          width: _infoColumnWidth,
+          child: Padding(
+            padding: _infoColumnPadding,
+            child: Text(
+              AppLocalizations.of(context)!.tabSettings_Keys_Keys,
+              textAlign: TextAlign.right,
             ),
           ),
-          Expanded(
-            child: GridView.count(
-              shrinkWrap: true,
-              crossAxisCount: 3,
-              children: List.generate(
-                12,
-                _buildKeysListGridItem,
-              ),
+        ),
+        Expanded(
+          child: GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: 3,
+            children: List.generate(
+              12,
+              _buildKeysListGridItem,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -271,30 +259,28 @@ class TabSettingsState extends State<TabSettings> {
   }
 
   Widget _buildKeysRandom(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: WidgetIconLayout(
-        const Icon(Icons.loop),
-        [
-          SizedBox(
-            width: _infoColumnWidth,
-            child: Padding(
-              padding: _infoColumnPadding,
-              child: Text(
-                AppLocalizations.of(context)!.tabSettings_Keys_Random,
-                textAlign: TextAlign.right,
-              ),
+    return WidgetIconLayoutExt(
+      icon: const Icon(Icons.loop),
+      iconAlignment: ListTileTitleAlignment.center,
+      children: [
+        SizedBox(
+          width: _infoColumnWidth,
+          child: Padding(
+            padding: _infoColumnPadding,
+            child: Text(
+              AppLocalizations.of(context)!.tabSettings_Keys_Random,
+              textAlign: TextAlign.right,
             ),
           ),
-          Padding(
-            padding: _editorColumnPadding,
-            child: Switch(
-              value: _settingsManager.keysRandom,
-              onChanged: _onKeysRandomChanged,
-            ),
+        ),
+        Padding(
+          padding: _editorColumnPadding,
+          child: Switch(
+            value: _settingsManager.keysRandom,
+            onChanged: _onKeysRandomChanged,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
