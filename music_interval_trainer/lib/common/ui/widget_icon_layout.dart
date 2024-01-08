@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+@Deprecated("Use WidgetIconLayoutExt")
 class WidgetIconLayout extends StatelessWidget {
   final List<Widget> widgets;
 

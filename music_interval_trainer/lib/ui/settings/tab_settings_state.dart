@@ -42,7 +42,7 @@ class TabSettingsState extends State<TabSettings> {
           _buildKeysActive(context),
           _buildKeysList(context),
           _buildKeysRandom(context),
-          _buildKeysInterval(context),
+          _buildKeysInterval(context)
         ],
       ),
     );

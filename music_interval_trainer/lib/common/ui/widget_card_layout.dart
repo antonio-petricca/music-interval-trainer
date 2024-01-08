@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/common/ui/widget_icon_layout.dart';
 
+@Deprecated("Use WidgetCardLayoutExt")
 class WidgetCardLayout extends StatelessWidget {
   final Icon bodyIcon;
   final List<Widget> bodyWidgets;
@@ -40,7 +41,8 @@ class WidgetCardLayout extends StatelessWidget {
             ),
             Container(
               padding: const EdgeInsets.all(5),
-              child: WidgetIconLayout(bodyIcon, bodyWidgets),
+              child: WidgetIconLayout
+                (bodyIcon, bodyWidgets),
             )
           ],
         ));

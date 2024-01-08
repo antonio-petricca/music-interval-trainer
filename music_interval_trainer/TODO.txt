@@ -1,4 +1,2 @@
 - Full help (no more video).
 - Keys as premium feature.
-- List tile ( https://api.flutter.dev/flutter/material/ListTile-class.html ).
-- Settings: cards ( https://api.flutter.dev/flutter/material/Card-class.html )

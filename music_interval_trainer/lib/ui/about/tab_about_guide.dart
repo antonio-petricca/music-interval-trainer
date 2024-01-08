@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/common/ui/widget_card_layout.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+import '../../common/ui/widget_card_layout_ext.dart';
 
 class TabAboutGuide extends StatelessWidget {
   final String _videoId = 'tIQSV4JJTqI';
@@ -10,10 +11,11 @@ class TabAboutGuide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetCardLayout(
-      AppLocalizations.of(context)!.tabAbout_Guide_Title,
-      const Icon(Icons.help_outline_outlined),
-      [
+    return WidgetCardLayoutExt(
+      icon: const Icon(Icons.help_outline_outlined),
+      iconAlignment: ListTileTitleAlignment.top,
+      title: AppLocalizations.of(context)!.tabAbout_Guide_Title,
+      widgets: [
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,9 +24,8 @@ class TabAboutGuide extends StatelessWidget {
                 AppLocalizations.of(context)!.tabAbout_Guide_Content,
                 style: Theme.of(context).textTheme.labelMedium,
               ),
-              const Divider(height: 5),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 15, 0, 10),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
