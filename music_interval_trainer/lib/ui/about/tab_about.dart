@@ -7,18 +7,21 @@ class TabAbout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(children: [
-        Container(
-            padding: const EdgeInsets.all(5),
-            child: const Column(
-              children: [
-                TabAboutInformation(),
-                SizedBox(height: 10),
-                TabAboutGuide(),
-              ],
-            )),
-      ]),
+    return Scrollbar(
+      thumbVisibility: true,
+      child: SingleChildScrollView(
+        child: Column(children: [
+          Container(
+              padding: const EdgeInsets.all(5),
+              child: const Column(
+                children: [
+                  TabAboutInformation(),
+                  SizedBox(height: 10),
+                  TabAboutGuide(),
+                ],
+              )),
+        ]),
+      ),
     );
   }
 }

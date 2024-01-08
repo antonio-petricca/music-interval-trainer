@@ -1,2 +1,3 @@
 - Full help (no more video).
 - Keys as premium feature.
+- Splash screen

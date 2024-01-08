@@ -24,26 +24,29 @@ class TabSettingsState extends State<TabSettings> {
   Widget build(BuildContext context) {
     _keyLabels = KeysManager(context).getList();
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildLabel(
-            AppLocalizations.of(context)!.tabSettings_Intervals_Section,
-          ),
-          _buildDivider(),
-          _buildIntervalsSpeed(context),
-          _buildIntervalsAccidentals(context),
-          _buildIntervalsExtended(context),
-          _buildLabel(
-            AppLocalizations.of(context)!.tabSettings_Keys_Section,
-          ),
-          _buildDivider(),
-          _buildKeysActive(context),
-          _buildKeysList(context),
-          _buildKeysRandom(context),
-          _buildKeysInterval(context)
-        ],
+    return Scrollbar(
+      thumbVisibility: true,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildLabel(
+              AppLocalizations.of(context)!.tabSettings_Intervals_Section,
+            ),
+            _buildDivider(),
+            _buildIntervalsSpeed(context),
+            _buildIntervalsAccidentals(context),
+            _buildIntervalsExtended(context),
+            _buildLabel(
+              AppLocalizations.of(context)!.tabSettings_Keys_Section,
+            ),
+            _buildDivider(),
+            _buildKeysActive(context),
+            _buildKeysList(context),
+            _buildKeysRandom(context),
+            _buildKeysInterval(context)
+          ],
+        ),
       ),
     );
   }
