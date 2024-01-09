@@ -7,6 +7,8 @@ class TabPlayState extends State<TabPlay> {
 
   @override
   Widget build(BuildContext context) {
+    final Color? color = Theme.of(context).buttonTheme.colorScheme?.primary;
+
     return Center(
       child: Card(
         elevation: 5,
@@ -16,9 +18,13 @@ class TabPlayState extends State<TabPlay> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(_note, style: TextStyle(fontFamily: "Rounded-Led-Board-7", fontSize: _size)),
-              Text(_note, style: TextStyle(fontFamily: "Triple-Dot-Digital-7", fontSize: _size)),
-              Text(_note, style: TextStyle(fontFamily: "Modern-Lead-Board-7", fontSize: _size)),
+              Text(_note,
+                  style: TextStyle(
+                    fontFamily: "Rounded-Led-Board-7",
+                    fontSize: _size,
+                    fontWeight: FontWeight.w400,
+                    color: color,
+                  )),
             ],
           ),
         ),
