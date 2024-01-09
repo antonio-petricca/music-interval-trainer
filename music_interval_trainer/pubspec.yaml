@@ -100,41 +100,14 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
   fonts:
-    # https://docs.flutter.dev/cookbook/design/fonts
-    - family: DS-Digital
-      fonts:
-        - asset: fonts/DS-DIGI.TTF
-        - asset: fonts/DS-DIGIB.TTF
-          weight: 700
-        - asset: fonts/DS-DIGII.TTF
-          style: italic
-        - asset: fonts/DS-DIGIT.TTF
-          style: italic
-          weight: 700
-    - family: Mobile-Man
-      fonts:
-        - asset: fonts/mobilman.ttf
     - family: Rounded-Led-Board-7
       fonts:
         - asset: fonts/rounded_led_board-7.ttf
-    - family: Serif-Led-Board-7
-      fonts:
-        - asset: fonts/serif_led_board-7.ttf
-    - family: Brick-Led-7
-      fonts:
-        - asset: fonts/brick_led-7.ttf
     - family: Triple-Dot-Digital-7
       fonts:
         - asset: fonts/triple_dot_digital-7.ttf
     - family: Modern-Lead-Board-7
       fonts:
         - asset: fonts/modern_led_board-7.ttf
-    - family: Matrix-Complex
-      fonts:
-        - asset: fonts/MatrixComplexNC.ttf
-        - asset: fonts/MatrixComplex3DNC.ttf
-          weight: 700
-        - asset: fonts/MatrixComplexWaveNC.ttf
-          style: italic
 
   generate: true

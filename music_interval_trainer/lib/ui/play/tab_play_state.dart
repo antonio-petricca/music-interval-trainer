@@ -16,16 +16,9 @@ class TabPlayState extends State<TabPlay> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(_note, style: TextStyle(fontFamily: "DS-Digital", fontSize: _size)),
-              Text(_note, style: TextStyle(fontFamily: "Mobile-Man", fontSize: _size)),
               Text(_note, style: TextStyle(fontFamily: "Rounded-Led-Board-7", fontSize: _size)),
-              Text(_note, style: TextStyle(fontFamily: "Serif-Led-Board-7", fontSize: _size)),
-              Text(_note, style: TextStyle(fontFamily: "Brick-Led-7", fontSize: _size)),
               Text(_note, style: TextStyle(fontFamily: "Triple-Dot-Digital-7", fontSize: _size)),
               Text(_note, style: TextStyle(fontFamily: "Modern-Lead-Board-7", fontSize: _size)),
-              Text(_note, style: TextStyle(fontFamily: "Matrix-Complex", fontSize: _size)),
-              Text(_note, style: TextStyle(fontFamily: "Matrix-Complex", fontSize: _size, fontWeight: FontWeight.w700)),
-              Text(_note, style: TextStyle(fontFamily: "Matrix-Complex", fontSize: _size,  fontStyle: FontStyle.italic)),
             ],
           ),
         ),
