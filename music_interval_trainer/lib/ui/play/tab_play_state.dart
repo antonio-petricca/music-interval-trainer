@@ -13,7 +13,7 @@ class TabPlayState extends State<TabPlay> {
           child: Text(
             "SOLb9",
             style: TextStyle(
-              fontFamily: "Rounded-Led-Board-7",
+              fontFamily: "Serif-Led-Board-7",
               fontSize: 50,
             ),
           ),
