@@ -128,6 +128,13 @@ flutter:
         - asset: fonts/triple_dot_digital-7.ttf
     - family: Modern-Lead-Board-7
       fonts:
-        - asset: modern_led_board-7.ttf
+        - asset: fonts/modern_led_board-7.ttf
+    - family: Matrix-Complex
+      fonts:
+        - asset: fonts/MatrixComplexNC.ttf
+        - asset: fonts/MatrixComplex3DNC.ttf
+          weight: 700
+        - asset: fonts/MatrixComplexWaveNC.ttf
+          style: italic
 
   generate: true
