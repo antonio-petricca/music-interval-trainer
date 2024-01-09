@@ -123,5 +123,8 @@ flutter:
     - family: Brick-Led-7
       fonts:
         - asset: fonts/brick_led-7.ttf
+    - family: Triple-Dot-Digital-7
+      fonts:
+        - asset: fonts/triple_dot_digital-7.ttf
 
   generate: true
