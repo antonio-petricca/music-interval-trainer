@@ -120,5 +120,8 @@ flutter:
     - family: Serif-Led-Board-7
       fonts:
         - asset: fonts/serif_led_board-7.ttf
+    - family: Brick-Led-7
+      fonts:
+        - asset: fonts/brick_led-7.ttf
 
   generate: true
