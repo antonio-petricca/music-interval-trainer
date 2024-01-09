@@ -126,5 +126,8 @@ flutter:
     - family: Triple-Dot-Digital-7
       fonts:
         - asset: fonts/triple_dot_digital-7.ttf
+    - family: Modern-Lead-Board-7
+      fonts:
+        - asset: modern_led_board-7.ttf
 
   generate: true

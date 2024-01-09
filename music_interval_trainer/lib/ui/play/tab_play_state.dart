@@ -22,6 +22,7 @@ class TabPlayState extends State<TabPlay> {
               Text(_note, style: TextStyle(fontFamily: "Serif-Led-Board-7", fontSize: _size)),
               Text(_note, style: TextStyle(fontFamily: "Brick-Led-7", fontSize: _size)),
               Text(_note, style: TextStyle(fontFamily: "Triple-Dot-Digital-7", fontSize: _size)),
+              Text(_note, style: TextStyle(fontFamily: "Modern-Lead-Board-7", fontSize: _size)),
             ],
           ),
         ),
