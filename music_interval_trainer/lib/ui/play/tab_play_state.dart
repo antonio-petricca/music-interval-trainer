@@ -12,7 +12,7 @@ class TabPlayState extends State<TabPlay> {
           padding: EdgeInsets.all(25),
           child: Text(
             "SOL#",
-            style: TextStyle(fontFamily: "DS-Digital",fontSize: 50),
+            style: TextStyle(fontFamily: "Mobile-Man",fontSize: 50),
           ),
         ),
       ),

@@ -111,5 +111,8 @@ flutter:
         - asset: fonts/DS-DIGIT.TTF
           style: italic
           weight: 700
+    - family: Mobile-Man
+      fonts:
+        - asset: fonts/mobilman.ttf
 
   generate: true
