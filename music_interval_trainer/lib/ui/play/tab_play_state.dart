@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/tab_play.dart';
 
+import '../../common/ui/fonts_catalog.dart';
+
 class TabPlayState extends State<TabPlay> {
   final String _note = "SOL#9 REb11";
   final double _size = 20;
@@ -18,13 +20,24 @@ class TabPlayState extends State<TabPlay> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(_note,
-                  style: TextStyle(
-                    fontFamily: "Rounded-Led-Board-7",
-                    fontSize: _size,
-                    fontWeight: FontWeight.w400,
-                    color: color,
-                  )),
+              Text(
+                _note,
+                style: TextStyle(
+                  fontFamily: FontsCatalog.roundedLedBoard7,
+                  fontSize: _size,
+                  fontWeight: FontWeight.w400,
+                  color: color,
+                ),
+              ),
+              Text(
+                _note,
+                style: TextStyle(
+                  fontFamily: FontsCatalog.tchaikovsky,
+                  fontSize: _size,
+                  fontWeight: FontWeight.w400,
+                  color: color,
+                ),
+              ),
             ],
           ),
         ),

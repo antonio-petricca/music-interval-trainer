@@ -5,6 +5,7 @@ import 'package:io.github.antoniopetricca.music_interval_trainer/common/ui/widge
 import 'package:io.github.antoniopetricca.music_interval_trainer/ui/settings/tab_settings.dart';
 
 import '../../common/environment/settings_manager.dart';
+import '../../common/ui/custom_icons.dart';
 import '../../common/ui/widget_two_state_button.dart';
 
 class TabSettingsState extends State<TabSettings> {
@@ -83,8 +84,8 @@ class TabSettingsState extends State<TabSettings> {
 
   Widget _buildIntervalsAccidentals(BuildContext context) {
     return WidgetIconLayoutExt(
-      icon: const Icon(Icons.queue_music),
-      iconAlignment: ListTileTitleAlignment.center,
+      icon: const Icon(CustomIcons.musicFlat),
+      iconAlignment: ListTileTitleAlignment.top,
       children: [
         SizedBox(
           width: _infoColumnWidth,
@@ -138,8 +139,8 @@ class TabSettingsState extends State<TabSettings> {
 
   Widget _buildIntervalsExtended(BuildContext context) {
     return WidgetIconLayoutExt(
-      icon: const Icon(Icons.queue_music),
-      iconAlignment: ListTileTitleAlignment.center,
+      icon: const Icon(CustomIcons.musicGraceNote),
+      iconAlignment: ListTileTitleAlignment.top,
       children: [
         SizedBox(
           width: _infoColumnWidth,
@@ -219,7 +220,7 @@ class TabSettingsState extends State<TabSettings> {
 
   Widget _buildKeysList(BuildContext context) {
     return WidgetIconLayoutExt(
-      icon: const Icon(Icons.vpn_key),
+      icon: const Icon(CustomIcons.musicViolinKey),
       iconAlignment: ListTileTitleAlignment.center,
       children: [
         SizedBox(
