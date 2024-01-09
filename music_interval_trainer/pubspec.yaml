@@ -99,4 +99,17 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
+  fonts:
+    # https://docs.flutter.dev/cookbook/design/fonts
+    - family: DS-Digital
+      fonts:
+        - asset: fonts/DS-DIGI.TTF
+        - asset: fonts/DS-DIGIB.TTF
+          weight: 700
+        - asset: fonts/DS-DIGII.TTF
+          style: italic
+        - asset: fonts/DS-DIGIT.TTF
+          style: italic
+          weight: 700
+
   generate: true
