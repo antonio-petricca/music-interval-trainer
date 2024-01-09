@@ -114,5 +114,8 @@ flutter:
     - family: Mobile-Man
       fonts:
         - asset: fonts/mobilman.ttf
+    - family: Rounded-Led-Board-7
+      fonts:
+        - asset: fonts/rounded_led_board-7.ttf
 
   generate: true
