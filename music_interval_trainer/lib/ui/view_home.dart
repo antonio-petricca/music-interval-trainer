@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/view_play.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/ui/view_settings.dart';
 
-import 'about/tab_about.dart';
-import 'home_page.dart';
-import 'play/tab_play.dart';
-import 'settings/tab_settings.dart';
+import 'about/view_about.dart';
 
-class HomePageState extends State<HomePage> {
+class ViewHome extends StatefulWidget {
+  const ViewHome({super.key});
+
+  @override
+  ViewHomeState createState() => ViewHomeState();
+}
+
+class ViewHomeState extends State<ViewHome> {
   int _selectedIndex = 0;
 
   @override
@@ -20,9 +26,9 @@ class HomePageState extends State<HomePage> {
           body: IndexedStack(
             index: _selectedIndex,
             children: const [
-              TabAbout(),
-              TabSettings(),
-              TabPlay(),
+              ViewAbout(),
+              ViewSettings(),
+              ViewPlay(),
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(

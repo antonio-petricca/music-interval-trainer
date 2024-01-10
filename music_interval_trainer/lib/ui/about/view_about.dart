@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/ui/about/tab_about_guide.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/ui/about/tab_about_information.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/ui/about/widget_about_guide.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/ui/about/widget_about_information.dart';
 
-class TabAbout extends StatelessWidget {
-  const TabAbout({super.key});
+class ViewAbout extends StatelessWidget {
+  const ViewAbout({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,9 @@ class TabAbout extends StatelessWidget {
               padding: const EdgeInsets.all(5),
               child: const Column(
                 children: [
-                  TabAboutInformation(),
+                  WidgetAboutInformation(),
                   SizedBox(height: 10),
-                  TabAboutGuide(),
+                  ViewAboutGuide(),
                 ],
               )),
         ]),

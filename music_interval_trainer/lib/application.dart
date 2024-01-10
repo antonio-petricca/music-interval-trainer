@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'ui/home_page.dart';
+import 'ui/view_home.dart';
 
 class Application extends StatelessWidget {
   const Application({super.key});
@@ -15,7 +15,7 @@ class Application extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const ViewHome(),
     );
   }
 }

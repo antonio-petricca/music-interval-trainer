@@ -5,3 +5,4 @@
 - Play: https://pub.dev/documentation/segment_display/latest/ .
 - Settings: tooltips ( https://www.youtube.com/watch?v=EeEfD5fI-5Q&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=137 ).
 - Splash screen
+- Tooltips

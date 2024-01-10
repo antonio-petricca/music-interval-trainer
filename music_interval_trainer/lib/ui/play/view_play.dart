@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/tab_play.dart';
 
 import '../../common/ui/fonts_catalog.dart';
 
-class TabPlayState extends State<TabPlay> {
+class ViewPlay extends StatefulWidget {
+  const ViewPlay({super.key});
+
+  @override
+  ViewPlayState createState() => ViewPlayState();
+}
+
+class ViewPlayState extends State<ViewPlay> {
   final String _note = "SOL#9 REb11";
   final double _size = 20;
 

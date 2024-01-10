@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/common/environment/configuration.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/ui/about/tab_about_information.dart';
 import 'package:package_info/package_info.dart';
 
+import '../../common/environment/configuration.dart';
 import '../../common/ui/widget_card_layout_ext.dart';
 
 // https://chat.openai.com/share/451881ca-686c-4da7-a599-3f83e6b5b35f
+// https://chat.openai.com/share/451881ca-686c-4da7-a599-3f83e6b5b35f
 
-class TabAboutInformationState extends State<TabAboutInformation> {
+class WidgetAboutInformation extends StatefulWidget {
+  const WidgetAboutInformation({super.key});
+
+  @override
+  WidgetAboutInformationState createState() => WidgetAboutInformationState();
+}
+
+class WidgetAboutInformationState extends State<WidgetAboutInformation> {
   final Configuration _configuration = Configuration();
 
   late String _appVersion = '?';

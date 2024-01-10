@@ -4,10 +4,10 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../common/ui/widget_card_layout_ext.dart';
 
-class TabAboutGuide extends StatelessWidget {
+class ViewAboutGuide extends StatelessWidget {
   final String _videoId = 'tIQSV4JJTqI';
 
-  const TabAboutGuide({super.key});
+  const ViewAboutGuide({super.key});
 
   @override
   Widget build(BuildContext context) {

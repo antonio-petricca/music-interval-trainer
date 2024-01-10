@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/common/environment/keys_manager.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/common/ui/widget_icon_layout_ext.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/ui/settings/tab_settings.dart';
 
-import '../../common/environment/settings_manager.dart';
-import '../../common/ui/custom_icons.dart';
-import '../../common/ui/widget_two_state_button.dart';
+import '../common/environment/keys_manager.dart';
+import '../common/environment/settings_manager.dart';
+import '../common/ui/custom_icons.dart';
+import '../common/ui/widget_icon_layout_ext.dart';
+import '../common/ui/widget_two_state_button.dart';
 
-class TabSettingsState extends State<TabSettings> {
+class ViewSettings extends StatefulWidget {
+  const ViewSettings({super.key});
+
+  @override
+  ViewSettingsState createState() => ViewSettingsState();
+}
+
+class ViewSettingsState extends State<ViewSettings> {
   late List<String> _keyLabels;
   final SettingsManager _settingsManager = SettingsManager();
 
