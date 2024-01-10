@@ -38,14 +38,14 @@ class ViewSettingsState extends State<ViewSettings> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildLabel(
-              AppLocalizations.of(context)!.tabSettings_Intervals_Section,
+              AppLocalizations.of(context)!.viewSettings_Intervals_Section,
             ),
             _buildDivider(),
             _buildIntervalsSpeed(context),
             _buildIntervalsAccidentals(context),
             _buildIntervalsExtended(context),
             _buildLabel(
-              AppLocalizations.of(context)!.tabSettings_Keys_Section,
+              AppLocalizations.of(context)!.viewSettings_Keys_Section,
             ),
             _buildDivider(),
             _buildKeysActive(context),
@@ -98,7 +98,7 @@ class ViewSettingsState extends State<ViewSettings> {
           child: Padding(
             padding: _infoColumnPadding,
             child: Text(
-              AppLocalizations.of(context)!.tabSettings_Intervals_Accidentals,
+              AppLocalizations.of(context)!.viewSettings_Intervals_Accidentals,
               textAlign: TextAlign.right,
             ),
           ),
@@ -124,7 +124,7 @@ class ViewSettingsState extends State<ViewSettings> {
           child: Padding(
             padding: _infoColumnPadding,
             child: Text(
-              AppLocalizations.of(context)!.tabSettings_Intervals_Speed(
+              AppLocalizations.of(context)!.viewSettings_Intervals_Speed(
                 _getIntervalsSpeed(),
               ),
               textAlign: TextAlign.right,
@@ -153,7 +153,7 @@ class ViewSettingsState extends State<ViewSettings> {
           child: Padding(
             padding: _infoColumnPadding,
             child: Text(
-              AppLocalizations.of(context)!.tabSettings_Intervals_Extended,
+              AppLocalizations.of(context)!.viewSettings_Intervals_Extended,
               textAlign: TextAlign.right,
             ),
           ),
@@ -179,7 +179,7 @@ class ViewSettingsState extends State<ViewSettings> {
           child: Padding(
             padding: _infoColumnPadding,
             child: Text(
-              AppLocalizations.of(context)!.tabSettings_Keys_Activation,
+              AppLocalizations.of(context)!.viewSettings_Keys_Activation,
               textAlign: TextAlign.right,
             ),
           ),
@@ -205,7 +205,7 @@ class ViewSettingsState extends State<ViewSettings> {
           child: Padding(
             padding: _infoColumnPadding,
             child: Text(
-              AppLocalizations.of(context)!.tabSettings_Keys_Interval(
+              AppLocalizations.of(context)!.viewSettings_Keys_Interval(
                 _settingsManager.keysInterval,
               ),
               textAlign: TextAlign.right,
@@ -234,7 +234,7 @@ class ViewSettingsState extends State<ViewSettings> {
           child: Padding(
             padding: _infoColumnPadding,
             child: Text(
-              AppLocalizations.of(context)!.tabSettings_Keys_Keys,
+              AppLocalizations.of(context)!.viewSettings_Keys_Keys,
               textAlign: TextAlign.right,
             ),
           ),
@@ -278,7 +278,7 @@ class ViewSettingsState extends State<ViewSettings> {
           child: Padding(
             padding: _infoColumnPadding,
             child: Text(
-              AppLocalizations.of(context)!.tabSettings_Keys_Random,
+              AppLocalizations.of(context)!.viewSettings_Keys_Random,
               textAlign: TextAlign.right,
             ),
           ),

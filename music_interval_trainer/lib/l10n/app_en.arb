@@ -1,44 +1,44 @@
 {
   "appTitle": "Interval Music Trainer",
   "keys": "C,G,D,A,E,B,F,Bb,Eb,Ab,Db,Gb,Db",
-  "tabAbout_Guide_Content": "A video is worth a thousand words!",
-  "tabAbout_Guide_Title": "User guide",
-  "tabAbout_Information_SupportEmail": "Support email: {email}",
-  "tabAbout_Information_Title": "Application information",
-  "tabAbout_Information_Version": "Version {version}",
-  "tabSettings_Intervals_Accidentals": "Include accidentals",
-  "tabSettings_Intervals_Duration": "Select duration",
-  "tabSettings_Intervals_Extended": "Extended (9, 11, 13)",
-  "tabSettings_Intervals_Speed": "One per {seconds} seconds",
-  "tabSettings_Intervals_Section": "Intervals",
-  "tabSettings_Keys_Section": "Keys challenge",
-  "tabSettings_Keys_Activation": "Activate / Deactivate",
-  "tabSettings_Keys_Interval": "Each {intervals} interval(s)",
-  "tabSettings_Keys_Keys": "Keys selection",
-  "tabSettings_Keys_Random": "Random progression",
+  "viewAbout_Guide_Content": "A video is worth a thousand words!",
+  "viewAbout_Guide_Title": "User guide",
+  "viewAbout_Information_SupportEmail": "Support email: {email}",
+  "viewAbout_Information_Title": "Application information",
+  "viewAbout_Information_Version": "Version {version}",
+  "viewSettings_Intervals_Accidentals": "Include accidentals",
+  "viewSettings_Intervals_Duration": "Select duration",
+  "viewSettings_Intervals_Extended": "Extended (9, 11, 13)",
+  "viewSettings_Intervals_Speed": "One per {seconds} seconds",
+  "viewSettings_Intervals_Section": "Intervals",
+  "viewSettings_Keys_Section": "Keys challenge",
+  "viewSettings_Keys_Activation": "Activate / Deactivate",
+  "viewSettings_Keys_Interval": "Each {intervals} interval(s)",
+  "viewSettings_Keys_Keys": "Keys selection",
+  "viewSettings_Keys_Random": "Random progression",
 
-  "@tabAbout_Information_Version": {
+  "@viewAbout_Information_Version": {
     "placeholders": {
       "version": {
         "type": "String"
       }
     }
   },
-  "@tabAbout_Information_SupportEmail": {
+  "@viewAbout_Information_SupportEmail": {
     "placeholders": {
       "email": {
         "type": "String"
       }
     }
   },
-  "@tabSettings_Intervals_Speed": {
+  "@viewSettings_Intervals_Speed": {
     "placeholders": {
       "seconds": {
         "type": "String"
       }
     }
   },
-  "@tabSettings_Keys_Interval": {
+  "@viewSettings_Keys_Interval": {
     "placeholders": {
       "intervals": {
         "type": "int"

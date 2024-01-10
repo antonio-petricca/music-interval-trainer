@@ -11,7 +11,7 @@ class ViewPlay extends StatefulWidget {
 }
 
 class ViewPlayState extends State<ViewPlay> {
-  final String _note = "SOL#9 REb11";
+  final String _note = "SOL#9";
   final double _size = 20;
   final _textNotifier = ValueNotifier<String>('Il tuo testo iniziale qui');
 

@@ -14,14 +14,14 @@ class ViewAboutGuide extends StatelessWidget {
     return WidgetCardLayoutExt(
       icon: const Icon(Icons.help_outline_outlined),
       iconAlignment: ListTileTitleAlignment.top,
-      title: AppLocalizations.of(context)!.tabAbout_Guide_Title,
+      title: AppLocalizations.of(context)!.viewAbout_Guide_Title,
       widgets: [
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                AppLocalizations.of(context)!.tabAbout_Guide_Content,
+                AppLocalizations.of(context)!.viewAbout_Guide_Content,
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Padding(

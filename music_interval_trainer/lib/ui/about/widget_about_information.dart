@@ -42,7 +42,7 @@ class WidgetAboutInformationState extends State<WidgetAboutInformation> {
 
     return WidgetCardLayoutExt(
       icon: const Icon(Icons.info_outline_rounded),
-      title: AppLocalizations.of(context)!.tabAbout_Information_Title,
+      title: AppLocalizations.of(context)!.viewAbout_Information_Title,
       iconAlignment: ListTileTitleAlignment.top,
       widgets: [
         Column(
@@ -54,12 +54,12 @@ class WidgetAboutInformationState extends State<WidgetAboutInformation> {
               style: Theme.of(context).textTheme.labelLarge,
             ),
             Text(
-              AppLocalizations.of(context)!.tabAbout_Information_Version(_appVersion),
+              AppLocalizations.of(context)!.viewAbout_Information_Version(_appVersion),
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const Divider(height: 5),
             Text(
-              AppLocalizations.of(context)!.tabAbout_Information_SupportEmail(supportEmail),
+              AppLocalizations.of(context)!.viewAbout_Information_SupportEmail(supportEmail),
               style: Theme.of(context).textTheme.labelSmall,
             ),
           ],
