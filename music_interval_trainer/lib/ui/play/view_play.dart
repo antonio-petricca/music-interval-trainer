@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../common/ui/fonts_catalog.dart';
 import '../../common/ui/widget_blinking_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ViewPlay extends StatefulWidget {
   const ViewPlay({super.key});
@@ -11,9 +12,7 @@ class ViewPlay extends StatefulWidget {
 }
 
 class ViewPlayState extends State<ViewPlay> {
-  final String _note = "SOL#9";
-  final double _size = 20;
-  final _textNotifier = ValueNotifier<String>('Il tuo testo iniziale qui');
+  final _textNotifier = ValueNotifier<String>('C');
 
   bool _isPauseButtonEnabled = false;
   bool _isPlayButtonEnabled = true;
@@ -22,76 +21,118 @@ class ViewPlayState extends State<ViewPlay> {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildIntervalPanel(),
-            _buildKeyPanel(),
-          ],
-        ),
-        _buildToolButtonsBar()
-      ],
+      children: [_buildPlayPanels(), _buildToolButtonsBar(context)],
     );
   }
 
   Widget _buildIntervalPanel() {
-    return Text(
-      _note,
-      style: TextStyle(
-        fontFamily: FontsCatalog.roundedLedBoard7,
-        fontSize: _size,
-        fontWeight: FontWeight.w400,
-        color: Theme.of(context).buttonTheme.colorScheme?.primary,
-      ),
-    );
-  }
-
-  Widget _buildKeyPanel() {
-    return WidgetBlinkingText(
-      textAlign: TextAlign.center,
-      textNotifier: _textNotifier,
-      style: TextStyle(
-        fontFamily: FontsCatalog.roundedLedBoard7,
-        fontSize: _size,
-        fontWeight: FontWeight.w400,
-        color: Theme.of(context).buttonTheme.colorScheme?.primary,
-      ),
-    );
-  }
-
-  Widget _buildToolButtonsBar() {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 40),
-        child: Material(
-          elevation: 4.0,
-          borderRadius: const BorderRadius.all(Radius.circular(6.0)),
-          child: Wrap(
-            direction: Axis.horizontal,
-            children: [
-              MaterialButton(
-                onPressed: (_isPlayButtonEnabled ? _onPlayButtonPressed : null),
-                child: const Icon(Icons.play_arrow),
-              ),
-              MaterialButton(
-                onPressed: (_isPauseButtonEnabled ? _onPauseButtonPressed : null),
-                child: const Icon(Icons.pause),
-              ),
-              MaterialButton(
-                onPressed: (_isStopButtonEnabled ? _onStopButtonPressed : null),
-                child: const Icon(Icons.stop),
-              ),
-            ],
+    return Flexible(
+      flex: 4,
+      fit: FlexFit.tight,
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 25),
+          child: Text(
+            "SOL#",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: FontsCatalog.roundedLedBoard7,
+              fontSize: 30,
+              height: 3,
+              color: Theme.of(context).buttonTheme.colorScheme?.primary,
+            ),
           ),
         ),
       ),
     );
   }
 
-  void _onPressed() {
-    _textNotifier.value = DateTime.timestamp().toString();
+  Widget _buildKeyPanel() {
+    return Flexible(
+      flex: 1,
+      fit: FlexFit.tight,
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 15),
+          child: WidgetBlinkingText(
+            textAlign: TextAlign.center,
+            textNotifier: _textNotifier,
+            style: TextStyle(
+              fontFamily: FontsCatalog.roundedLedBoard7,
+              fontSize: 20,
+              color: Theme.of(context).buttonTheme.colorScheme?.error,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPlayPanels() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 5, right: 5),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildIntervalPanel(),
+          _buildKeyPanel(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildToolButtonsBar(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: Material(
+          elevation: 4.0,
+          borderRadius: const BorderRadius.all(Radius.circular(6.0)),
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Wrap(
+              direction: Axis.horizontal,
+              children: [
+                MaterialButton(
+                  onPressed: (_isPlayButtonEnabled ? _onPlayButtonPressed : null),
+                  child: Column(
+                    children: [
+                      const Icon(Icons.play_arrow),
+                      Text(
+                        AppLocalizations.of(context)!.viewPlay_Buttons_Play,
+                      ),
+                    ],
+                  ),
+                ),
+                MaterialButton(
+                  onPressed: (_isPauseButtonEnabled ? _onPauseButtonPressed : null),
+                  child: Column(
+                    children: [
+                      const Icon(Icons.pause),
+                      Text(
+                        AppLocalizations.of(context)!.viewPlay_Buttons_Pause,
+                      ),
+                    ],
+                  ),
+                ),
+                MaterialButton(
+                  onPressed: (_isStopButtonEnabled ? _onStopButtonPressed : null),
+                  child: Column(
+                    children: [
+                      const Icon(Icons.stop),
+                      Text(
+                        AppLocalizations.of(context)!.viewPlay_Buttons_Stop,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   void _onPauseButtonPressed() {

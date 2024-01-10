@@ -25,7 +25,7 @@ class ViewAboutGuide extends StatelessWidget {
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 15, 0, 10),
+                padding: const EdgeInsets.only(top: 15, bottom: 10),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,

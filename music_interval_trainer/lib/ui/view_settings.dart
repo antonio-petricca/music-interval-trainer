@@ -18,9 +18,9 @@ class ViewSettingsState extends State<ViewSettings> {
   late List<String> _keyLabels;
   final SettingsManager _settingsManager = SettingsManager();
 
-  final EdgeInsetsGeometry _editorColumnPadding = const EdgeInsets.fromLTRB(20, 0, 20, 0);
+  final EdgeInsetsGeometry _editorColumnPadding = const EdgeInsets.only(left: 20, right: 20);
   final double _infoColumnWidth = 150;
-  final EdgeInsetsGeometry _infoColumnPadding = const EdgeInsets.fromLTRB(0, 0, 10, 0);
+  final EdgeInsetsGeometry _infoColumnPadding = const EdgeInsets.only(right: 10);
 
   final double _intervalsSpeedMin = 5;
   final double _intervalsSpeedMax = 50;
