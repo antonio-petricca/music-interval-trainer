@@ -9,6 +9,8 @@
   "viewPlay_Buttons_Pause": "Pause",
   "viewPlay_Buttons_Play": "Play",
   "viewPlay_Buttons_Stop": "Stop",
+  "viewPlay_Info_Count_Label": "Intervals count:",
+  "viewPlay_Info_ElapsedTime_Label": "Elapsed time:",
   "viewSettings_Intervals_Accidentals": "Include accidentals",
   "viewSettings_Intervals_Duration": "Select duration",
   "viewSettings_Intervals_Extended": "Extended (9, 11, 13)",
