@@ -28,6 +28,17 @@ class ViewSettingsState extends State<ViewSettings> {
   final double _keySuggestIntervalMax = 100;
 
   @override
+  void initState() {
+    super.initState();
+
+    _settingsManager.load(
+          () => setState(() {
+        // Refresh UI with loaded settings.
+      }),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     _keyLabels = KeysManager(context).getList();
 
@@ -55,17 +66,6 @@ class ViewSettingsState extends State<ViewSettings> {
           ],
         ),
       ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _settingsManager.load(
-      () => setState(() {
-        // Refresh UI with loaded settings.
-      }),
     );
   }
 

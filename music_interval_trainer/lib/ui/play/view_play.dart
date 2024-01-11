@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../common/environment/keys_manager.dart';
+import '../../common/environment/settings_manager.dart';
 import '../../common/ui/fonts_catalog.dart';
 import '../../common/ui/widget_blinking_text.dart';
 import '../../common/utils.dart';
@@ -13,6 +15,9 @@ class ViewPlay extends StatefulWidget {
 }
 
 class ViewPlayState extends State<ViewPlay> {
+  late List<String> _keyLabels;
+  final SettingsManager _settingsManager = SettingsManager();
+
   final _intervalTextNotifier = ValueNotifier<String>('11b'); //TODO
   final _keyTextNotifier = ValueNotifier<String>('MIb'); //TODO
 
@@ -25,7 +30,20 @@ class ViewPlayState extends State<ViewPlay> {
   int _infoIntervalsCount = 0;
 
   @override
+  void initState() {
+    super.initState();
+
+    _settingsManager.load(
+      () => setState(() {
+        // Refresh UI with loaded settings.
+      }),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _keyLabels = KeysManager(context).getList();
+
     return Stack(
       children: [
         Column(

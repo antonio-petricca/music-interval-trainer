@@ -1,3 +1,4 @@
+- Dirty flag for settings change on play view.
 - Full help (no more video).
 - Keys as premium feature.
 - Play: animated opacity ( https://www.youtube.com/watch?v=QZAvjqOqiLY&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=106 ).
