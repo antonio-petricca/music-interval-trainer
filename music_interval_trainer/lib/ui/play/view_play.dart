@@ -62,6 +62,9 @@ class ViewPlayState extends State<ViewPlay> {
     );
   }
 
+  bool isPaused() => !_isPauseButtonEnabled && !_isStopButtonEnabled;
+  bool isRunning() => !_isPlayButtonEnabled;
+
   Widget _buildInfoPanelRow(Icon icon, String label, String info) {
     return Row(
       children: [
@@ -235,6 +238,8 @@ class ViewPlayState extends State<ViewPlay> {
   }
 
   void _doPause() {
+    _stopTimer();
+
     setState(() {
       _isPlayButtonEnabled = true;
       _isPauseButtonEnabled = false;
@@ -244,6 +249,12 @@ class ViewPlayState extends State<ViewPlay> {
 
   void _doPlay() {
     setState(() {
+      if (isPaused()) {
+        _infoElapsedTimeChunk = null;
+        _infoElapsedTimeTotal = null;
+        _infoIntervalsCount = 0;
+      }
+
       _isPlayButtonEnabled = false;
       _isPauseButtonEnabled = true;
       _isStopButtonEnabled = true;
@@ -259,10 +270,6 @@ class ViewPlayState extends State<ViewPlay> {
       _isPlayButtonEnabled = true;
       _isPauseButtonEnabled = false;
       _isStopButtonEnabled = false;
-
-      _infoElapsedTimeChunk = null;
-      _infoElapsedTimeTotal = null;
-      _infoIntervalsCount = 0;
     });
   }
 
