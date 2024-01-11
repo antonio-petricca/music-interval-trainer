@@ -20,10 +20,9 @@ class ViewPlayState extends State<ViewPlay> {
   bool _isPlayButtonEnabled = true;
   bool _isStopButtonEnabled = false;
 
-
   Duration? _infoElapsedTimeChunk;
   Duration? _infoElapsedTimeTotal;
-  int       _infoIntervalsCount = 0;
+  int _infoIntervalsCount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +76,8 @@ class ViewPlayState extends State<ViewPlay> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildInfoPanelRow(
-                const Icon(Icons.timer_outlined),
-                AppLocalizations.of(context)!.viewPlay_Info_ElapsedTime_Label,
-            Utils.formatDuration(_infoElapsedTimeTotal, "-")
-              ),
+              _buildInfoPanelRow(const Icon(Icons.timer_outlined), AppLocalizations.of(context)!.viewPlay_Info_ElapsedTime_Label,
+                  Utils.formatDuration(_infoElapsedTimeTotal, "-")),
               _buildInfoPanelRow(
                 const Icon(Icons.straighten),
                 AppLocalizations.of(context)!.viewPlay_Info_Count_Label,
@@ -117,7 +113,7 @@ class ViewPlayState extends State<ViewPlay> {
   Widget _buildPlayIntervalPanel() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(bottom: 20, top: 90),
+      padding: const EdgeInsets.only(bottom: 20, top: 140),
       child: ValueListenableBuilder(
         valueListenable: _intervalTextNotifier,
         builder: (context, value, child) {
@@ -215,7 +211,7 @@ class ViewPlayState extends State<ViewPlay> {
     );
   }
 
-  void _onPauseButtonPressed() {
+  void _doPause() {
     setState(() {
       _isPlayButtonEnabled = true;
       _isPauseButtonEnabled = false;
@@ -223,7 +219,7 @@ class ViewPlayState extends State<ViewPlay> {
     });
   }
 
-  void _onPlayButtonPressed() {
+  void _doPlay() {
     setState(() {
       _isPlayButtonEnabled = false;
       _isPauseButtonEnabled = true;
@@ -231,11 +227,50 @@ class ViewPlayState extends State<ViewPlay> {
     });
   }
 
-  void _onStopButtonPressed() {
+  void _doStop() {
     setState(() {
       _isPlayButtonEnabled = true;
       _isPauseButtonEnabled = false;
       _isStopButtonEnabled = false;
     });
+  }
+
+  void _onPauseButtonPressed() {
+    _doPause();
+  }
+
+  void _onPlayButtonPressed() {
+    _doPlay();
+  }
+
+  void _onStopButtonPressed() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            AppLocalizations.of(context)!.viewPlay_StopAlert_Title,
+          ),
+          content: Text(
+            AppLocalizations.of(context)!.viewPlay_StopAlert_Title,
+          ),
+          actions: [
+            TextButton(
+              child: const Text('Annulla'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Termina'),
+              onPressed: () {
+                _doStop();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
