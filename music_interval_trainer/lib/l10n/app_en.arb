@@ -12,6 +12,8 @@
   "viewPlay_Info_Count_Label": "Intervals count:",
   "viewPlay_Info_ElapsedTime_Label": "Elapsed time:",
   "viewPlay_StopAlert_Title": "Attention",
+  "viewPlay_StopAlert_Button_Cancel": "Cancel",
+  "viewPlay_StopAlert_Button_Terminate": "Terminate",
   "viewSettings_Intervals_Accidentals": "Include accidentals",
   "viewSettings_Intervals_Duration": "Select duration",
   "viewSettings_Intervals_Extended": "Extended (9, 11, 13)",

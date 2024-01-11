@@ -11,6 +11,8 @@
   "viewPlay_Buttons_Stop": "Stop",
   "viewPlay_Info_Count_Label": "Numero intervalli:",
   "viewPlay_StopAlert_Title": "Attenzione",
+  "viewPlay_StopAlert_Button_Cancel": "Annulla",
+  "viewPlay_StopAlert_Button_Terminate": "Termina",
   "viewPlay_Info_ElapsedTime_Label": "Tempo trascorso:",
   "viewSettings_Intervals_Accidentals": "Includi alterazioni",
   "viewSettings_Intervals_Duration": "Selezione durata",

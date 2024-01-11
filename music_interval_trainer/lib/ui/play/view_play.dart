@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -28,6 +30,9 @@ class ViewPlayState extends State<ViewPlay> {
   Duration? _infoElapsedTimeChunk;
   Duration? _infoElapsedTimeTotal;
   int _infoIntervalsCount = 0;
+
+  Timer? _timer;
+  Duration? _timerInterval;
 
   @override
   void initState() {
@@ -243,13 +248,21 @@ class ViewPlayState extends State<ViewPlay> {
       _isPauseButtonEnabled = true;
       _isStopButtonEnabled = true;
     });
+
+    _startTimer();
   }
 
   void _doStop() {
+    _stopTimer();
+
     setState(() {
       _isPlayButtonEnabled = true;
       _isPauseButtonEnabled = false;
       _isStopButtonEnabled = false;
+
+      _infoElapsedTimeChunk = null;
+      _infoElapsedTimeTotal = null;
+      _infoIntervalsCount = 0;
     });
   }
 
@@ -262,6 +275,8 @@ class ViewPlayState extends State<ViewPlay> {
   }
 
   void _onStopButtonPressed() {
+    _stopTimer();
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -274,13 +289,18 @@ class ViewPlayState extends State<ViewPlay> {
           ),
           actions: [
             TextButton(
-              child: const Text('Annulla'),
+              child: Text(
+                AppLocalizations.of(context)!.viewPlay_StopAlert_Button_Cancel,
+              ),
               onPressed: () {
+                _startTimer();
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: const Text('Termina'),
+              child: Text(
+                AppLocalizations.of(context)!.viewPlay_StopAlert_Button_Terminate,
+              ),
               onPressed: () {
                 _doStop();
                 Navigator.of(context).pop();
@@ -290,5 +310,34 @@ class ViewPlayState extends State<ViewPlay> {
         );
       },
     );
+  }
+
+  void _onTimer(Timer timer) {
+    _stopTimer();
+
+    setState(() {
+      _infoIntervalsCount++;
+    });
+
+    _timer = Timer.periodic(_timerInterval!, _onTimer);
+  }
+
+  void _startTimer() {
+    _timerInterval = Duration(
+      milliseconds: (_settingsManager.executionInterval.toInt() * 100),
+    );
+
+    _timer = Timer.periodic(_timerInterval!, _onTimer);
+  }
+
+  void _stopTimer() {
+    if (null != _timer) {
+      _timer?.cancel();
+      _timer = null;
+
+      setState(() {
+        // Refresh UI
+      });
+    }
   }
 }
