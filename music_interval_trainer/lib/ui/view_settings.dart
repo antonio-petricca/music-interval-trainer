@@ -21,6 +21,8 @@ class ViewSettingsState extends State<ViewSettings> {
   final EdgeInsetsGeometry _editorColumnPadding = const EdgeInsets.only(left: 20, right: 20);
   final double _infoColumnWidth = 150;
   final EdgeInsetsGeometry _infoColumnPadding = const EdgeInsets.only(right: 10);
+  final EdgeInsetsGeometry _otherListTilePadding = const EdgeInsets.only(left: 10, right: 10);
+  final EdgeInsetsGeometry _sliderListTilePadding = const EdgeInsets.only(left: 10);
 
   final int _intervalsSpeedQuantumDivisions = (SettingsManager.intervalsSpeedQuantumMax - SettingsManager.intervalsSpeedQuantumMin).toInt();
 
@@ -95,6 +97,7 @@ class ViewSettingsState extends State<ViewSettings> {
     return WidgetIconLayoutExt(
       icon: const Icon(CustomIcons.musicFlat),
       iconAlignment: ListTileTitleAlignment.top,
+      contentPadding: _otherListTilePadding,
       children: [
         SizedBox(
           width: _infoColumnWidth,
@@ -121,6 +124,7 @@ class ViewSettingsState extends State<ViewSettings> {
     return WidgetIconLayoutExt(
       icon: const Icon(CustomIcons.musicGraceNote),
       iconAlignment: ListTileTitleAlignment.top,
+      contentPadding: _otherListTilePadding,
       children: [
         SizedBox(
           width: _infoColumnWidth,
@@ -147,6 +151,7 @@ class ViewSettingsState extends State<ViewSettings> {
     return WidgetIconLayoutExt(
       icon: const Icon(Icons.timelapse_outlined),
       iconAlignment: ListTileTitleAlignment.center,
+      contentPadding: _sliderListTilePadding,
       children: [
         SizedBox(
           width: _infoColumnWidth,
@@ -177,6 +182,7 @@ class ViewSettingsState extends State<ViewSettings> {
     return WidgetIconLayoutExt(
       icon: const Icon(Icons.power_settings_new),
       iconAlignment: ListTileTitleAlignment.center,
+      contentPadding: _otherListTilePadding,
       children: [
         SizedBox(
           width: _infoColumnWidth,
@@ -203,6 +209,7 @@ class ViewSettingsState extends State<ViewSettings> {
     return WidgetIconLayoutExt(
       icon: const Icon(Icons.trending_up),
       iconAlignment: ListTileTitleAlignment.center,
+      contentPadding: _otherListTilePadding,
       children: [
         SizedBox(
           width: _infoColumnWidth,
@@ -232,6 +239,7 @@ class ViewSettingsState extends State<ViewSettings> {
     return WidgetIconLayoutExt(
       icon: const Icon(CustomIcons.musicViolinKey),
       iconAlignment: ListTileTitleAlignment.center,
+      contentPadding: _otherListTilePadding,
       children: [
         SizedBox(
           width: _infoColumnWidth,
@@ -276,6 +284,7 @@ class ViewSettingsState extends State<ViewSettings> {
     return WidgetIconLayoutExt(
       icon: const Icon(Icons.loop),
       iconAlignment: ListTileTitleAlignment.center,
+      contentPadding: _otherListTilePadding,
       children: [
         SizedBox(
           width: _infoColumnWidth,
@@ -302,6 +311,7 @@ class ViewSettingsState extends State<ViewSettings> {
     return WidgetIconLayoutExt(
       icon: const Icon(Icons.volume_up_outlined),
       iconAlignment: ListTileTitleAlignment.center,
+      contentPadding: _otherListTilePadding,
       children: [
         SizedBox(
           width: _infoColumnWidth,
@@ -328,6 +338,7 @@ class ViewSettingsState extends State<ViewSettings> {
     return WidgetIconLayoutExt(
       icon: const Icon(Icons.vibration),
       iconAlignment: ListTileTitleAlignment.center,
+      contentPadding: _otherListTilePadding,
       children: [
         SizedBox(
           width: _infoColumnWidth,
