@@ -24,8 +24,8 @@ class ViewSettingsState extends State<ViewSettings> {
 
   final double _intervalsSpeedMin = 5;
   final double _intervalsSpeedMax = 50;
-  final double _keySuggestIntervalMin = 1;
-  final double _keySuggestIntervalMax = 100;
+  final double _keyIntervalMin = 1;
+  final double _keyIntervalMax = 100;
 
   @override
   void initState() {
@@ -221,8 +221,8 @@ class ViewSettingsState extends State<ViewSettings> {
         Expanded(
           child: Slider(
             value: _settingsManager.keysInterval.toDouble(),
-            min: _keySuggestIntervalMin,
-            max: _keySuggestIntervalMax,
+            min: _keyIntervalMin,
+            max: _keyIntervalMax,
             onChanged: _onKeysIntervalChanged,
           ),
         ),
