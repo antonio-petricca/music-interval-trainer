@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../common/environment/keys_manager.dart';
 import '../../common/environment/settings_manager.dart';
+import '../../common/ui/custom_icons.dart';
 import '../../common/ui/fonts_catalog.dart';
 import '../../common/ui/widget_blinking_text.dart';
 import '../../common/utils.dart';
@@ -23,7 +24,7 @@ class ViewPlayState extends State<ViewPlay> {
   final SettingsManager _settingsManager = SettingsManager();
 
   final _intervalTextNotifier = ValueNotifier<String>('11b'); //TODO
-  final _keyTextNotifier = ValueNotifier<String>('MIb'); //TODO
+  final _keyTextNotifier = ValueNotifier<String>('SOL'); //TODO
 
   bool _isPauseButtonEnabled = false;
   bool _isPlayButtonEnabled = true;
@@ -135,14 +136,14 @@ class ViewPlayState extends State<ViewPlay> {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Stack(
-        children: <Widget>[
+        children: [
           _buildPlayIntervalPanel(),
           Positioned(
             top: 15,
             right: 15,
             child: SizedBox(
-              width: 70.0,
-              height: 70.0,
+              width: 80.0,
+              height: 80.0,
               child: _buildPlayKeyPanel(),
             ),
           ),
@@ -177,20 +178,38 @@ class ViewPlayState extends State<ViewPlay> {
       aspectRatio: 1,
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(5),
           child: FittedBox(
             fit: BoxFit.contain,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 20), // Compensate "fontSize"
-              child: WidgetBlinkingText(
-                textAlign: TextAlign.center,
-                textNotifier: _keyTextNotifier,
-                style: TextStyle(
-                  color: Theme.of(context).buttonTheme.colorScheme?.error,
-                  fontFamily: FontsCatalog.roundedLedBoard7,
-                  fontSize: 20,
+            child: Stack(
+              children: [
+                const Positioned(
+                  bottom: 5,
+                  right: 0,
+                  child: Opacity(
+                    opacity: 0.75,
+                    child: Icon(
+                      CustomIcons.musicViolinKey,
+                      size: 10,
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20), // Compensate "fontSize"
+                    child: WidgetBlinkingText(
+                      textAlign: TextAlign.center,
+                      textNotifier: _keyTextNotifier,
+                      style: TextStyle(
+                        color: Theme.of(context).buttonTheme.colorScheme?.error,
+                        fontFamily: FontsCatalog.roundedLedBoard7,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

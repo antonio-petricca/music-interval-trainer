@@ -1,7 +1,7 @@
 - Full help (no more video).
 - Keys as premium feature.
-- Play: key panel icon.
 - Play: play the exercise...
 - Play: compute elapsed time.
 - Settings: tooltips ( https://www.youtube.com/watch?v=EeEfD5fI-5Q&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=137 ).
 - System: pause on focus lost.
+- UI: better splash image.
