@@ -61,7 +61,7 @@ class ViewPlayState extends State<ViewPlay> {
 
   void reload() {
     _settingsManager.load(
-          () => setState(() {
+      () => setState(() {
         // Refresh UI with loaded settings.
       }),
     );
@@ -74,7 +74,6 @@ class ViewPlayState extends State<ViewPlay> {
     } else {
       setStateCallback();
     }
-  
   }
 
   Widget _buildInfoPanelRow(Icon icon, String label, String info) {
@@ -98,6 +97,7 @@ class ViewPlayState extends State<ViewPlay> {
           child: Text(
             info,
             textAlign: TextAlign.center,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
       ],
@@ -114,8 +114,11 @@ class ViewPlayState extends State<ViewPlay> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildInfoPanelRow(const Icon(Icons.timer_outlined), AppLocalizations.of(context)!.viewPlay_Info_ElapsedTime_Label,
-                  Utils.formatDuration(_infoElapsedTimeTotal, "-")),
+              _buildInfoPanelRow(
+                const Icon(Icons.timer_outlined),
+                AppLocalizations.of(context)!.viewPlay_Info_ElapsedTime_Label,
+                Utils.formatDuration(_infoElapsedTimeTotal, "-"),
+              ),
               _buildInfoPanelRow(
                 const Icon(Icons.straighten),
                 AppLocalizations.of(context)!.viewPlay_Info_Count_Label,
