@@ -24,7 +24,7 @@
   "viewSettings_Intervals_Section": "Intervalli",
   "viewSettings_Keys_Section": "Sfida delle tonalità",
   "viewSettings_Keys_Activation": "Attiva / Disattiva",
-  "viewSettings_Keys_Interval": "Ogni {intervals} intervalli",
+  "viewSettings_Keys_ChangeInterval": "Cambio ogni {intervals}",
   "viewSettings_Keys_Keys": "Selezione tonalità",
   "viewSettings_Keys_Random": "Progressione casuale",
   "viewSettings_UX_Section": "Interfaccia utente",

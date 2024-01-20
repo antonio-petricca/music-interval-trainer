@@ -10,8 +10,8 @@ class SettingsManager {
   double _intervalsSpeed = 20; // 2 seconds (10 tenths of second * 2)
 
   bool _keysActive = false;
+  int _keysChangeInterval = 7;
   bool _keysRandom = false;
-  int _keysInterval = 7;
   List<bool> _keysList = [true, false, false, false, false, false, false, false, false, false, false, false];
 
   bool _uxFeedbackSound = true;
@@ -33,8 +33,8 @@ class SettingsManager {
     _intervalsSpeed = _preferences.getDouble(SettingsCatalog.intervalsSpeed) ?? _intervalsSpeed;
 
     _keysActive = _preferences.getBool(SettingsCatalog.keysActive) ?? _keysActive;
+    _keysChangeInterval = _preferences.getInt(SettingsCatalog.keysChangeInterval) ?? _keysChangeInterval;
     _keysRandom = _preferences.getBool(SettingsCatalog.keysRandom) ?? _keysRandom;
-    _keysInterval = _preferences.getInt(SettingsCatalog.keysInterval) ?? _keysInterval;
 
     List<String> tmpKeysList = _preferences.getStringList(SettingsCatalog.keysList) ?? [];
 
@@ -69,14 +69,14 @@ class SettingsManager {
       _keysActive,
     );
 
+    _preferences.setInt(
+      SettingsCatalog.keysChangeInterval,
+      _keysChangeInterval,
+    );
+
     _preferences.setBool(
       SettingsCatalog.keysRandom,
       _keysRandom,
-    );
-
-    _preferences.setInt(
-      SettingsCatalog.keysInterval,
-      _keysInterval,
     );
 
     List<String> tmpKeysList = _keysList.map((element) => element.toString()).toList();
@@ -118,17 +118,17 @@ class SettingsManager {
     _save();
   }
 
+  int get keysChangeInterval => _keysChangeInterval;
+
+  set keysChangeInterval(int value) {
+    _keysChangeInterval = value;
+    _save();
+  }
+
   bool get keysRandom => _keysRandom;
 
   set keysRandom(bool value) {
     _keysRandom = value;
-    _save();
-  }
-
-  int get keysInterval => _keysInterval;
-
-  set keysInterval(int value) {
-    _keysInterval = value;
     _save();
   }
 

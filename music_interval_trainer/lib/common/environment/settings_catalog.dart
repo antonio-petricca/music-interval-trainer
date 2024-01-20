@@ -6,7 +6,7 @@ class SettingsCatalog {
 
   static const String _keys = "keys";
   static const String keysActive = "$_keys.active";
-  static const String keysInterval = "$_keys.interval";
+  static const String keysChangeInterval = "$_keys.change.interval";
   static const String keysList = "$_keys.list";
   static const String keysRandom = "$_keys.random";
 

@@ -24,7 +24,7 @@
   "viewSettings_Intervals_Section": "Intervals",
   "viewSettings_Keys_Section": "Keys challenge",
   "viewSettings_Keys_Activation": "Activate / Deactivate",
-  "viewSettings_Keys_Interval": "Each {intervals} interval(s)",
+  "viewSettings_Keys_ChangeInterval": "Change each {intervals}",
   "viewSettings_Keys_Keys": "Keys selection",
   "viewSettings_Keys_Random": "Random progression",
   "viewSettings_UX_Section": "User Experience",

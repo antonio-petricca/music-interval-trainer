@@ -24,8 +24,8 @@ class ViewSettingsState extends State<ViewSettings> {
 
   final double _intervalsSpeedMin = 5;
   final double _intervalsSpeedMax = 50;
-  final double _keyIntervalMin = 1;
-  final double _keyIntervalMax = 100;
+  final double _keyChangeIntervalMin = 1;
+  final double _keyChangeIntervalMax = 100;
 
   @override
   void initState() {
@@ -211,8 +211,8 @@ class ViewSettingsState extends State<ViewSettings> {
           child: Padding(
             padding: _infoColumnPadding,
             child: Text(
-              AppLocalizations.of(context)!.viewSettings_Keys_Interval(
-                _settingsManager.keysInterval,
+              AppLocalizations.of(context)!.viewSettings_Keys_ChangeInterval(
+                _settingsManager.keysChangeInterval,
               ),
               textAlign: TextAlign.right,
             ),
@@ -220,9 +220,9 @@ class ViewSettingsState extends State<ViewSettings> {
         ),
         Expanded(
           child: Slider(
-            value: _settingsManager.keysInterval.toDouble(),
-            min: _keyIntervalMin,
-            max: _keyIntervalMax,
+            value: _settingsManager.keysChangeInterval.toDouble(),
+            min: _keyChangeIntervalMin,
+            max: _keyChangeIntervalMax,
             onChanged: _onKeysIntervalChanged,
           ),
         ),
@@ -398,7 +398,7 @@ class ViewSettingsState extends State<ViewSettings> {
 
   Future<void> _onKeysIntervalChanged(double value) async {
     setState(() {
-      _settingsManager.keysInterval = value.toInt();
+      _settingsManager.keysChangeInterval = value.toInt();
     });
   }
 
