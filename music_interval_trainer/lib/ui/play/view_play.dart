@@ -297,7 +297,7 @@ class ViewPlayState extends State<ViewPlay> {
     }
 
     if (_settingsManager.uxFeedbackVibration) {
-      HapticFeedback.lightImpact();
+      HapticFeedback.mediumImpact();
     }
   }
 
