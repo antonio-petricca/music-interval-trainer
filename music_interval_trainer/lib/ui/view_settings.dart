@@ -22,10 +22,7 @@ class ViewSettingsState extends State<ViewSettings> {
   final double _infoColumnWidth = 150;
   final EdgeInsetsGeometry _infoColumnPadding = const EdgeInsets.only(right: 10);
 
-  final double _intervalsSpeedMin = 5;
-  final double _intervalsSpeedMax = 50;
-  final double _keyChangeIntervalMin = 1;
-  final double _keyChangeIntervalMax = 100;
+  final int _intervalsSpeedQuantumDivisions = (SettingsManager.intervalsSpeedQuantumMax - SettingsManager.intervalsSpeedQuantumMin).toInt();
 
   @override
   void initState() {
@@ -52,7 +49,7 @@ class ViewSettingsState extends State<ViewSettings> {
               AppLocalizations.of(context)!.viewSettings_Intervals_Section,
             ),
             _buildDivider(),
-            _buildIntervalsSpeed(context),
+            _buildIntervalsSpeedQuantum(context),
             _buildIntervalsAccidentals(context),
             _buildIntervalsExtended(context),
             _buildLabel(
@@ -120,7 +117,7 @@ class ViewSettingsState extends State<ViewSettings> {
     );
   }
 
-  Widget _buildIntervalsSpeed(BuildContext context) {
+  Widget _buildIntervalsSpeedQuantum(BuildContext context) {
     return WidgetIconLayoutExt(
       icon: const Icon(Icons.timelapse_outlined),
       iconAlignment: ListTileTitleAlignment.center,
@@ -139,10 +136,11 @@ class ViewSettingsState extends State<ViewSettings> {
         ),
         Expanded(
           child: Slider(
-            value: _settingsManager.executionInterval,
-            min: _intervalsSpeedMin,
-            max: _intervalsSpeedMax,
-            onChanged: _onIntervalsSpeedChanged,
+            value: _settingsManager.executionIntervalQuantum.toDouble(),
+            min: SettingsManager.intervalsSpeedQuantumMin.toDouble(),
+            max: SettingsManager.intervalsSpeedQuantumMax.toDouble(),
+            divisions: _intervalsSpeedQuantumDivisions,
+            onChanged: _onIntervalsSpeedQuantumChanged,
           ),
         ),
       ],
@@ -221,8 +219,8 @@ class ViewSettingsState extends State<ViewSettings> {
         Expanded(
           child: Slider(
             value: _settingsManager.keysChangeInterval.toDouble(),
-            min: _keyChangeIntervalMin,
-            max: _keyChangeIntervalMax,
+            min: SettingsManager.keyChangeIntervalMin.toDouble(),
+            max: SettingsManager.keyChangeIntervalMax.toDouble(),
             onChanged: _onKeysIntervalChanged,
           ),
         ),
@@ -354,13 +352,14 @@ class ViewSettingsState extends State<ViewSettings> {
 
   String _getIntervalsSpeed() {
     Duration duration = Duration(
-      milliseconds: (_settingsManager.executionInterval.toInt() * 100),
+      milliseconds: (_settingsManager.executionIntervalQuantum / SettingsManager.intervalsSpeedFactor * 1000).toInt(),
     );
 
     int secs = duration.inSeconds;
-    int tenths = ((duration.inMilliseconds - (secs * 1000)) ~/ 100);
+    int mils = (duration.inMilliseconds - (secs * 1000));
+    int milsFraction = mils ~/ 100;
 
-    return '${secs.toString()}.${tenths.toString()}';
+    return '${secs.toString()}.${milsFraction.toString()}';
   }
 
   void _onIntervalsAccidentalsChanged(bool? value) {
@@ -375,9 +374,9 @@ class ViewSettingsState extends State<ViewSettings> {
     });
   }
 
-  Future<void> _onIntervalsSpeedChanged(double value) async {
+  Future<void> _onIntervalsSpeedQuantumChanged(double value) async {
     setState(() {
-      _settingsManager.executionInterval = value;
+      _settingsManager.executionIntervalQuantum = value.toInt();
     });
   }
 

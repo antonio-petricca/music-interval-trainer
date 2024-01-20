@@ -370,7 +370,7 @@ class ViewPlayState extends State<ViewPlay> {
 
   void _startTimer() {
     _timerInterval = Duration(
-      milliseconds: (_settingsManager.executionInterval.toInt() * 100),
+      milliseconds: (_settingsManager.executionIntervalQuantum / SettingsManager.intervalsSpeedFactor * 1000).toInt(),
     );
 
     _timer = Timer.periodic(_timerInterval!, _onTimer);

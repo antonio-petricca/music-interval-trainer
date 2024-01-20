@@ -1,9 +1,6 @@
 - Full help (no more video).
 - Keys as premium feature.
-- Play: check correct interval.
-- Play: limit interval to 1 second.
 - Play: key panel icon.
 - Play: play the exercise...
 - Play: compute elapsed time.
 - Settings: tooltips ( https://www.youtube.com/watch?v=EeEfD5fI-5Q&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=137 ).
-- Settings/Play: interval in half seconds.

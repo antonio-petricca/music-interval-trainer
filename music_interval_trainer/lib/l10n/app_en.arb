@@ -20,7 +20,7 @@
   "viewSettings_Intervals_Accidentals": "Include accidentals",
   "viewSettings_Intervals_Duration": "Select duration",
   "viewSettings_Intervals_Extended": "Extended (9, 11, 13)",
-  "viewSettings_Intervals_Speed": "One per {seconds} seconds",
+  "viewSettings_Intervals_Speed": "One at {seconds} seconds",
   "viewSettings_Intervals_Section": "Intervals",
   "viewSettings_Keys_Section": "Keys challenge",
   "viewSettings_Keys_Activation": "Activate / Deactivate",

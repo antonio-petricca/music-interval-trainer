@@ -2,7 +2,7 @@ class SettingsCatalog {
   static const String _intervals = "intervals";
   static const String intervalsAccidentals = "$_intervals.accidentals";
   static const String intervalsExtendedIntervals = "$_intervals.extended";
-  static const String intervalsSpeed = "$_intervals.speed";
+  static const String intervalsSpeedQuantum = "$_intervals.speed-quantum";
 
   static const String _keys = "keys";
   static const String keysActive = "$_keys.active";
