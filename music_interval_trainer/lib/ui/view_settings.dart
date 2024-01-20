@@ -117,6 +117,32 @@ class ViewSettingsState extends State<ViewSettings> {
     );
   }
 
+  Widget _buildIntervalsExtended(BuildContext context) {
+    return WidgetIconLayoutExt(
+      icon: const Icon(CustomIcons.musicGraceNote),
+      iconAlignment: ListTileTitleAlignment.top,
+      children: [
+        SizedBox(
+          width: _infoColumnWidth,
+          child: Padding(
+            padding: _infoColumnPadding,
+            child: Text(
+              AppLocalizations.of(context)!.viewSettings_Intervals_Extended,
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ),
+        Padding(
+          padding: _editorColumnPadding,
+          child: Switch(
+            value: _settingsManager.executionExtendedIntervals,
+            onChanged: _onIntervalsExtendedChanged,
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildIntervalsSpeedQuantum(BuildContext context) {
     return WidgetIconLayoutExt(
       icon: const Icon(Icons.timelapse_outlined),
@@ -141,32 +167,6 @@ class ViewSettingsState extends State<ViewSettings> {
             max: SettingsManager.intervalsSpeedQuantumMax.toDouble(),
             divisions: _intervalsSpeedQuantumDivisions,
             onChanged: _onIntervalsSpeedQuantumChanged,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildIntervalsExtended(BuildContext context) {
-    return WidgetIconLayoutExt(
-      icon: const Icon(CustomIcons.musicGraceNote),
-      iconAlignment: ListTileTitleAlignment.top,
-      children: [
-        SizedBox(
-          width: _infoColumnWidth,
-          child: Padding(
-            padding: _infoColumnPadding,
-            child: Text(
-              AppLocalizations.of(context)!.viewSettings_Intervals_Extended,
-              textAlign: TextAlign.right,
-            ),
-          ),
-        ),
-        Padding(
-          padding: _editorColumnPadding,
-          child: Switch(
-            value: _settingsManager.executionExtendedIntervals,
-            onChanged: _onIntervalsExtendedChanged,
           ),
         ),
       ],
