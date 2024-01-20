@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../common/environment/keys_manager.dart';
@@ -343,10 +345,17 @@ class ViewPlayState extends State<ViewPlay> {
     _stopTimer();
 
     setState(() {
+      _playBeep();
       _infoIntervalsCount++;
     });
 
     _timer = Timer.periodic(_timerInterval!, _onTimer);
+  }
+
+  Future<void> _playBeep() async {
+    if (_settingsManager.uxFeedbackSound) {
+      SystemSound.play(SystemSoundType.click);
+    }
   }
 
   void _startTimer() {

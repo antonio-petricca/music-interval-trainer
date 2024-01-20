@@ -32,7 +32,7 @@ class ViewSettingsState extends State<ViewSettings> {
     super.initState();
 
     _settingsManager.load(
-          () => setState(() {
+      () => setState(() {
         // Refresh UI with loaded settings.
       }),
     );
@@ -62,7 +62,12 @@ class ViewSettingsState extends State<ViewSettings> {
             _buildKeysActive(context),
             _buildKeysList(context),
             _buildKeysRandom(context),
-            _buildKeysInterval(context)
+            _buildKeysInterval(context),
+            _buildLabel(
+              AppLocalizations.of(context)!.viewSettings_UX_Section,
+            ),
+            _buildDivider(),
+            _buildUXFeedbackSound(context),
           ],
         ),
       ),
@@ -294,6 +299,32 @@ class ViewSettingsState extends State<ViewSettings> {
     );
   }
 
+  Widget _buildUXFeedbackSound(BuildContext context) {
+    return WidgetIconLayoutExt(
+      icon: const Icon(Icons.volume_up_outlined),
+      iconAlignment: ListTileTitleAlignment.center,
+      children: [
+        SizedBox(
+          width: _infoColumnWidth,
+          child: Padding(
+            padding: _infoColumnPadding,
+            child: Text(
+              AppLocalizations.of(context)!.viewSettings_UX_Feedback_Sound,
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ),
+        Padding(
+          padding: _editorColumnPadding,
+          child: Switch(
+            value: _settingsManager.uxFeedbackSound,
+            onChanged: _onUXFeedbackSoundChanged,
+          ),
+        ),
+      ],
+    );
+  }
+
   String _getIntervalsSpeed() {
     Duration duration = Duration(
       milliseconds: (_settingsManager.executionInterval.toInt() * 100),
@@ -347,6 +378,12 @@ class ViewSettingsState extends State<ViewSettings> {
   void _onKeysRandomChanged(bool? value) {
     setState(() {
       _settingsManager.keysRandom = (value ?? false);
+    });
+  }
+
+  void _onUXFeedbackSoundChanged(bool? value) {
+    setState(() {
+      _settingsManager.uxFeedbackSound = (value ?? false);
     });
   }
 }

@@ -8,10 +8,13 @@ class SettingsManager {
   bool _intervalsAccidentals = false;
   bool _intervalsExtended = false;
   double _intervalsSpeed = 20; // 2 seconds (10 tenths of second * 2)
+
   bool _keysActive = false;
   bool _keysRandom = false;
   int _keysInterval = 7;
   List<bool> _keysList = [true, false, false, false, false, false, false, false, false, false, false, false];
+
+  bool _uxFeedbackSound = true;
 
   bool get intervalsAccidentals => _intervalsAccidentals;
 
@@ -37,6 +40,8 @@ class SettingsManager {
     if (tmpKeysList.isNotEmpty) {
       _keysList = tmpKeysList.map((element) => bool.parse(element)).toList();
     }
+
+    _uxFeedbackSound = _preferences.getBool(SettingsCatalog.uxFeedbackSound) ?? _uxFeedbackSound;
 
     callback();
   }
@@ -77,6 +82,11 @@ class SettingsManager {
     _preferences.setStringList(
       SettingsCatalog.keysList,
       tmpKeysList,
+    );
+
+    _preferences.setBool(
+      SettingsCatalog.uxFeedbackSound,
+      _uxFeedbackSound,
     );
   }
 
@@ -129,4 +139,10 @@ class SettingsManager {
     }
   }
 
+  bool get uxFeedbackSound => _uxFeedbackSound;
+
+  set uxFeedbackSound(bool value) {
+    _uxFeedbackSound = value;
+    _save();
+  }
 }
