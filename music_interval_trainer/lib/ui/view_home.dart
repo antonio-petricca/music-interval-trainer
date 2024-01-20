@@ -13,6 +13,8 @@ class ViewHome extends StatefulWidget {
 }
 
 class ViewHomeState extends State<ViewHome> {
+  static const int TAB_PLAY = 2;
+
   int _selectedIndex = 0;
   final GlobalKey<ViewPlayState> _viewPlayKey = GlobalKey();
 
@@ -91,7 +93,7 @@ class ViewHomeState extends State<ViewHome> {
   }
 
   void _onItemTapped(int index) {
-    if (2 == _selectedIndex) {
+    if (TAB_PLAY == _selectedIndex) {
       _viewPlayKey.currentState?.stop(
         () {
           setState(() {
@@ -101,6 +103,8 @@ class ViewHomeState extends State<ViewHome> {
       );
 
       return;
+    } else if (TAB_PLAY == index) {
+      _viewPlayKey.currentState?.reload();
     }
 
     setState(() {

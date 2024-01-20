@@ -39,12 +39,7 @@ class ViewPlayState extends State<ViewPlay> {
   @override
   void initState() {
     super.initState();
-
-    _settingsManager.load(
-      () => setState(() {
-        // Refresh UI with loaded settings.
-      }),
-    );
+    reload();
   }
 
   @override
@@ -61,6 +56,14 @@ class ViewPlayState extends State<ViewPlay> {
         ),
         _buildToolButtonsBar(context),
       ],
+    );
+  }
+
+  void reload() {
+    _settingsManager.load(
+          () => setState(() {
+        // Refresh UI with loaded settings.
+      }),
     );
   }
 

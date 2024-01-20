@@ -3,7 +3,6 @@
 - Play: check correct interval.
 - Play: limit interval to 1 second.
 - Play: key panel icon.
-- Play: reload settings on view switch.
 - Settings: tooltips ( https://www.youtube.com/watch?v=EeEfD5fI-5Q&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=137 ).
 - Settings: vibration feedback.
 - Settings/Play: interval in half seconds.
