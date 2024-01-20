@@ -62,8 +62,15 @@ class ViewPlayState extends State<ViewPlay> {
     );
   }
 
-  bool isPaused() => !_isPauseButtonEnabled && !_isStopButtonEnabled;
-  bool isRunning() => !_isPlayButtonEnabled;
+  void stop(VoidCallback setStateCallback) {
+    if (_isRunning()) {
+      _stopTimer();
+      _doAskForStopping(setStateCallback);
+    } else {
+      setStateCallback();
+    }
+  
+  }
 
   Widget _buildInfoPanelRow(Icon icon, String label, String info) {
     return Row(
@@ -237,6 +244,48 @@ class ViewPlayState extends State<ViewPlay> {
     );
   }
 
+  void _doAskForStopping(VoidCallback? setStateCallback) {
+    _stopTimer();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            AppLocalizations.of(context)!.dialogTitleWarning,
+          ),
+          content: Text(
+            AppLocalizations.of(context)!.viewPlay_StopAlert_Message,
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                AppLocalizations.of(context)!.buttonYes,
+              ),
+              onPressed: () {
+                _doStop();
+                Navigator.of(context).pop();
+
+                if (null != setStateCallback) {
+                  setStateCallback();
+                }
+              },
+            ),
+            TextButton(
+              child: Text(
+                AppLocalizations.of(context)!.buttonNo,
+              ),
+              onPressed: () {
+                _startTimer();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _doPause() {
     _stopTimer();
 
@@ -249,7 +298,7 @@ class ViewPlayState extends State<ViewPlay> {
 
   void _doPlay() {
     setState(() {
-      if (isPaused()) {
+      if (_isPaused()) {
         _infoElapsedTimeChunk = null;
         _infoElapsedTimeTotal = null;
         _infoIntervalsCount = 0;
@@ -273,6 +322,10 @@ class ViewPlayState extends State<ViewPlay> {
     });
   }
 
+  bool _isPaused() => !_isPauseButtonEnabled && !_isStopButtonEnabled;
+
+  bool _isRunning() => !_isPlayButtonEnabled;
+
   void _onPauseButtonPressed() {
     _doPause();
   }
@@ -283,40 +336,7 @@ class ViewPlayState extends State<ViewPlay> {
 
   void _onStopButtonPressed() {
     _stopTimer();
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            AppLocalizations.of(context)!.viewPlay_StopAlert_Title,
-          ),
-          content: Text(
-            AppLocalizations.of(context)!.viewPlay_StopAlert_Title,
-          ),
-          actions: [
-            TextButton(
-              child: Text(
-                AppLocalizations.of(context)!.viewPlay_StopAlert_Button_Cancel,
-              ),
-              onPressed: () {
-                _startTimer();
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text(
-                AppLocalizations.of(context)!.viewPlay_StopAlert_Button_Terminate,
-              ),
-              onPressed: () {
-                _doStop();
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    _doAskForStopping(null);
   }
 
   void _onTimer(Timer timer) {
