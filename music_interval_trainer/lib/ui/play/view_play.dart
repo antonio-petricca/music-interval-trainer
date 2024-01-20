@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_beep/flutter_beep.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../common/environment/keys_manager.dart';
@@ -292,7 +293,7 @@ class ViewPlayState extends State<ViewPlay> {
 
   Future<void> _doFeedback() async {
     if (_settingsManager.uxFeedbackSound) {
-      SystemSound.play(SystemSoundType.click);
+      FlutterBeep.beep();
     }
 
     if (_settingsManager.uxFeedbackVibration) {
