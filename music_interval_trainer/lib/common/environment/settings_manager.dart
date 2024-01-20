@@ -16,7 +16,6 @@ class SettingsManager {
 
   bool _uxFeedbackSound = true;
   bool _uxFeedbackVibration = false;
-  int uxFeedbackVibrationDuration = 250;
 
   bool get intervalsAccidentals => _intervalsAccidentals;
 
