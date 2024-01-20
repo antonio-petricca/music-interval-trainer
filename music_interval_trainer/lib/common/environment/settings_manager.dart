@@ -43,6 +43,7 @@ class SettingsManager {
     }
 
     _uxFeedbackSound = _preferences.getBool(SettingsCatalog.uxFeedbackSound) ?? _uxFeedbackSound;
+    _uxFeedbackVibration = _preferences.getBool(SettingsCatalog.uxFeedbackVibration) ?? _uxFeedbackVibration;
 
     callback();
   }
@@ -88,6 +89,11 @@ class SettingsManager {
     _preferences.setBool(
       SettingsCatalog.uxFeedbackSound,
       _uxFeedbackSound,
+    );
+
+    _preferences.setBool(
+      SettingsCatalog.uxFeedbackVibration,
+      _uxFeedbackVibration,
     );
   }
 

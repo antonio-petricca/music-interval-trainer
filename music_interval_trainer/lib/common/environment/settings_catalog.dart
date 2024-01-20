@@ -11,6 +11,7 @@ class SettingsCatalog {
   static const String keysRandom = "$_keys.random";
 
   static const String _ux = "ux";
-  static const String uxFeedbackSound = "ux.feedback.sound";
-  static const String uxFeedbackVibration = "ux.feedback.vibration";
+  static const String _uxFeedback = "$_ux.feedback";
+  static const String uxFeedbackSound = "$_uxFeedback.sound";
+  static const String uxFeedbackVibration = "$_uxFeedback.vibration";
 }
