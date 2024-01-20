@@ -4,6 +4,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:vibration/vibration.dart';
 
 import '../../common/environment/keys_manager.dart';
 import '../../common/environment/settings_manager.dart';
@@ -291,6 +292,16 @@ class ViewPlayState extends State<ViewPlay> {
     );
   }
 
+  Future<void> _doFeedback() async {
+    if (_settingsManager.uxFeedbackSound) {
+      SystemSound.play(SystemSoundType.click);
+    }
+
+    if (_settingsManager.uxFeedbackVibration) {
+      Vibration.vibrate(duration: _settingsManager.uxFeedbackVibrationDuration);
+    }
+  }
+
   void _doPause() {
     _stopTimer();
 
@@ -348,17 +359,11 @@ class ViewPlayState extends State<ViewPlay> {
     _stopTimer();
 
     setState(() {
-      _playBeep();
+      _doFeedback();
       _infoIntervalsCount++;
     });
 
     _timer = Timer.periodic(_timerInterval!, _onTimer);
-  }
-
-  Future<void> _playBeep() async {
-    if (_settingsManager.uxFeedbackSound) {
-      SystemSound.play(SystemSoundType.click);
-    }
   }
 
   void _startTimer() {

@@ -68,6 +68,7 @@ class ViewSettingsState extends State<ViewSettings> {
             ),
             _buildDivider(),
             _buildUXFeedbackSound(context),
+            _buildUXFeedbackVibration(context),
           ],
         ),
       ),
@@ -325,6 +326,32 @@ class ViewSettingsState extends State<ViewSettings> {
     );
   }
 
+  Widget _buildUXFeedbackVibration(BuildContext context) {
+    return WidgetIconLayoutExt(
+      icon: const Icon(Icons.vibration),
+      iconAlignment: ListTileTitleAlignment.center,
+      children: [
+        SizedBox(
+          width: _infoColumnWidth,
+          child: Padding(
+            padding: _infoColumnPadding,
+            child: Text(
+              AppLocalizations.of(context)!.viewSettings_UX_Feedback_Vibration,
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ),
+        Padding(
+          padding: _editorColumnPadding,
+          child: Switch(
+            value: _settingsManager.uxFeedbackVibration,
+            onChanged: _onUXFeedbackVibrationChanged,
+          ),
+        ),
+      ],
+    );
+  }
+
   String _getIntervalsSpeed() {
     Duration duration = Duration(
       milliseconds: (_settingsManager.executionInterval.toInt() * 100),
@@ -384,6 +411,12 @@ class ViewSettingsState extends State<ViewSettings> {
   void _onUXFeedbackSoundChanged(bool? value) {
     setState(() {
       _settingsManager.uxFeedbackSound = (value ?? false);
+    });
+  }
+
+  void _onUXFeedbackVibrationChanged(bool? value) {
+    setState(() {
+      _settingsManager.uxFeedbackVibration = (value ?? false);
     });
   }
 }

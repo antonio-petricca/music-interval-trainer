@@ -15,6 +15,8 @@ class SettingsManager {
   List<bool> _keysList = [true, false, false, false, false, false, false, false, false, false, false, false];
 
   bool _uxFeedbackSound = true;
+  bool _uxFeedbackVibration = false;
+  int uxFeedbackVibrationDuration = 250;
 
   bool get intervalsAccidentals => _intervalsAccidentals;
 
@@ -143,6 +145,13 @@ class SettingsManager {
 
   set uxFeedbackSound(bool value) {
     _uxFeedbackSound = value;
+    _save();
+  }
+
+  bool get uxFeedbackVibration => _uxFeedbackVibration;
+
+  set uxFeedbackVibration(bool value) {
+    _uxFeedbackVibration = value;
     _save();
   }
 }

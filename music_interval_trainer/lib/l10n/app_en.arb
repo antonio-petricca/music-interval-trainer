@@ -29,6 +29,7 @@
   "viewSettings_Keys_Random": "Random progression",
   "viewSettings_UX_Section": "User Experience",
   "viewSettings_UX_Feedback_Sound": "Sound feedback",
+  "viewSettings_UX_Feedback_Vibration": "Vibration feedback",
 
   "@viewAbout_Information_Version": {
     "placeholders": {

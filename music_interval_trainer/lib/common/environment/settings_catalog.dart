@@ -12,4 +12,5 @@ class SettingsCatalog {
 
   static const String _ux = "ux";
   static const String uxFeedbackSound = "ux.feedback.sound";
+  static const String uxFeedbackVibration = "ux.feedback.vibration";
 }

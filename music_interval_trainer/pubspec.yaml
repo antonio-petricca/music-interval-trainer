@@ -37,6 +37,7 @@ dependencies:
   package_info: any
   pubspec: any
   shared_preferences: any
+  vibration: any
 
   youtube_player_flutter: any
 
