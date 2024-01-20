@@ -45,6 +45,8 @@ dependencies:
   cupertino_icons: any
 
 dev_dependencies:
+  flutter_native_splash: any
+
   flutter_test:
     sdk: flutter
 
@@ -72,6 +74,7 @@ flutter:
 
   assets:
     - assets/configuration.json
+    - assets/splash-icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -114,3 +117,9 @@ flutter:
         - asset: fonts/triple_dot_digital-7.ttf
 
   generate: true
+
+flutter_native_splash: # flutter pub run flutter_native_splash:create
+  color: "#ffffff"
+  image: "assets/splash-icon.png"
+  android: true
+  ios: true
