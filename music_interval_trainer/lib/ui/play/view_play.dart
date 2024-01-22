@@ -11,7 +11,6 @@ import '../../common/environment/settings_manager.dart';
 import '../../common/ui/custom_icons.dart';
 import '../../common/ui/fonts_catalog.dart';
 import '../../common/ui/widget_blinking_text.dart';
-import '../../common/utils.dart';
 
 class ViewPlay extends StatefulWidget {
   const ViewPlay({super.key});
@@ -155,10 +154,21 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
               _buildInfoPanelRow(
                 const Icon(Icons.timer_outlined),
                 AppLocalizations.of(context)!.viewPlay_Info_ElapsedTime_Label,
-                Utils.formatDuration(_infoElapsedTimeTotal, _unsetValue),
+                _formatDuration(_infoElapsedTimeTotal, _unsetValue),
               ),
-              _buildInfoPanelRow(const Icon(Icons.straighten), AppLocalizations.of(context)!.viewPlay_Info_Count_Label,
-                  ((null != _playEngine) ? _playEngine!.intervalsCount.toString() : _unsetValue)),
+              _buildInfoPanelRow(
+                const Icon(Icons.straighten),
+                AppLocalizations.of(context)!.viewPlay_Info_Count_Intervals_Label,
+                ((null != _playEngine) ? _playEngine!.intervalsCount.toString() : _unsetValue),
+              ),
+              _buildInfoPanelRow(
+                const Icon(
+                  CustomIcons.musicViolinKey,
+                  size: 18,
+                ),
+                AppLocalizations.of(context)!.viewPlay_Info_Count_Keys_Label,
+                ((null != _playEngine) ? _playEngine!.keysCount.toString() : _unsetValue),
+              ),
             ],
           ),
         ),
@@ -465,6 +475,19 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
       setState(() {
         // Refresh UI
       });
+    }
+  }
+
+  String _formatDuration(Duration? duration, String nullValue) {
+    if (duration == null) {
+      return nullValue;
+    } else {
+      String twoDigit(int n) => n.toString().padLeft(2, "0");
+
+      int minutes = duration.inMinutes;
+      int seconds = duration.inSeconds % 60;
+      int tenths = (duration.inMilliseconds % 1000) ~/ 100;
+      return '${twoDigit(minutes)}:${twoDigit(seconds)}.$tenths';
     }
   }
 
