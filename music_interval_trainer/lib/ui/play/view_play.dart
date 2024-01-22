@@ -30,12 +30,13 @@ class ViewPlayState extends State<ViewPlay> {
   bool _isPlayButtonEnabled = true;
   bool _isStopButtonEnabled = false;
 
-  Duration? _infoElapsedTimeChunk;
-  Duration? _infoElapsedTimeTotal;
+  DateTime? _infoElapsedTimeSegmentStart = null;
+  Duration? _infoElapsedTimeTotal = null;
   int _infoIntervalsCount = 0;
 
   Timer? _timer;
   Duration? _timerInterval;
+  int _intervalMils = 0;
 
   @override
   void initState() {
@@ -63,7 +64,9 @@ class ViewPlayState extends State<ViewPlay> {
   void reload() {
     _settingsManager.load(
       () => setState(() {
-        // Refresh UI with loaded settings.
+        _intervalMils = (_settingsManager.executionIntervalQuantum / SettingsManager.intervalsSpeedFactor * 1000).toInt();
+
+        // Then refresh UI with loaded settings...
       }),
     );
   }
@@ -139,8 +142,8 @@ class ViewPlayState extends State<ViewPlay> {
         children: [
           _buildPlayIntervalPanel(),
           Positioned(
-            top: 15,
-            right: 15,
+            top: 10,
+            right: 10,
             child: SizedBox(
               width: 80.0,
               height: 80.0,
@@ -155,7 +158,7 @@ class ViewPlayState extends State<ViewPlay> {
   Widget _buildPlayIntervalPanel() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(bottom: 20, top: 140),
+      padding: const EdgeInsets.only(bottom: 20, top: 90),
       child: ValueListenableBuilder(
         valueListenable: _intervalTextNotifier,
         builder: (context, value, child) {
@@ -327,6 +330,8 @@ class ViewPlayState extends State<ViewPlay> {
     _stopTimer();
 
     setState(() {
+      _updateElapsedTimeTotal();
+
       _isPlayButtonEnabled = true;
       _isPauseButtonEnabled = false;
       _isStopButtonEnabled = true;
@@ -335,9 +340,10 @@ class ViewPlayState extends State<ViewPlay> {
 
   void _doPlay() {
     setState(() {
-      if (_isPaused()) {
-        _infoElapsedTimeChunk = null;
-        _infoElapsedTimeTotal = null;
+      _resetElapsedTimeSegment();
+
+      if (_isStopped()) {
+        _infoElapsedTimeTotal = const Duration();
         _infoIntervalsCount = 0;
       }
 
@@ -353,15 +359,17 @@ class ViewPlayState extends State<ViewPlay> {
     _stopTimer();
 
     setState(() {
+      _updateElapsedTimeTotal();
+
       _isPlayButtonEnabled = true;
       _isPauseButtonEnabled = false;
       _isStopButtonEnabled = false;
     });
   }
 
-  bool _isPaused() => !_isPauseButtonEnabled && !_isStopButtonEnabled;
 
   bool _isRunning() => !_isPlayButtonEnabled;
+  bool _isStopped() => !_isPauseButtonEnabled && !_isStopButtonEnabled;
 
   void _onPauseButtonPressed() {
     _doPause();
@@ -381,15 +389,21 @@ class ViewPlayState extends State<ViewPlay> {
 
     setState(() {
       _doFeedback();
+
       _infoIntervalsCount++;
+      _updateElapsedTimeTotal();
     });
 
     _timer = Timer.periodic(_timerInterval!, _onTimer);
   }
 
+  void _resetElapsedTimeSegment() {
+    _infoElapsedTimeSegmentStart = DateTime.now();
+  }
+
   void _startTimer() {
     _timerInterval = Duration(
-      milliseconds: (_settingsManager.executionIntervalQuantum / SettingsManager.intervalsSpeedFactor * 1000).toInt(),
+      milliseconds: _intervalMils,
     );
 
     _timer = Timer.periodic(_timerInterval!, _onTimer);
@@ -404,5 +418,10 @@ class ViewPlayState extends State<ViewPlay> {
         // Refresh UI
       });
     }
+  }
+
+  void _updateElapsedTimeTotal() {
+    _infoElapsedTimeTotal = _infoElapsedTimeTotal! + DateTime.now().difference(_infoElapsedTimeSegmentStart!);
+    _resetElapsedTimeSegment();
   }
 }

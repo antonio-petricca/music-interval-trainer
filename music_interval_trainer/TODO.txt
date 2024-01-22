@@ -1,7 +1,10 @@
+- APK file name.
 - Full help (no more video).
+- Github: release APK by CI.
 - Keys as premium feature.
+- Logging.
 - Play: play the exercise...
-- Play: compute elapsed time.
 - Settings: tooltips ( https://www.youtube.com/watch?v=EeEfD5fI-5Q&list=PLjxrf2q8roU23XGwz3Km7sQZFTdB996iG&index=137 ).
 - System: pause on focus lost.
 - UI: better splash image.
+- UI: nicer UI.
