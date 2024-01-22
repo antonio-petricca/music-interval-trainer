@@ -7,21 +7,18 @@ class ViewAbout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      thumbVisibility: true,
-      child: SingleChildScrollView(
-        child: Column(children: [
-          Container(
-              padding: const EdgeInsets.all(5),
-              child: const Column(
-                children: [
-                  WidgetAboutInformation(),
-                  SizedBox(height: 10),
-                  ViewAboutGuide(),
-                ],
-              )),
-        ]),
-      ),
+    return SingleChildScrollView(
+      child: Column(children: [
+        Container(
+            padding: const EdgeInsets.all(5),
+            child: const Column(
+              children: [
+                WidgetAboutInformation(),
+                SizedBox(height: 10),
+                ViewAboutGuide(),
+              ],
+            )),
+      ]),
     );
   }
 }

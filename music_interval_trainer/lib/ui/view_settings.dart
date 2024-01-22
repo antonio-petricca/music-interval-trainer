@@ -41,29 +41,26 @@ class ViewSettingsState extends State<ViewSettings> {
   Widget build(BuildContext context) {
     _keyLabels = KeysManager(context).getList();
 
-    return Scrollbar(
-      thumbVisibility: false,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildLabel(AppLocalizations.of(context)!.viewSettings_Intervals_Section),
-            _buildDivider(),
-            _buildIntervalsSpeedQuantum(context),
-            _buildIntervalsAccidentals(context),
-            _buildIntervalsExtended(context),
-            _buildLabel(AppLocalizations.of(context)!.viewSettings_Keys_Section),
-            _buildDivider(),
-            _buildKeysActive(context),
-            _buildKeysList(context),
-            _buildKeysRandom(context),
-            _buildKeysInterval(context),
-            _buildLabel(AppLocalizations.of(context)!.viewSettings_UX_Section),
-            _buildDivider(),
-            _buildUXFeedbackSound(context),
-            _buildUXFeedbackVibration(context),
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildLabel(AppLocalizations.of(context)!.viewSettings_Intervals_Section),
+          _buildDivider(),
+          _buildIntervalsSpeedQuantum(context),
+          _buildIntervalsAccidentals(context),
+          _buildIntervalsExtended(context),
+          _buildLabel(AppLocalizations.of(context)!.viewSettings_Keys_Section),
+          _buildDivider(),
+          _buildKeysActive(context),
+          _buildKeysList(context),
+          _buildKeysRandom(context),
+          _buildKeysInterval(context),
+          _buildLabel(AppLocalizations.of(context)!.viewSettings_UX_Section),
+          _buildDivider(),
+          _buildUXFeedbackSound(context),
+          _buildUXFeedbackVibration(context),
+        ],
       ),
     );
   }
