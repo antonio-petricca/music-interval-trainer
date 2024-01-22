@@ -19,7 +19,7 @@ class ViewPlay extends StatefulWidget {
   ViewPlayState createState() => ViewPlayState();
 }
 
-class ViewPlayState extends State<ViewPlay> {
+class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
   late List<String> _keyLabels;
   final SettingsManager _settingsManager = SettingsManager();
 
@@ -41,7 +41,9 @@ class ViewPlayState extends State<ViewPlay> {
   @override
   void initState() {
     super.initState();
+
     reload();
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
@@ -61,9 +63,38 @@ class ViewPlayState extends State<ViewPlay> {
     );
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    switch (state) {
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.detached:
+      case AppLifecycleState.hidden:
+      case AppLifecycleState.paused:
+        if (_isRunning()) {
+          _doPause();
+        }
+        break;
+
+      case AppLifecycleState.resumed:
+        if (_isPaused()) {
+          _doPlay();
+        }
+
+        break;
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
   void reload() {
     _settingsManager.load(
-      () => setState(() {
+          () => setState(() {
         _intervalMils = (_settingsManager.executionIntervalQuantum / SettingsManager.intervalsSpeedFactor * 1000).toInt();
 
         // Then refresh UI with loaded settings...
@@ -367,8 +398,9 @@ class ViewPlayState extends State<ViewPlay> {
     });
   }
 
-
+  bool _isPaused() => !_isPauseButtonEnabled && _isStopButtonEnabled;
   bool _isRunning() => !_isPlayButtonEnabled;
+
   bool _isStopped() => !_isPauseButtonEnabled && !_isStopButtonEnabled;
 
   void _onPauseButtonPressed() {
