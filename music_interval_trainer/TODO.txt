@@ -1,7 +1,6 @@
 - Full help (no more video).
 - Github: release APK by CI.
 - Keys as premium feature.
-- Play: relocate or remove key icon.
 - Play: start/restart countdown by a "toaster".
 - Play: flash changed item.
 - UI: better splash image.

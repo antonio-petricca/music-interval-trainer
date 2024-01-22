@@ -225,35 +225,20 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
           padding: const EdgeInsets.all(5),
           child: FittedBox(
             fit: BoxFit.contain,
-            child: Stack(
-              children: [
-                const Positioned(
-                  bottom: 5,
-                  right: 0,
-                  child: Opacity(
-                    opacity: 0.75,
-                    child: Icon(
-                      CustomIcons.musicViolinKey,
-                      size: 10,
-                    ),
+            child: Padding(
+              padding: const EdgeInsets.all(5),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20), // Compensate "fontSize"
+                child: WidgetBlinkingText(
+                  textAlign: TextAlign.center,
+                  textNotifier: _keyTextNotifier,
+                  style: TextStyle(
+                    color: Theme.of(context).buttonTheme.colorScheme?.error,
+                    fontFamily: FontsCatalog.roundedLedBoard7,
+                    fontSize: 20,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20), // Compensate "fontSize"
-                    child: WidgetBlinkingText(
-                      textAlign: TextAlign.center,
-                      textNotifier: _keyTextNotifier,
-                      style: TextStyle(
-                        color: Theme.of(context).buttonTheme.colorScheme?.error,
-                        fontFamily: FontsCatalog.roundedLedBoard7,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),
