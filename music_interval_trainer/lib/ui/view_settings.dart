@@ -45,18 +45,27 @@ class ViewSettingsState extends State<ViewSettings> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildLabel(AppLocalizations.of(context)!.viewSettings_Intervals_Section),
+          _buildLabel(
+            AppLocalizations.of(context)!.viewSettings_Intervals_Section_Caption,
+            AppLocalizations.of(context)!.viewSettings_Intervals_Section_Tooltip,
+          ),
           _buildDivider(),
           _buildIntervalsSpeedQuantum(context),
           _buildIntervalsAccidentals(context),
           _buildIntervalsExtended(context),
-          _buildLabel(AppLocalizations.of(context)!.viewSettings_Keys_Section),
+          _buildLabel(
+            AppLocalizations.of(context)!.viewSettings_Keys_Section_Caption,
+            AppLocalizations.of(context)!.viewSettings_Keys_Section_Tooltip,
+          ),
           _buildDivider(),
           _buildKeysActive(context),
           _buildKeysList(context),
           _buildKeysRandom(context),
           _buildKeysInterval(context),
-          _buildLabel(AppLocalizations.of(context)!.viewSettings_UX_Section),
+          _buildLabel(
+            AppLocalizations.of(context)!.viewSettings_UX_Section_Caption,
+            AppLocalizations.of(context)!.viewSettings_UX_Section_Tooltip,
+          ),
           _buildDivider(),
           _buildUXFeedbackSound(context),
           _buildUXFeedbackVibration(context),
@@ -73,13 +82,22 @@ class ViewSettingsState extends State<ViewSettings> {
     );
   }
 
-  Widget _buildLabel(String caption) {
+  Widget _buildLabel(String caption, String tooltip) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 5, 0, 0),
-      child: Text(
-        caption,
-        textAlign: TextAlign.left,
-        style: Theme.of(context).textTheme.labelLarge,
+      child: Tooltip(
+        decoration: BoxDecoration(
+          color: Colors.blueAccent,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
+        message: tooltip,
+        child: Text(
+          caption,
+          textAlign: TextAlign.left,
+          style: Theme.of(context).textTheme.labelLarge,
+        ),
       ),
     );
   }
