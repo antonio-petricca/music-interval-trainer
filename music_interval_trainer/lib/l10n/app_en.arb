@@ -27,7 +27,7 @@
   "viewSettings_Keys_Section_Caption": "Keys challenge",
   "viewSettings_Keys_Section_Tooltip": "Configuration parameters for how keys are generated",
   "viewSettings_Keys_Activation": "Activate / Deactivate",
-  "viewSettings_Keys_ChangeInterval": "Change each {intervals} keys",
+  "viewSettings_Keys_ChangeInterval": "Change each {intervals}",
   "viewSettings_Keys_Keys": "Keys selection",
   "viewSettings_Keys_Random": "Random progression",
   "viewSettings_UX_Section_Caption": "User Experience",

@@ -370,14 +370,10 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
   void doNext() {
     if (null != _playEngine) {
       var answer = _playEngine!.next();
+      _intervalTextNotifier.value = answer.interval;
 
-      switch (answer.type) {
-        case PlayEngineAnswerType.key:
-          _keyTextNotifier.value = answer.value;
-          break;
-        case PlayEngineAnswerType.interval:
-          _intervalTextNotifier.value = answer.value;
-          break;
+      if (_settingsManager.keysActive) {
+        _keyTextNotifier.value = answer.key;
       }
     }
   }
@@ -400,6 +396,7 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
 
       if (_isStopped()) {
         _infoElapsedTimeTotal = const Duration();
+        _intervalTextNotifier.value = _unsetValue;
         _keyTextNotifier.value = _unsetValue;
         _playEngine = PlayEngine(context, _settingsManager);
       }

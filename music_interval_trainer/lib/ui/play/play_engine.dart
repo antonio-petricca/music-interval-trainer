@@ -5,17 +5,15 @@ import 'package:io.github.antoniopetricca.music_interval_trainer/common/environm
 
 import '../../common/environment/keys_manager.dart';
 
-enum PlayEngineAnswerType { interval, key }
-
 class PlayEngineAnswer {
-  final PlayEngineAnswerType _type;
-  final String _value;
+  final String _interval;
+  final String _key;
 
-  PlayEngineAnswer(this._type, this._value);
+  PlayEngineAnswer(this._interval, this._key);
 
-  PlayEngineAnswerType get type => _type;
+  String get interval => _interval;
 
-  String get value => _value;
+  String get key => _key;
 }
 
 class PlayEngine {
@@ -43,17 +41,7 @@ class PlayEngine {
   }
 
   PlayEngineAnswer next() {
-    if (!_needNewKey()) {
-      return PlayEngineAnswer(
-        PlayEngineAnswerType.interval,
-        _nextInterval(),
-      );
-    } else {
-      return PlayEngineAnswer(
-        PlayEngineAnswerType.key,
-        _nextKey(),
-      );
-    }
+    return PlayEngineAnswer(_nextInterval(), (_needNewKey() ? _nextKey() : _prevKey));
   }
 
   int get intervalsCount => _intervalsCount;
@@ -62,7 +50,7 @@ class PlayEngine {
 
   bool _needNewKey() =>
       _settingsManager.keysActive &&
-      (_prevKey.isEmpty || (_prevKey.isNotEmpty && (_keyList.length > 1) && (0 == ((_intervalsCount + 1) % _settingsManager.keysChangeInterval))));
+      (_prevKey.isEmpty || (_prevKey.isNotEmpty && (_keyList.length > 1) && (0 == (_intervalsCount % _settingsManager.keysChangeInterval))));
 
   String _nextKey() {
     int index;
