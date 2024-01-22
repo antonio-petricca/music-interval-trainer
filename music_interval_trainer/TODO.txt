@@ -1,9 +1,6 @@
-- APK file name.
 - Full help (no more video).
 - Github: release APK by CI.
 - Keys as premium feature.
-- Logging.
-- Play: flashing pause button.
 - Play: play the exercise...
 - UI: better splash image.
 - UI: nicer UI.

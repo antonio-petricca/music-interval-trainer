@@ -30,8 +30,8 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
   bool _isPlayButtonEnabled = true;
   bool _isStopButtonEnabled = false;
 
-  DateTime? _infoElapsedTimeSegmentStart = null;
-  Duration? _infoElapsedTimeTotal = null;
+  DateTime? _infoElapsedTimeSegmentStart;
+  Duration? _infoElapsedTimeTotal;
   int _infoIntervalsCount = 0;
 
   Timer? _timer;
