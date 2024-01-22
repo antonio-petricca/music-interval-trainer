@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_beep/flutter_beep.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/play_engine.dart';
 
 import '../../common/environment/keys_manager.dart';
 import '../../common/environment/settings_manager.dart';
@@ -23,8 +24,9 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
   late List<String> _keyLabels;
   final SettingsManager _settingsManager = SettingsManager();
 
-  final _intervalTextNotifier = ValueNotifier<String>('11b'); //TODO
-  final _keyTextNotifier = ValueNotifier<String>('SOL'); //TODO
+  final _intervalTextNotifier = ValueNotifier<String>('-');
+  final _keyTextNotifier = ValueNotifier<String>('-');
+  late PlayEngine _playEngine;
 
   bool _isPauseButtonEnabled = false;
   bool _isPlayButtonEnabled = true;
@@ -94,7 +96,7 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
 
   void reload() {
     _settingsManager.load(
-          () => setState(() {
+      () => setState(() {
         _intervalMils = (_settingsManager.executionIntervalQuantum / SettingsManager.intervalsSpeedFactor * 1000).toInt();
 
         // Then refresh UI with loaded settings...
@@ -376,6 +378,7 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
       if (_isStopped()) {
         _infoElapsedTimeTotal = const Duration();
         _infoIntervalsCount = 0;
+        _playEngine = PlayEngine(context, _settingsManager);
       }
 
       _isPlayButtonEnabled = false;
@@ -398,7 +401,21 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
     });
   }
 
+  void _getNextChallenge() {
+    var answer = _playEngine.next();
+
+    switch(answer.type) {
+      case PlayEngineAnswerType.key:
+        _keyTextNotifier.value = answer.value;
+        break;
+      case PlayEngineAnswerType.interval:
+        _intervalTextNotifier.value = answer.value;
+        break;
+    }
+  }
+
   bool _isPaused() => !_isPauseButtonEnabled && _isStopButtonEnabled;
+
   bool _isRunning() => !_isPlayButtonEnabled;
 
   bool _isStopped() => !_isPauseButtonEnabled && !_isStopButtonEnabled;
@@ -420,6 +437,7 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
     _stopTimer();
 
     setState(() {
+      _getNextChallenge();
       _doFeedback();
 
       _infoIntervalsCount++;
