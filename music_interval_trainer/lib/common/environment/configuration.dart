@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 
 class Configuration {
-  late Map<String, dynamic> _configuration;
+  Map<String, dynamic>? _configuration;
 
   Future<void> load(BuildContext context) async {
     String configFile = await DefaultAssetBundle.of(context).loadString("assets/configuration.json");
@@ -11,9 +11,11 @@ class Configuration {
     _configuration = json.decode(configFile);
   }
 
-  dynamic get(String propertyName) {
-    WidgetsFlutterBinding.ensureInitialized();
+  dynamic get(String propertyName, { dynamic defaultValue }) {
+    if (null != _configuration) {
+      return _configuration?[propertyName];
+    }
 
-    return _configuration[propertyName];
+    return defaultValue;
   }
 }
