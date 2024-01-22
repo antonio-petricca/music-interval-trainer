@@ -8,7 +8,7 @@ class Utils {
       int minutes = duration.inMinutes;
       int seconds = duration.inSeconds % 60;
       int tenths = (duration.inMilliseconds % 1000) ~/ 100;
-      return '${twoDigit(minutes)}:${twoDigit(seconds)}.${tenths}';
+      return '${twoDigit(minutes)}:${twoDigit(seconds)}.$tenths';
     }
   }
 
