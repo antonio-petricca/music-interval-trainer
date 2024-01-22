@@ -13,7 +13,7 @@ class ViewHome extends StatefulWidget {
 }
 
 class ViewHomeState extends State<ViewHome> {
-  static const int TAB_PLAY = 2;
+  static const int _tabPlay = 2;
 
   int _selectedIndex = 0;
   final GlobalKey<ViewPlayState> _viewPlayKey = GlobalKey();
@@ -56,44 +56,8 @@ class ViewHomeState extends State<ViewHome> {
     );
   }
 
-  void _askForPlayViewExitConfirmation(int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            AppLocalizations.of(context)!.dialogTitleWarning,
-          ),
-          content: Text(
-            AppLocalizations.of(context)!.viewPlay_StopAlert_Message,
-          ),
-          actions: [
-            TextButton(
-              child: Text(
-                AppLocalizations.of(context)!.buttonYes,
-              ),
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = index;
-                });
-
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text(
-                AppLocalizations.of(context)!.buttonNo,
-              ),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   void _onItemTapped(int index) {
-    if (TAB_PLAY == _selectedIndex) {
+    if (_tabPlay == _selectedIndex) {
       _viewPlayKey.currentState?.stop(
         () {
           setState(() {
@@ -103,7 +67,7 @@ class ViewHomeState extends State<ViewHome> {
       );
 
       return;
-    } else if (TAB_PLAY == index) {
+    } else if (_tabPlay == index) {
       _viewPlayKey.currentState?.reload();
     }
 
