@@ -11,7 +11,7 @@ class Configuration {
     _configuration = json.decode(configFile);
   }
 
-  dynamic get(String propertyName, { dynamic defaultValue }) {
+  dynamic get(String propertyName, dynamic defaultValue ) {
     if (null != _configuration) {
       return _configuration?[propertyName];
     }
