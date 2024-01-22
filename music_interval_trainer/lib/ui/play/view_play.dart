@@ -21,12 +21,14 @@ class ViewPlay extends StatefulWidget {
 }
 
 class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
+  static const String _unsetValue = '-';
+
   late List<String> _keyLabels;
   final SettingsManager _settingsManager = SettingsManager();
 
-  final _intervalTextNotifier = ValueNotifier<String>('-');
-  final _keyTextNotifier = ValueNotifier<String>('-');
-  late PlayEngine _playEngine;
+  final _intervalTextNotifier = ValueNotifier<String>(_unsetValue);
+  final _keyTextNotifier = ValueNotifier<String>(_unsetValue);
+  PlayEngine? _playEngine;
 
   bool _isPauseButtonEnabled = false;
   bool _isPlayButtonEnabled = true;
@@ -34,7 +36,6 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
 
   DateTime? _infoElapsedTimeSegmentStart;
   Duration? _infoElapsedTimeTotal;
-  int _infoIntervalsCount = 0;
 
   Timer? _timer;
   Duration? _timerInterval;
@@ -97,7 +98,7 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
   void reload() {
     _settingsManager.load(
       () => setState(() {
-        _intervalMils = (_settingsManager.executionIntervalQuantum / SettingsManager.intervalsSpeedFactor * 1000).toInt();
+        _intervalMils = (_settingsManager.intervalsQuantum / SettingsManager.intervalsSpeedFactor * 1000).toInt();
 
         // Then refresh UI with loaded settings...
       }),
@@ -154,13 +155,10 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
               _buildInfoPanelRow(
                 const Icon(Icons.timer_outlined),
                 AppLocalizations.of(context)!.viewPlay_Info_ElapsedTime_Label,
-                Utils.formatDuration(_infoElapsedTimeTotal, "-"),
+                Utils.formatDuration(_infoElapsedTimeTotal, _unsetValue),
               ),
-              _buildInfoPanelRow(
-                const Icon(Icons.straighten),
-                AppLocalizations.of(context)!.viewPlay_Info_Count_Label,
-                _infoIntervalsCount.toString(),
-              ),
+              _buildInfoPanelRow(const Icon(Icons.straighten), AppLocalizations.of(context)!.viewPlay_Info_Count_Label,
+                  ((null != _playEngine) ? _playEngine!.intervalsCount.toString() : _unsetValue)),
             ],
           ),
         ),
@@ -359,6 +357,21 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
     }
   }
 
+  void doNext() {
+    if (null != _playEngine) {
+      var answer = _playEngine!.next();
+
+      switch (answer.type) {
+        case PlayEngineAnswerType.key:
+          _keyTextNotifier.value = answer.value;
+          break;
+        case PlayEngineAnswerType.interval:
+          _intervalTextNotifier.value = answer.value;
+          break;
+      }
+    }
+  }
+
   void _doPause() {
     _stopTimer();
 
@@ -377,7 +390,7 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
 
       if (_isStopped()) {
         _infoElapsedTimeTotal = const Duration();
-        _infoIntervalsCount = 0;
+        _keyTextNotifier.value = _unsetValue;
         _playEngine = PlayEngine(context, _settingsManager);
       }
 
@@ -399,19 +412,6 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
       _isPauseButtonEnabled = false;
       _isStopButtonEnabled = false;
     });
-  }
-
-  void _getNextChallenge() {
-    var answer = _playEngine.next();
-
-    switch(answer.type) {
-      case PlayEngineAnswerType.key:
-        _keyTextNotifier.value = answer.value;
-        break;
-      case PlayEngineAnswerType.interval:
-        _intervalTextNotifier.value = answer.value;
-        break;
-    }
   }
 
   bool _isPaused() => !_isPauseButtonEnabled && _isStopButtonEnabled;
@@ -437,11 +437,9 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
     _stopTimer();
 
     setState(() {
-      _getNextChallenge();
-      _doFeedback();
-
-      _infoIntervalsCount++;
+      doNext();
       _updateElapsedTimeTotal();
+      _doFeedback();
     });
 
     _timer = Timer.periodic(_timerInterval!, _onTimer);

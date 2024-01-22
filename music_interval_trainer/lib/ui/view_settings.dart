@@ -148,7 +148,7 @@ class ViewSettingsState extends State<ViewSettings> {
         Padding(
           padding: _editorColumnPadding,
           child: Switch(
-            value: _settingsManager.executionExtendedIntervals,
+            value: _settingsManager.intervalsExtended,
             onChanged: _onIntervalsExtendedChanged,
           ),
         ),
@@ -176,7 +176,7 @@ class ViewSettingsState extends State<ViewSettings> {
         ),
         Expanded(
           child: Slider(
-            value: _settingsManager.executionIntervalQuantum.toDouble(),
+            value: _settingsManager.intervalsQuantum.toDouble(),
             min: SettingsManager.intervalsSpeedQuantumMin.toDouble(),
             max: SettingsManager.intervalsSpeedQuantumMax.toDouble(),
             divisions: _intervalsSpeedQuantumDivisions,
@@ -372,7 +372,7 @@ class ViewSettingsState extends State<ViewSettings> {
 
   String _getIntervalsSpeed() {
     Duration duration = Duration(
-      milliseconds: (_settingsManager.executionIntervalQuantum / SettingsManager.intervalsSpeedFactor * 1000).toInt(),
+      milliseconds: (_settingsManager.intervalsQuantum / SettingsManager.intervalsSpeedFactor * 1000).toInt(),
     );
 
     int secs = duration.inSeconds;
@@ -390,13 +390,13 @@ class ViewSettingsState extends State<ViewSettings> {
 
   void _onIntervalsExtendedChanged(bool? value) {
     setState(() {
-      _settingsManager.executionExtendedIntervals = (value ?? false);
+      _settingsManager.intervalsExtended = (value ?? false);
     });
   }
 
   Future<void> _onIntervalsSpeedQuantumChanged(double value) async {
     setState(() {
-      _settingsManager.executionIntervalQuantum = value.toInt();
+      _settingsManager.intervalsQuantum = value.toInt();
     });
   }
 

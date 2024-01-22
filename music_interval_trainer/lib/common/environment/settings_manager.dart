@@ -32,6 +32,69 @@ class SettingsManager {
     _save();
   }
 
+  bool get intervalsExtended => _intervalsExtended;
+
+  set intervalsExtended(bool value) {
+    _intervalsExtended = value;
+    _save();
+  }
+
+  int get intervalsQuantum => _intervalsSpeedQuantum;
+
+  set intervalsQuantum(int value) {
+    _intervalsSpeedQuantum = value;
+    _save();
+  }
+
+  bool get keysActive => _keysActive;
+
+  set keysActive(bool value) {
+    _keysActive = value;
+    _save();
+  }
+
+  int get keysChangeInterval => _keysChangeInterval;
+
+  set keysChangeInterval(int value) {
+    _keysChangeInterval = value;
+    _save();
+  }
+
+  bool get keysRandom => _keysRandom;
+
+  set keysRandom(bool value) {
+    _keysRandom = value;
+    _save();
+  }
+
+  List<bool> get keysList => _keysList;
+
+  void keysListItem(int index, bool value) {
+    List<bool> newKeys = [..._keysList];
+    newKeys[index] = value;
+
+    int trueCount = newKeys.where((element) => (true == element)).toList().length;
+
+    if (trueCount > 0) {
+      _keysList = newKeys;
+      _save();
+    }
+  }
+
+  bool get uxFeedbackSound => _uxFeedbackSound;
+
+  set uxFeedbackSound(bool value) {
+    _uxFeedbackSound = value;
+    _save();
+  }
+
+  bool get uxFeedbackVibration => _uxFeedbackVibration;
+
+  set uxFeedbackVibration(bool value) {
+    _uxFeedbackVibration = value;
+    _save();
+  }
+
   load(VoidCallback callback) async {
     _preferences = await SharedPreferences.getInstance();
 
@@ -103,68 +166,5 @@ class SettingsManager {
       SettingsCatalog.uxFeedbackVibration,
       _uxFeedbackVibration,
     );
-  }
-
-  bool get executionExtendedIntervals => _intervalsExtended;
-
-  set executionExtendedIntervals(bool value) {
-    _intervalsExtended = value;
-    _save();
-  }
-
-  int get executionIntervalQuantum => _intervalsSpeedQuantum;
-
-  set executionIntervalQuantum(int value) {
-    _intervalsSpeedQuantum = value;
-    _save();
-  }
-
-  bool get keysActive => _keysActive;
-
-  set keysActive(bool value) {
-    _keysActive = value;
-    _save();
-  }
-
-  int get keysChangeInterval => _keysChangeInterval;
-
-  set keysChangeInterval(int value) {
-    _keysChangeInterval = value;
-    _save();
-  }
-
-  bool get keysRandom => _keysRandom;
-
-  set keysRandom(bool value) {
-    _keysRandom = value;
-    _save();
-  }
-
-  List<bool> get keysList => _keysList;
-
-  void keysListItem(int index, bool value) {
-    List<bool> newKeys = [..._keysList];
-    newKeys[index] = value;
-
-    int trueCount = newKeys.where((element) => (true == element)).toList().length;
-
-    if (trueCount > 0) {
-      _keysList = newKeys;
-      _save();
-    }
-  }
-
-  bool get uxFeedbackSound => _uxFeedbackSound;
-
-  set uxFeedbackSound(bool value) {
-    _uxFeedbackSound = value;
-    _save();
-  }
-
-  bool get uxFeedbackVibration => _uxFeedbackVibration;
-
-  set uxFeedbackVibration(bool value) {
-    _uxFeedbackVibration = value;
-    _save();
   }
 }

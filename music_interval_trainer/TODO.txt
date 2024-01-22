@@ -1,6 +1,7 @@
 - Full help (no more video).
 - Github: release APK by CI.
 - Keys as premium feature.
-- Play: play the exercise...
+- Play: add key count to info panel.
+- Play: relocate or remove key icon.
 - UI: better splash image.
 - UI: nicer UI.
