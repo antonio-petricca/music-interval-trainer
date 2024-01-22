@@ -40,9 +40,10 @@ class PlayEngine {
     ];
   }
 
-  PlayEngineAnswer next() {
-    return PlayEngineAnswer(_nextInterval(), (_needNewKey() ? _nextKey() : _prevKey));
-  }
+  PlayEngineAnswer next() => PlayEngineAnswer(
+        _nextInterval(),
+        (_needNewKey() ? _nextKey() : _prevKey),
+      );
 
   int get intervalsCount => _intervalsCount;
 
@@ -50,7 +51,7 @@ class PlayEngine {
 
   bool _needNewKey() =>
       _settingsManager.keysActive &&
-      (_prevKey.isEmpty || (_prevKey.isNotEmpty && (_keyList.length > 1) && (0 == (_intervalsCount % _settingsManager.keysChangeInterval))));
+      (_prevKey.isEmpty || (_prevKey.isNotEmpty && (_keyList.length > 1) && (0 == ((_intervalsCount - 1) % _settingsManager.keysChangeInterval))));
 
   String _nextKey() {
     int index;
