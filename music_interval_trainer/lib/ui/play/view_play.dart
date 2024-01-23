@@ -1,12 +1,12 @@
 import 'dart:async';
 
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_beep/flutter_beep.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/play_engine.dart';
 
-import '../../common/environment/keys_manager.dart';
 import '../../common/environment/settings_manager.dart';
 import '../../common/ui/custom_icons.dart';
 import '../../common/ui/fonts_catalog.dart';
@@ -22,8 +22,13 @@ class ViewPlay extends StatefulWidget {
 class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
   static const String _unsetValue = '-';
 
-  late List<String> _keyLabels;
   final SettingsManager _settingsManager = SettingsManager();
+
+  bool isApplicationActive = true;
+
+  final int _countDownDuration = 3 + 1 /* Compensate widget showing delay */;
+  bool _isCountDownVisible = false;
+  final CountDownController _countDownController = CountDownController();
 
   final _intervalTextNotifier = ValueNotifier<String>(_unsetValue);
   final _keyTextNotifier = ValueNotifier<String>(_unsetValue);
@@ -41,18 +46,9 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
   int _intervalMils = 0;
 
   @override
-  void initState() {
-    super.initState();
-
-    reload();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    _keyLabels = KeysManager(context).getList();
-
     return Stack(
+      alignment: Alignment.center,
       children: [
         Column(
           children: [
@@ -61,6 +57,7 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
           ],
         ),
         _buildToolButtonsBar(context),
+        _buildCountDown(context),
       ],
     );
   }
@@ -74,12 +71,17 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
       case AppLifecycleState.detached:
       case AppLifecycleState.hidden:
       case AppLifecycleState.paused:
+        isApplicationActive = false;
+
         if (_isRunning()) {
           _doPause();
         }
+
         break;
 
       case AppLifecycleState.resumed:
+        isApplicationActive = true;
+
         if (_isPaused()) {
           _doPlay();
         }
@@ -92,6 +94,14 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    reload();
+    WidgetsBinding.instance.addObserver(this);
   }
 
   void reload() {
@@ -107,10 +117,54 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
   void stop(VoidCallback setStateCallback) {
     if (_isRunning()) {
       _stopTimer();
+      _stopCountDown();
       _doAskForStopping(setStateCallback);
     } else {
       setStateCallback();
     }
+  }
+
+  Widget _buildCountDown(BuildContext context) {
+    return Positioned(
+      child: Visibility(
+        maintainAnimation: true,
+        maintainSemantics: true,
+        maintainSize: true,
+        maintainState: true,
+        visible: _isCountDownVisible,
+        child: Opacity(
+          opacity: 0.75,
+          child: CircularCountDownTimer(
+            autoStart: false,
+            controller: _countDownController,
+            duration: _countDownDuration,
+            initialDuration: 0,
+            isReverse: true,
+            isReverseAnimation: false,
+            isTimerTextShown: true,
+            height: (MediaQuery.of(context).size.height / 2),
+            width: (MediaQuery.of(context).size.width / 2),
+            backgroundColor: Theme.of(context).buttonTheme.colorScheme?.primary,
+            backgroundGradient: null,
+            fillColor: Theme.of(context).buttonTheme.colorScheme!.primary,
+            fillGradient: null,
+            ringColor: Theme.of(context).buttonTheme.colorScheme!.secondaryContainer,
+            ringGradient: null,
+            strokeWidth: 20.0,
+            strokeCap: StrokeCap.round,
+            textStyle: TextStyle(
+              fontSize: 30.0,
+              color: Theme.of(context).colorScheme.background,
+              fontWeight: FontWeight.bold,
+            ),
+            textFormat: CountdownTextFormat.S,
+            timeFormatterFunction: (defaultFormatterFunction, duration) =>
+                (duration.inSeconds == 0) ? AppLocalizations.of(context)!.viewPlay_CountDown_Start : Function.apply(defaultFormatterFunction, [duration]),
+            onComplete: _onCountDownCompleted,
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _buildInfoPanelRow(Icon icon, String label, String info) {
@@ -301,8 +355,6 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
   }
 
   void _doAskForStopping(VoidCallback? setStateCallback) {
-    _stopTimer();
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -332,7 +384,7 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
                 AppLocalizations.of(context)!.buttonNo,
               ),
               onPressed: () {
-                _startTimer();
+                _startCountDown();
                 Navigator.of(context).pop();
               },
             ),
@@ -367,6 +419,7 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
     _stopTimer();
 
     setState(() {
+      _stopCountDown();
       _updateElapsedTimeTotal();
 
       _isPlayButtonEnabled = true;
@@ -377,6 +430,7 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
 
   void _doPlay() {
     setState(() {
+      _stopCountDown();
       _resetElapsedTimeSegment();
 
       if (_isStopped()) {
@@ -389,15 +443,17 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
       _isPlayButtonEnabled = false;
       _isPauseButtonEnabled = true;
       _isStopButtonEnabled = true;
+
+      _startCountDown();
     });
 
-    _startTimer();
   }
 
   void _doStop() {
     _stopTimer();
 
     setState(() {
+      _stopCountDown();
       _updateElapsedTimeTotal();
 
       _isPlayButtonEnabled = true;
@@ -406,11 +462,33 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
     });
   }
 
+  String _formatDuration(Duration? duration, String nullValue) {
+    if (duration == null) {
+      return nullValue;
+    } else {
+      String twoDigit(int n) => n.toString().padLeft(2, "0");
+
+      int minutes = duration.inMinutes;
+      int seconds = duration.inSeconds % 60;
+      int tenths = (duration.inMilliseconds % 1000) ~/ 100;
+      return '${twoDigit(minutes)}:${twoDigit(seconds)}.$tenths';
+    }
+  }
+
   bool _isPaused() => !_isPauseButtonEnabled && _isStopButtonEnabled;
 
   bool _isRunning() => !_isPlayButtonEnabled;
 
   bool _isStopped() => !_isPauseButtonEnabled && !_isStopButtonEnabled;
+
+  void _onCountDownCompleted() {
+    if (isApplicationActive) {
+      setState(() {
+        _stopCountDown();
+        _startTimer();
+      });
+    }
+  }
 
   void _onPauseButtonPressed() {
     _doPause();
@@ -422,6 +500,7 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
 
   void _onStopButtonPressed() {
     _stopTimer();
+    _stopCountDown();
     _doAskForStopping(null);
   }
 
@@ -437,8 +516,23 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
     _timer = Timer.periodic(_timerInterval!, _onTimer);
   }
 
+  void _refreshUI({ CallbackAction? callback }) {
+    setState(() {
+      if (null != callback) {
+        callback;
+      }
+    });
+  }
+
   void _resetElapsedTimeSegment() {
     _infoElapsedTimeSegmentStart = DateTime.now();
+  }
+
+  void _startCountDown() {
+    if (!_isCountDownVisible) {
+      _isCountDownVisible = true;
+      _countDownController.start();
+    }
   }
 
   void _startTimer() {
@@ -447,6 +541,14 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
     );
 
     _timer = Timer.periodic(_timerInterval!, _onTimer);
+    _refreshUI();
+  }
+
+  void _stopCountDown() {
+    if (_isCountDownVisible) {
+      _isCountDownVisible = false;
+      _countDownController.reset();
+    }
   }
 
   void _stopTimer() {
@@ -454,22 +556,7 @@ class ViewPlayState extends State<ViewPlay> with WidgetsBindingObserver {
       _timer?.cancel();
       _timer = null;
 
-      setState(() {
-        // Refresh UI
-      });
-    }
-  }
-
-  String _formatDuration(Duration? duration, String nullValue) {
-    if (duration == null) {
-      return nullValue;
-    } else {
-      String twoDigit(int n) => n.toString().padLeft(2, "0");
-
-      int minutes = duration.inMinutes;
-      int seconds = duration.inSeconds % 60;
-      int tenths = (duration.inMilliseconds % 1000) ~/ 100;
-      return '${twoDigit(minutes)}:${twoDigit(seconds)}.$tenths';
+      _refreshUI();
     }
   }
 

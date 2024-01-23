@@ -14,6 +14,7 @@
   "viewPlay_Buttons_Pause": "Pause",
   "viewPlay_Buttons_Play": "Play",
   "viewPlay_Buttons_Stop": "Stop",
+  "viewPlay_CountDown_Start": "Go!",
   "viewPlay_Info_Count_Intervals_Label": "Intervals count:",
   "viewPlay_Info_Count_Keys_Label": "Keys count:",
   "viewPlay_Info_ElapsedTime_Label": "Elapsed time:",

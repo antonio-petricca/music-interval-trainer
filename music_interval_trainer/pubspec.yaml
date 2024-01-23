@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: any
   vibration: any
 
+  circular_countdown_timer: any
   flutter_beep: any
   youtube_player_flutter: any
 

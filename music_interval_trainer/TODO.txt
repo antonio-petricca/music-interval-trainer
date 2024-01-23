@@ -1,7 +1,11 @@
+- https://www.buymeacoffee.com
 - Full help (no more video).
 - Github: release APK by CI.
 - Keys as premium feature.
-- Play: start/restart countdown by a "toaster".
-- Play: flash changed item.
+- Play: flash changed item?!
+- Play: keys features visibility.
+- Play: disable widgets during countdown.
+- Play: fix non stopping countdown on resume.
+- Play: optimize setState calls.
 - UI: better splash image.
 - UI: nicer UI.
