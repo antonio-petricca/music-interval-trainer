@@ -39,7 +39,7 @@ class WidgetBlinkingText extends StatefulWidget {
     this.textDirection,
     this.textScaler,
     this.textWidthBasis,
-    this.textHeightBehavior
+    this.textHeightBehavior,
   });
 
   @override
@@ -78,8 +78,7 @@ class WidgetBlinkingTextState extends State<WidgetBlinkingText> with SingleTicke
       child: ValueListenableBuilder(
         valueListenable: widget.textNotifier,
         builder: (context, value, child) {
-          return Text(
-            value,
+          return Text(value,
               locale: widget.locale,
               maxLines: widget.maxLines,
               overflow: widget.overflow,
@@ -92,8 +91,7 @@ class WidgetBlinkingTextState extends State<WidgetBlinkingText> with SingleTicke
               textDirection: widget.textDirection,
               textScaler: widget.textScaler,
               textWidthBasis: widget.textWidthBasis,
-              textHeightBehavior: widget.textHeightBehavior
-          );
+              textHeightBehavior: widget.textHeightBehavior);
         },
       ),
     );

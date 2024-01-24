@@ -68,7 +68,7 @@ class ViewHomeState extends State<ViewHome> {
 
       return;
     } else if (_tabPlay == index) {
-      _viewPlayKey.currentState?.reload();
+      _viewPlayKey.currentState?.initialize();
     }
 
     setState(() {

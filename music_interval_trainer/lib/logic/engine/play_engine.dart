@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/common/environment/settings_manager.dart';
 
-import '../../common/environment/keys_manager.dart';
+import 'keys_manager.dart';
 
 class PlayEngineAnswer {
   final String _interval;

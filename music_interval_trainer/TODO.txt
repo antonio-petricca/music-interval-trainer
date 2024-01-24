@@ -2,10 +2,8 @@
 - Full help (no more video).
 - Github: release APK by CI.
 - Keys as premium feature.
-- Play: flash changed item?!
+- Play: countdown start value / replace countdown widget.
 - Play: keys features visibility.
 - Play: disable widgets during countdown.
-- Play: fix non stopping countdown on resume.
-- Play: optimize setState calls.
 - UI: better splash image.
 - UI: nicer UI.

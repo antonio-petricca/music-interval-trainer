@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../common/environment/keys_manager.dart';
 import '../common/environment/settings_manager.dart';
 import '../common/ui/custom_icons.dart';
 import '../common/ui/widget_icon_layout_ext.dart';
 import '../common/ui/widget_two_state_button.dart';
+import '../logic/engine/keys_manager.dart';
 
 class ViewSettings extends StatefulWidget {
   const ViewSettings({super.key});
