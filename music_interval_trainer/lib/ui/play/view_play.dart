@@ -221,11 +221,11 @@ class ViewPlayState extends State<ViewPlay> {
   }
 
   void _onApplicationActivate() {
-    _toolbarWidgetKey.currentState!.pause();
+    _toolbarWidgetKey.currentState!.resume();
   }
 
   void _onApplicationDeactivate() {
-    _toolbarWidgetKey.currentState!.resume();
+    _toolbarWidgetKey.currentState!.pause();
   }
 
   void _onCountDownComplete() {
