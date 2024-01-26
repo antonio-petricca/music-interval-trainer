@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'dart:async';
+
+import '../utils/constants.dart';
 
 class WidgetCountDownTimer extends StatefulWidget {
   final Color color;
@@ -60,44 +64,57 @@ class WidgetCountDownTimerState extends State<WidgetCountDownTimer> {
     );
   }
 
-  void start() {
-    if (!_isRunning) {
-      _currentValue = widget.seconds;
-
-      _timer = Timer.periodic(
-        const Duration(seconds: 1),
-        (timer) {
-          setState(() {
-            if (_currentValue > 0) {
-              _currentValue--;
-            } else {
-              stop();
-              widget.onComplete();
-            }
-          });
-        },
-      );
-
-      _isRunning = true;
+  bool start() {
+    if (_isRunning) {
+      return false;
     }
+
+    _currentValue = widget.seconds;
+
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        setState(() {
+          if (_currentValue > 0) {
+            _currentValue--;
+          } else {
+            stop();
+            widget.onComplete();
+          }
+        });
+      },
+    );
+
+    _isRunning = true;
+
+    return true;
   }
 
-  void stop() {
+  bool stop() {
     if (!_isRunning) {
-      _timer.cancel();
-      _isRunning = false;
+      return false;
     }
+
+    _timer.cancel();
+
+    while (_timer!.isActive) {
+      sleep(Constants.oneMillisecond);
+    }
+
+    _isRunning = false;
+
+    return true;
   }
 }
 
 class WidgetCountDownTimerController {
   late WidgetCountDownTimerState _state;
 
-  void start() {
-    _state.start();
+  bool start() {
+    return _state.start();
   }
 
-  void stop() {
-    _state.stop();
+  bool stop() {
+    return _state.stop();
   }
 }
