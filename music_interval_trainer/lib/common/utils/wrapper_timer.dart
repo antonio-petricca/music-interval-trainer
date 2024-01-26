@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
-import '../../common/utils/constants.dart';
+import 'constants.dart';
 
-typedef OnPlayTimerTimeout = bool Function(PlayTimer timer);
+typedef OnPlayTimerTimeout = bool Function(WrapperTimer timer);
 
-class PlayTimer {
+class WrapperTimer {
   final bool _fireImmediately;
   final Duration _interval;
   bool _isRunning = false;
@@ -16,7 +16,7 @@ class PlayTimer {
   bool get isRunning => _isRunning;
   OnPlayTimerTimeout onTimerElapsed;
 
-  PlayTimer(
+  WrapperTimer(
     this._interval,
     this._fireImmediately,
     this.onTimerElapsed,

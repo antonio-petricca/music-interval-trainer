@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_beep/flutter_beep.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/play_timer.dart';
+import 'package:io.github.antoniopetricca.music_interval_trainer/common/utils/wrapper_timer.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/widget_play_challenge_panel.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/widget_play_countdown.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/widget_play_info_panel.dart';
@@ -29,7 +29,7 @@ class ViewPlayState extends State<ViewPlay> {
   final SettingsManager _settingsManager = SettingsManager();
 
   PlayEngine? _playEngine;
-  PlayTimer? _playTimer;
+  WrapperTimer? _playTimer;
 
   final GlobalKey<WidgetPlayCountDownState> _countDownWidgetKey = GlobalKey();
   final GlobalKey<WidgetPlayInfoPanelState> _infoPanelWidgetKey = GlobalKey();
@@ -211,7 +211,7 @@ class ViewPlayState extends State<ViewPlay> {
       _playTimer!.stop();
     }
 
-    _playTimer = PlayTimer(
+    _playTimer = WrapperTimer(
       Duration(
         milliseconds: (_settingsManager.intervalsQuantum / SettingsManager.intervalsSpeedFactor * 1000).toInt(),
       ),
@@ -257,7 +257,7 @@ class ViewPlayState extends State<ViewPlay> {
     _doAskForStopping(null);
   }
 
-  bool _onTimerElapsed(PlayTimer timer) {
+  bool _onTimerElapsed(WrapperTimer timer) {
     setState(() {
       doNextChallenge();
       _updateElapsedTimeTotal();
