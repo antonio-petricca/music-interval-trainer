@@ -30,12 +30,11 @@ class ViewPlayState extends State<ViewPlay> {
   PlayEngine? _playEngine;
   WrapperTimer? _playTimer;
 
-  final GlobalKey<WidgetPlayInfoPanelState> _infoPanelWidgetKey = GlobalKey();
-
   final _intervalValueNotifier = ValueNotifier<String>(Constants.unsetValue);
   final _keyValueNotifier = ValueNotifier<String>(Constants.unsetValue);
 
   final WidgetPlayCountDownController _countDownController = WidgetPlayCountDownController();
+  final WidgetPlayInfoPanelController _infoPanelController = WidgetPlayInfoPanelController();
   final WidgetPlayToolbarController _playToolbarController = WidgetPlayToolbarController();
 
   @override
@@ -50,7 +49,7 @@ class ViewPlayState extends State<ViewPlay> {
               keyValueNotifier: _keyValueNotifier,
             ),
             WidgetPlayInfoPanel(
-              key: _infoPanelWidgetKey,
+              controller: _infoPanelController,
               intervalsCount: ((null != _playEngine) ? _playEngine!.intervalsCount : 0),
               keysCount: ((null != _playEngine) ? _playEngine!.keysCount : 0),
             ),
@@ -183,7 +182,7 @@ class ViewPlayState extends State<ViewPlay> {
       if (!resume) {
         _intervalValueNotifier.value = Constants.unsetValue;
         _keyValueNotifier.value = Constants.unsetValue;
-        _infoPanelWidgetKey.currentState!.reset();
+        _infoPanelController.reset();
       }
 
       _startCountDown();
@@ -283,7 +282,7 @@ class ViewPlayState extends State<ViewPlay> {
   }
 
   void _updateElapsedTimeTotal() {
-    _infoPanelWidgetKey.currentState!.increment(
+    _infoPanelController.increment(
       DateTime.now().difference(_partialElapsedTime!),
     );
 

@@ -5,11 +5,13 @@ import '../../common/utils/constants.dart';
 import '../../common/ui/custom_icons.dart';
 
 class WidgetPlayInfoPanel extends StatefulWidget {
+  final WidgetPlayInfoPanelController controller;
   final int intervalsCount;
   final int keysCount;
 
   const WidgetPlayInfoPanel({
     super.key,
+    required this.controller,
     required this.intervalsCount,
     required this.keysCount,
   });
@@ -57,8 +59,14 @@ class WidgetPlayInfoPanelState extends State<WidgetPlayInfoPanel> {
     );
   }
 
-  void increment(Duration partialTime) {
-    _elapsedTime = _elapsedTime + partialTime;
+  void increment(Duration value) {
+    _elapsedTime = _elapsedTime + value;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller._state = this;
   }
 
   void reset() {
@@ -107,4 +115,12 @@ class WidgetPlayInfoPanelState extends State<WidgetPlayInfoPanel> {
       return '${twoDigit(minutes)}:${twoDigit(seconds)}.$tenths';
     }
   }
+}
+
+class WidgetPlayInfoPanelController {
+  late WidgetPlayInfoPanelState _state;
+
+  void increment(Duration value) => _state.increment(value);
+
+  void reset() => _state.reset();
 }

@@ -6,5 +6,4 @@
 - Play: fix tab switch during countdown.
 - Play: test all start/stop scenarios.
 - UI: better splash image.
-- UI: controllers instead of state/global_key.
 - UI: nicer UI.
