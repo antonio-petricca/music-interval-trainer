@@ -16,7 +16,8 @@ class ViewHomeState extends State<ViewHome> {
   static const int _tabPlay = 2;
 
   int _selectedIndex = 0;
-  final GlobalKey<ViewPlayState> _viewPlayKey = GlobalKey();
+
+  final ViewPlayController _viewPlayController = ViewPlayController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class ViewHomeState extends State<ViewHome> {
           children: [
             const ViewAbout(),
             const ViewSettings(),
-            ViewPlay(key: _viewPlayKey),
+            ViewPlay(controller: _viewPlayController),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -58,7 +59,7 @@ class ViewHomeState extends State<ViewHome> {
 
   void _onItemTapped(int index) {
     if (_tabPlay == _selectedIndex) {
-      _viewPlayKey.currentState?.stop(
+      _viewPlayController.stop(
         () {
           setState(() {
             _selectedIndex = index;
@@ -68,7 +69,7 @@ class ViewHomeState extends State<ViewHome> {
 
       return;
     } else if (_tabPlay == index) {
-      _viewPlayKey.currentState?.initialize();
+      _viewPlayController.initialize();
     }
 
     setState(() {

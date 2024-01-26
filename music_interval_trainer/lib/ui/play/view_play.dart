@@ -16,7 +16,12 @@ import '../../common/utils/constants.dart';
 import '../../logic/engine/play_engine.dart';
 
 class ViewPlay extends StatefulWidget {
-  const ViewPlay({super.key});
+  final ViewPlayController controller;
+
+  const ViewPlay({
+    super.key,
+    required this.controller,
+  });
 
   @override
   ViewPlayState createState() => ViewPlayState();
@@ -92,6 +97,8 @@ class ViewPlayState extends State<ViewPlay> {
   void initState() {
     super.initState();
 
+    widget.controller._state = this;
+
     _applicationState = ApplicationState(
       _onApplicationActivate,
       _onApplicationDeactivate,
@@ -163,7 +170,7 @@ class ViewPlayState extends State<ViewPlay> {
     }
   }
 
-  void doNextChallenge() {
+  void _doNextChallenge() {
     if (null != _playEngine) {
       var answer = _playEngine!.next();
       _intervalValueNotifier.value = answer.interval;
@@ -254,7 +261,7 @@ class ViewPlayState extends State<ViewPlay> {
 
   bool _onTimerElapsed(WrapperTimer timer) {
     setState(() {
-      doNextChallenge();
+      _doNextChallenge();
       _updateElapsedTimeTotal();
       _doFeedback();
     });
@@ -288,4 +295,12 @@ class ViewPlayState extends State<ViewPlay> {
 
     _resetElapsedTimeSegment();
   }
+}
+
+class ViewPlayController {
+  late ViewPlayState _state;
+
+  void initialize() => _state.initialize();
+
+  void stop(VoidCallback setStateCallback) => _state.stop(setStateCallback);
 }
