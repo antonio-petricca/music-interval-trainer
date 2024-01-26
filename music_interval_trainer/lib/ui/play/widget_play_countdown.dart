@@ -33,6 +33,8 @@ class WidgetPlayCountDownState extends State<WidgetPlayCountDown> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Visibility(
       maintainAnimation: true,
       maintainSemantics: true,
@@ -42,15 +44,15 @@ class WidgetPlayCountDownState extends State<WidgetPlayCountDown> {
       child: Stack(
         children: [
           Opacity(
-            opacity: 0.25,
+            opacity: 0.5, // Prevents interaction with background buttons
             child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
+              height: size.height,
+              width: size.width,
               color: Colors.black,
             ),
           ),
           Opacity(
-            opacity: 0.5, // Prevents interaction with background buttons
+            opacity: 0.75,
             child: Center(
               child: WidgetCountDownTimer(
                 color: Theme.of(context).buttonTheme.colorScheme!.primary,
@@ -58,8 +60,8 @@ class WidgetPlayCountDownState extends State<WidgetPlayCountDown> {
                 seconds: widget.seconds,
                 lineWidth: 20,
                 radius: min(
-                  (MediaQuery.of(context).size.height / 3),
-                  (MediaQuery.of(context).size.width / 3),
+                  (size.height / 3),
+                  (size.width / 3),
                 ),
                 textStyle: TextStyle(
                   fontSize: 30.0,
@@ -74,4 +76,8 @@ class WidgetPlayCountDownState extends State<WidgetPlayCountDown> {
       ),
     );
   }
+}
+
+class WidgetPlayCountDownController {
+
 }
