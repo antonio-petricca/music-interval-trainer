@@ -1,16 +1,18 @@
-import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../common/ui/widget_countdown_timer.dart';
 
 class WidgetPlayCountDown extends StatefulWidget {
-  final CountDownController controller;
-  final int duration;
+  final WidgetCountDownTimerController controller;
+  final int seconds;
   final VoidCallback onComplete;
 
   const WidgetPlayCountDown({
     super.key,
     required this.controller,
-    required this.duration,
+    required this.seconds,
     required this.onComplete,
   });
 
@@ -48,34 +50,22 @@ class WidgetPlayCountDownState extends State<WidgetPlayCountDown> {
             ),
           ),
           Opacity(
-            opacity: 0.75,
+            opacity: 0.5, // Prevents interaction with background buttons
             child: Center(
-              child: CircularCountDownTimer(
-                autoStart: false,
+              child: WidgetCountDownTimer(
+                color: Theme.of(context).buttonTheme.colorScheme!.primary,
                 controller: widget.controller,
-                duration: widget.duration,
-                initialDuration: 0,
-                isReverse: true,
-                isReverseAnimation: false,
-                isTimerTextShown: true,
-                height: (MediaQuery.of(context).size.height / 2),
-                width: (MediaQuery.of(context).size.width / 2),
-                backgroundColor: Theme.of(context).buttonTheme.colorScheme?.primary,
-                backgroundGradient: null,
-                fillColor: Theme.of(context).buttonTheme.colorScheme!.primary,
-                fillGradient: null,
-                ringColor: Theme.of(context).buttonTheme.colorScheme!.secondaryContainer,
-                ringGradient: null,
-                strokeWidth: 20.0,
-                strokeCap: StrokeCap.round,
+                seconds: widget.seconds,
+                lineWidth: 20,
+                radius: min(
+                  (MediaQuery.of(context).size.height / 3),
+                  (MediaQuery.of(context).size.width / 3),
+                ),
                 textStyle: TextStyle(
                   fontSize: 30.0,
                   color: Theme.of(context).colorScheme.background,
                   fontWeight: FontWeight.bold,
                 ),
-                textFormat: CountdownTextFormat.S,
-                timeFormatterFunction: (defaultFormatterFunction, duration) =>
-                    (duration.inSeconds == 0) ? AppLocalizations.of(context)!.viewPlay_CountDown_Start : Function.apply(defaultFormatterFunction, [duration]),
                 onComplete: widget.onComplete,
               ),
             ),

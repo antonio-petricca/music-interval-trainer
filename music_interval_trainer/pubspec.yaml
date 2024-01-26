@@ -39,8 +39,8 @@ dependencies:
   shared_preferences: any
   vibration: any
 
-  circular_countdown_timer: any
   flutter_beep: any
+  percent_indicator: any
   youtube_player_flutter: any
 
   # The following adds the Cupertino Icons font to your application.

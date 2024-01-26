@@ -6,7 +6,7 @@ import '../../common/utils/constants.dart';
 typedef OnPlayTimerTimeout = bool Function(PlayTimer timer);
 
 class PlayTimer {
-  final _fireImmediately;
+  final bool _fireImmediately;
   final Duration _interval;
   bool _isRunning = false;
   Timer? _timer;
@@ -16,9 +16,11 @@ class PlayTimer {
   bool get isRunning => _isRunning;
   OnPlayTimerTimeout onTimerElapsed;
 
-  PlayTimer(this._interval,
-      this._fireImmediately,
-      this.onTimerElapsed,);
+  PlayTimer(
+    this._interval,
+    this._fireImmediately,
+    this.onTimerElapsed,
+  );
 
   bool start() {
     if (isRunning || (Duration.zero == _interval)) {

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_beep/flutter_beep.dart';
@@ -13,6 +12,7 @@ import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/widget_
 
 import '../../common/environment/application_state.dart';
 import '../../common/environment/settings_manager.dart';
+import '../../common/ui/widget_countdown_timer.dart';
 import '../../common/utils/constants.dart';
 import '../../logic/engine/play_engine.dart';
 
@@ -38,8 +38,8 @@ class ViewPlayState extends State<ViewPlay> {
   final _intervalValueNotifier = ValueNotifier<String>(Constants.unsetValue);
   final _keyValueNotifier = ValueNotifier<String>(Constants.unsetValue);
 
-  final CountDownController _countDownController = CountDownController();
-  final int _countDownDuration = 3 + 1 /* Compensate widget showing delay */;
+  final WidgetCountDownTimerController _countDownController = WidgetCountDownTimerController();
+  final int _countDownDuration = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ class ViewPlayState extends State<ViewPlay> {
         WidgetPlayCountDown(
           key: _countDownWidgetKey,
           controller: _countDownController,
-          duration: _countDownDuration,
+          seconds: _countDownDuration,
           onComplete: _onCountDownComplete,
         ),
       ],
@@ -282,7 +282,7 @@ class ViewPlayState extends State<ViewPlay> {
   void _stopCountDown() {
     if (_countDownWidgetKey.currentState!.isVisible) {
       _countDownWidgetKey.currentState!.isVisible = false;
-      _countDownController.reset();
+      _countDownController.stop();
     }
   }
 
