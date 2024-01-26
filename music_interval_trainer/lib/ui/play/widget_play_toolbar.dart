@@ -8,6 +8,7 @@ enum WidgetPlayToolbarStatus {
 }
 
 class WidgetPlayToolbar extends StatefulWidget {
+  final WidgetPlayToolbarController controller;
   final VoidCallback onPause;
   final VoidCallback onResume;
   final VoidCallback onStart;
@@ -15,6 +16,7 @@ class WidgetPlayToolbar extends StatefulWidget {
 
   const WidgetPlayToolbar({
     super.key,
+    required this.controller,
     required this.onPause,
     required this.onResume,
     required this.onStart,
@@ -93,6 +95,12 @@ class WidgetPlayToolbarState extends State<WidgetPlayToolbar> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    widget.controller._state = this;
+  }
+
   bool pause() {
     if (_statusIsNot(WidgetPlayToolbarStatus.running)) {
       return false;
@@ -163,4 +171,20 @@ class WidgetPlayToolbarState extends State<WidgetPlayToolbar> {
   bool _statusIsNot(WidgetPlayToolbarStatus status) {
     return (_status != status);
   }
+}
+
+class WidgetPlayToolbarController {
+  late WidgetPlayToolbarState _state;
+
+  WidgetPlayToolbarStatus get status => _state.status;
+
+  set status(WidgetPlayToolbarStatus value) => _state.status = value;
+
+  bool pause() => _state.pause();
+
+  bool resume() => _state.resume();
+
+  bool start() => _state.start();
+
+  bool stop() => _state.stop();
 }

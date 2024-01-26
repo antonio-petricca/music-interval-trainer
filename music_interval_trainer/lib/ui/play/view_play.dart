@@ -31,13 +31,12 @@ class ViewPlayState extends State<ViewPlay> {
   WrapperTimer? _playTimer;
 
   final GlobalKey<WidgetPlayInfoPanelState> _infoPanelWidgetKey = GlobalKey();
-  final GlobalKey<WidgetPlayToolbarState> _toolbarWidgetKey = GlobalKey();
 
   final _intervalValueNotifier = ValueNotifier<String>(Constants.unsetValue);
   final _keyValueNotifier = ValueNotifier<String>(Constants.unsetValue);
 
   final WidgetPlayCountDownController _countDownController = WidgetPlayCountDownController();
-  final int _countDownDuration = 3;
+  final WidgetPlayToolbarController _playToolbarController = WidgetPlayToolbarController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +57,7 @@ class ViewPlayState extends State<ViewPlay> {
           ],
         ),
         WidgetPlayToolbar(
-          key: _toolbarWidgetKey,
+          controller: _playToolbarController,
           onPause: _onPausePressed,
           onResume: _onResumePressed,
           onStart: _onStartPressed,
@@ -66,7 +65,7 @@ class ViewPlayState extends State<ViewPlay> {
         ),
         WidgetPlayCountDown(
           controller: _countDownController,
-          seconds: _countDownDuration,
+          seconds: 3,
           onComplete: _onCountDownComplete,
         ),
       ],
@@ -105,7 +104,7 @@ class ViewPlayState extends State<ViewPlay> {
   }
 
   void stop(VoidCallback setStateCallback) {
-    if (WidgetPlayToolbarStatus.running == _toolbarWidgetKey.currentState!.status) {
+    if (WidgetPlayToolbarStatus.running == _playToolbarController.status) {
       _doAskForStopping(setStateCallback);
     } else {
       setStateCallback();
@@ -218,11 +217,11 @@ class ViewPlayState extends State<ViewPlay> {
   }
 
   void _onApplicationActivate() {
-    _toolbarWidgetKey.currentState!.resume();
+    _playToolbarController.resume();
   }
 
   void _onApplicationDeactivate() {
-    _toolbarWidgetKey.currentState!.pause();
+    _playToolbarController.pause();
   }
 
   void _onCountDownComplete() {
@@ -270,7 +269,7 @@ class ViewPlayState extends State<ViewPlay> {
 
   void _startCountDown() {
     if (!_countDownController.isVisible) {
-      _toolbarWidgetKey.currentState!.status = WidgetPlayToolbarStatus.running;
+      _playToolbarController.status = WidgetPlayToolbarStatus.running;
       _countDownController.isVisible = true;
       _countDownController.start();
     }
