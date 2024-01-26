@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../common/ui/widget_countdown_timer.dart';
 
 class WidgetPlayCountDown extends StatefulWidget {
-  final WidgetCountDownTimerController controller;
+  final WidgetPlayCountDownController controller;
   final int seconds;
   final VoidCallback onComplete;
 
@@ -76,8 +76,21 @@ class WidgetPlayCountDownState extends State<WidgetPlayCountDown> {
       ),
     );
   }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller._state = this;
+  }
 }
 
-class WidgetPlayCountDownController {
+class WidgetPlayCountDownController extends WidgetCountDownTimerController{
+  late WidgetPlayCountDownState _state;
+
+  bool get isVisible => _state.isVisible;
+
+  set isVisible(bool value) {
+    _state.isVisible = value;
+  }
 
 }

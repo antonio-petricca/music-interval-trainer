@@ -1,8 +1,8 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'dart:async';
 
 import '../utils/constants.dart';
 
@@ -42,14 +42,6 @@ class WidgetCountDownTimerState extends State<WidgetCountDownTimer> {
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    _currentValue = widget.seconds;
-    widget.controller._state = this;
-  }
-
-  @override
   Widget build(BuildContext context) {
     return CircularPercentIndicator(
       backgroundColor: Colors.grey,
@@ -62,6 +54,14 @@ class WidgetCountDownTimerState extends State<WidgetCountDownTimer> {
       progressColor: widget.color,
       radius: widget.radius,
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _currentValue = widget.seconds;
+    widget.controller._state = this;
   }
 
   bool start() {
@@ -97,7 +97,7 @@ class WidgetCountDownTimerState extends State<WidgetCountDownTimer> {
 
     _timer.cancel();
 
-    while (_timer!.isActive) {
+    while (_timer.isActive) {
       sleep(Constants.oneMillisecond);
     }
 
@@ -110,11 +110,7 @@ class WidgetCountDownTimerState extends State<WidgetCountDownTimer> {
 class WidgetCountDownTimerController {
   late WidgetCountDownTimerState _state;
 
-  bool start() {
-    return _state.start();
-  }
+  bool start() => _state.start();
 
-  bool stop() {
-    return _state.stop();
-  }
+  bool stop() => _state.stop();
 }

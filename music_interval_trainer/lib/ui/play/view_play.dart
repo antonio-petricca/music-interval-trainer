@@ -12,7 +12,6 @@ import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/widget_
 
 import '../../common/environment/application_state.dart';
 import '../../common/environment/settings_manager.dart';
-import '../../common/ui/widget_countdown_timer.dart';
 import '../../common/utils/constants.dart';
 import '../../logic/engine/play_engine.dart';
 
@@ -31,14 +30,13 @@ class ViewPlayState extends State<ViewPlay> {
   PlayEngine? _playEngine;
   WrapperTimer? _playTimer;
 
-  final GlobalKey<WidgetPlayCountDownState> _countDownWidgetKey = GlobalKey();
   final GlobalKey<WidgetPlayInfoPanelState> _infoPanelWidgetKey = GlobalKey();
   final GlobalKey<WidgetPlayToolbarState> _toolbarWidgetKey = GlobalKey();
 
   final _intervalValueNotifier = ValueNotifier<String>(Constants.unsetValue);
   final _keyValueNotifier = ValueNotifier<String>(Constants.unsetValue);
 
-  final WidgetCountDownTimerController _countDownController = WidgetCountDownTimerController();
+  final WidgetPlayCountDownController _countDownController = WidgetPlayCountDownController();
   final int _countDownDuration = 3;
 
   @override
@@ -67,7 +65,6 @@ class ViewPlayState extends State<ViewPlay> {
           onStop: _onStopPressed,
         ),
         WidgetPlayCountDown(
-          key: _countDownWidgetKey,
           controller: _countDownController,
           seconds: _countDownDuration,
           onComplete: _onCountDownComplete,
@@ -272,16 +269,16 @@ class ViewPlayState extends State<ViewPlay> {
   }
 
   void _startCountDown() {
-    if (!_countDownWidgetKey.currentState!.isVisible) {
+    if (!_countDownController.isVisible) {
       _toolbarWidgetKey.currentState!.status = WidgetPlayToolbarStatus.running;
-      _countDownWidgetKey.currentState!.isVisible = true;
+      _countDownController.isVisible = true;
       _countDownController.start();
     }
   }
 
   void _stopCountDown() {
-    if (_countDownWidgetKey.currentState!.isVisible) {
-      _countDownWidgetKey.currentState!.isVisible = false;
+    if (_countDownController.isVisible) {
+      _countDownController.isVisible = false;
       _countDownController.stop();
     }
   }
