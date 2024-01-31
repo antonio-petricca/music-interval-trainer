@@ -2,5 +2,4 @@
 - Full help (no more video).
 - Github: release APK by CI.
 - Keys as premium feature.
-- UI: better splash image.
 - UI: nicer UI.
