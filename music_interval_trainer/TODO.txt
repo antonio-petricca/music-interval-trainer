@@ -2,6 +2,5 @@
 - Full help (no more video).
 - Github: release APK by CI.
 - Keys as premium feature.
-- Play: keys features visibility.
 - UI: better splash image.
 - UI: nicer UI.

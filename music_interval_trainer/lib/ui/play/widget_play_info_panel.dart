@@ -8,11 +8,13 @@ class WidgetPlayInfoPanel extends StatefulWidget {
   final WidgetPlayInfoPanelController controller;
   final int intervalsCount;
   final int keysCount;
+  final bool keysActive;
 
   const WidgetPlayInfoPanel({
     super.key,
     required this.controller,
     required this.intervalsCount,
+    required this.keysActive,
     required this.keysCount,
   });
 
@@ -44,13 +46,17 @@ class WidgetPlayInfoPanelState extends State<WidgetPlayInfoPanel> {
                 AppLocalizations.of(context)!.viewPlay_Info_Count_Intervals_Label,
                 ((Duration.zero != _elapsedTime) ? widget.intervalsCount.toString() : Constants.unsetValue),
               ),
-              _buildRow(
-                const Icon(
-                  CustomIcons.musicViolinKey,
-                  size: 18,
+              Visibility(
+                maintainState: true,
+                visible: widget.keysActive,
+                child: _buildRow(
+                  const Icon(
+                    CustomIcons.musicViolinKey,
+                    size: 18,
+                  ),
+                  AppLocalizations.of(context)!.viewPlay_Info_Count_Keys_Label,
+                  ((Duration.zero != _elapsedTime) ? widget.keysCount.toString() : Constants.unsetValue),
                 ),
-                AppLocalizations.of(context)!.viewPlay_Info_Count_Keys_Label,
-                ((Duration.zero != _elapsedTime) ? widget.keysCount.toString() : Constants.unsetValue),
               ),
             ],
           ),

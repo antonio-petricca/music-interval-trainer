@@ -5,11 +5,13 @@ import '../../common/ui/widget_blinking_text.dart';
 
 class WidgetPlayChallengePanel extends StatelessWidget {
   final ValueNotifier<String> intervalValueNotifier;
+  final bool keysActive;
   final ValueNotifier<String> keyValueNotifier;
 
   const WidgetPlayChallengePanel({
     super.key,
     required this.intervalValueNotifier,
+    required this.keysActive,
     required this.keyValueNotifier,
   });
 
@@ -26,7 +28,11 @@ class WidgetPlayChallengePanel extends StatelessWidget {
             child: SizedBox(
               width: 80.0,
               height: 80.0,
-              child: _buildKeyPanel(context),
+              child: Visibility(
+                maintainState: true,
+                visible: keysActive,
+                child: _buildKeyPanel(context),
+              ),
             ),
           ),
         ],

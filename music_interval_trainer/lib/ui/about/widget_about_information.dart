@@ -39,7 +39,7 @@ class WidgetAboutInformationState extends State<WidgetAboutInformation> {
 
   @override
   Widget build(BuildContext context) {
-    final String supportEmail = _configuration.get(SettingsCatalog.supportEmail, "?");
+    final String supportEmail = _configuration.get(ConfigurationCatalog.supportEmail, "?");
 
     return WidgetCardLayoutExt(
       icon: const Icon(Icons.info_outline_rounded),

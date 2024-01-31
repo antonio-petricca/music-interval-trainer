@@ -47,8 +47,8 @@ class ViewPlayState extends State<ViewPlay> {
 
   @override
   Widget build(BuildContext context) {
-    final int playCountdownTimeout = _configuration.get(SettingsCatalog.playCountdownTimeout, 3);
-
+    final bool keysActive = _settingsManager.keysActive;
+    final int playCountdownTimeout = _configuration.get(ConfigurationCatalog.playCountdownTimeout, 3);
 
     return Stack(
       alignment: Alignment.center,
@@ -57,11 +57,13 @@ class ViewPlayState extends State<ViewPlay> {
           children: [
             WidgetPlayChallengePanel(
               intervalValueNotifier: _intervalValueNotifier,
+              keysActive: _settingsManager.keysActive,
               keyValueNotifier: _keyValueNotifier,
             ),
             WidgetPlayInfoPanel(
               controller: _infoPanelController,
               intervalsCount: ((null != _playEngine) ? _playEngine!.intervalsCount : 0),
+              keysActive: keysActive,
               keysCount: ((null != _playEngine) ? _playEngine!.keysCount : 0),
             ),
           ],
