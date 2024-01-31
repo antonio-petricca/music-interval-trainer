@@ -205,6 +205,7 @@ class ViewPlayState extends State<ViewPlay> {
 
   void _doStop() {
     setState(() {
+      _playToolbarController.status = WidgetPlayToolbarStatus.stopped; // Force button statu
       _playTimer!.stop();
       _stopCountDown();
       _updateElapsedTimeTotal();
@@ -282,7 +283,7 @@ class ViewPlayState extends State<ViewPlay> {
 
   void _startCountDown() {
     if (!_countDownController.isVisible) {
-      _playToolbarController.status = WidgetPlayToolbarStatus.running;
+      _playToolbarController.status = WidgetPlayToolbarStatus.running; // Force button status
       _countDownController.isVisible = true;
       _countDownController.start();
     }

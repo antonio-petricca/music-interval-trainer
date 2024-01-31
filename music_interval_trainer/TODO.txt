@@ -3,8 +3,5 @@
 - Github: release APK by CI.
 - Keys as premium feature.
 - Play: keys features visibility.
-- Play: fix tab switch during countdown.
-- Play: test all start/stop scenarios.
-- Play: reset countdown to 3 (after debugging).
 - UI: better splash image.
 - UI: nicer UI.
