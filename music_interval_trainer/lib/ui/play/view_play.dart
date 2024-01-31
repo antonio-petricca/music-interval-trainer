@@ -11,6 +11,8 @@ import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/widget_
 import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/widget_play_toolbar.dart';
 
 import '../../common/environment/application_state.dart';
+import '../../common/environment/configuration.dart';
+import '../../common/environment/configuration_catalog.dart';
 import '../../common/environment/settings_manager.dart';
 import '../../common/utils/constants.dart';
 import '../../logic/engine/play_engine.dart';
@@ -29,6 +31,7 @@ class ViewPlay extends StatefulWidget {
 
 class ViewPlayState extends State<ViewPlay> {
   late ApplicationState _applicationState;
+  final Configuration _configuration = Configuration();
   DateTime? _partialElapsedTime;
   final SettingsManager _settingsManager = SettingsManager();
 
@@ -44,6 +47,9 @@ class ViewPlayState extends State<ViewPlay> {
 
   @override
   Widget build(BuildContext context) {
+    final int playCountdownTimeout = _configuration.get(SettingsCatalog.playCountdownTimeout, 3);
+
+
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -69,7 +75,7 @@ class ViewPlayState extends State<ViewPlay> {
         ),
         WidgetPlayCountDown(
           controller: _countDownController,
-          seconds: 3,
+          seconds: playCountdownTimeout,
           onComplete: _onCountDownComplete,
         ),
       ],
@@ -105,6 +111,7 @@ class ViewPlayState extends State<ViewPlay> {
     );
 
     _applicationState.register();
+    _configuration.load(context);
 
     initialize();
   }

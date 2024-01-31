@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info/package_info.dart';
 
 import '../../common/environment/configuration.dart';
+import '../../common/environment/configuration_catalog.dart';
 import '../../common/ui/widget_card_layout_ext.dart';
 
 // https://chat.openai.com/share/451881ca-686c-4da7-a599-3f83e6b5b35f
@@ -38,7 +39,7 @@ class WidgetAboutInformationState extends State<WidgetAboutInformation> {
 
   @override
   Widget build(BuildContext context) {
-    final String supportEmail = _configuration.get("supportEmail", "?");
+    final String supportEmail = _configuration.get(SettingsCatalog.supportEmail, "?");
 
     return WidgetCardLayoutExt(
       icon: const Icon(Icons.info_outline_rounded),
