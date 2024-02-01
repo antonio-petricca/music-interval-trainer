@@ -3,3 +3,4 @@
 - Github: release APK by CI.
 - Keys as premium feature.
 - UI: nicer UI.
+- UI: add background to icon.
