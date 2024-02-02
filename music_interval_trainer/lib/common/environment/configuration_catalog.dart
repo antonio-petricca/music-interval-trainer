@@ -1,4 +1,4 @@
 class ConfigurationCatalog {
-  static const String playCountdownTimeout = "playCountdownTimeout";
-  static const String supportEmail = "supportEmail";
+  static const String playCountdownTimeout = "play_countdown_timeout";
+  static const String supportEmail = "support_email";
 }
