@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run (release / x86_x64)" type="FlutterRunConfigurationType" factoryName="Flutter">
+    <option name="additionalArgs" value="--release" />
+    <option name="filePath" value="$PROJECT_DIR$/music_interval_trainer/lib/main.dart" />
+    <method v="2" />
+  </configuration>
+</component>
