@@ -39,7 +39,8 @@ dependencies:
   shared_preferences: any
   vibration: any
 
-  flutter_beep: any
+  flutter_beep:
+    path: lib/third_party/flutter_beep
   percent_indicator: any
   youtube_player_flutter: any
 

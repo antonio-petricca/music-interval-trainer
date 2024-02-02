@@ -5,4 +5,5 @@
 - UI: nicer UI.
 - UI: separate about and
 - Rework configurations and settings.
-- Update Flutter Beep library.
+- Update Flutter Beep library (embedded for the moment).
+- Credits.
