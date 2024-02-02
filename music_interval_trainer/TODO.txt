@@ -3,4 +3,6 @@
 - Github: release APK by CI.
 - Keys as premium feature.
 - UI: nicer UI.
-- UI: add background to icon.
+- UI: separate about and
+- Rework configurations and settings.
+- Update Flutter Beep library.
