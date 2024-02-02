@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'dart:io' show Platform;
 
 class FlutterBeep {
-  static const MethodChannel _channel = const MethodChannel('flutter_beep');
+  static const MethodChannel _channel = MethodChannel('flutter_beep');
 
   static Future<void> playSysSound(int soundId) async {
     var args = <String, dynamic>{"soundId": soundId};
