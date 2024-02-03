@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 
 import 'package:flutter/services.dart';
-import 'dart:io' show Platform;
 
 class FlutterBeep {
   static const MethodChannel _channel = MethodChannel('flutter_beep');
