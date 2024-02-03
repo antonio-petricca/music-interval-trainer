@@ -11,9 +11,9 @@ import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/widget_
 import 'package:io.github.antoniopetricca.music_interval_trainer/ui/play/widget_play_toolbar.dart';
 
 import '../../common/environment/application_state.dart';
-import '../../common/environment/configuration.dart';
-import '../../common/environment/configuration_catalog.dart';
+import '../../common/environment/configuration_manager.dart';
 import '../../common/environment/settings_manager.dart';
+import '../../common/ui/widget_state_async.dart';
 import '../../common/utils/constants.dart';
 import '../../logic/engine/play_engine.dart';
 
@@ -29,7 +29,7 @@ class ViewPlay extends StatefulWidget {
   ViewPlayState createState() => ViewPlayState();
 }
 
-class ViewPlayState extends State<ViewPlay> {
+class ViewPlayState extends WidgetStateAsync<ViewPlay> {
   late ApplicationState _applicationState;
   final Configuration _configuration = Configuration();
   DateTime? _partialElapsedTime;
@@ -46,9 +46,15 @@ class ViewPlayState extends State<ViewPlay> {
   final WidgetPlayToolbarController _playToolbarController = WidgetPlayToolbarController();
 
   @override
-  Widget build(BuildContext context) {
+  void dispose() {
+    _applicationState.unregister();
+    super.dispose();
+  }
+
+  @override
+  Widget doBuild(BuildContext context) {
     final bool keysActive = _settingsManager.keysActive;
-    final int playCountdownTimeout = _configuration.get(ConfigurationCatalog.playCountdownTimeout, 3);
+    final int playCountdownTimeout = _configuration.playCountdownTimeout;
 
     return Stack(
       alignment: Alignment.center,
@@ -85,37 +91,38 @@ class ViewPlayState extends State<ViewPlay> {
   }
 
   @override
-  void dispose() {
-    _applicationState.unregister();
-    super.dispose();
+  Future<void> doInitializeData() async {
+    await _configuration.load(context);
+    await _settingsManager.load();
   }
 
-  void initialize() {
-    _settingsManager.load(
-      () => setState(() {
+  @override
+  void onDataInitialized() {
+    setState(
+      () {
         _initializePlayEngine();
         _initializeTimer();
 
         // Then refresh UI with loaded settings...
-      }),
+      },
     );
+  }
+
+  Future<void> initialize() async {
+    await _configuration.load(context);
+    await _settingsManager.load();
   }
 
   @override
   void initState() {
-    super.initState();
-
     widget.controller._state = this;
 
     _applicationState = ApplicationState(
       _onApplicationActivate,
       _onApplicationDeactivate,
-    );
+    ).register();
 
-    _applicationState.register();
-    _configuration.load(context);
-
-    initialize();
+    super.initState();
   }
 
   void stop(VoidCallback setStateCallback) {

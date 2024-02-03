@@ -1,11 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:io.github.antoniopetricca.music_interval_trainer/common/environment/settings_catalog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsManager {
   static const int intervalsSpeedFactor = 2; // 1 (second) / 2
-  static const int intervalsSpeedQuantumMax = (15 /* seconds */ * intervalsSpeedFactor);
-  static const int intervalsSpeedQuantumMin = (1 /* second */ * intervalsSpeedFactor);
   static const int keyChangeIntervalMax = 100;
   static const int keyChangeIntervalMin = 1;
 
@@ -95,11 +92,10 @@ class SettingsManager {
     _save();
   }
 
-  load(VoidCallback callback) async {
+  Future<void> load() async {
     _preferences = await SharedPreferences.getInstance();
 
     _intervalsAccidentals = _preferences.getBool(SettingsCatalog.intervalsAccidentals) ?? _intervalsAccidentals;
-
     _intervalsExtended = _preferences.getBool(SettingsCatalog.intervalsExtendedIntervals) ?? _intervalsExtended;
     _intervalsSpeedQuantum = _preferences.getInt(SettingsCatalog.intervalsSpeedQuantum) ?? _intervalsSpeedQuantum;
 
@@ -115,8 +111,6 @@ class SettingsManager {
 
     _uxFeedbackSound = _preferences.getBool(SettingsCatalog.uxFeedbackSound) ?? _uxFeedbackSound;
     _uxFeedbackVibration = _preferences.getBool(SettingsCatalog.uxFeedbackVibration) ?? _uxFeedbackVibration;
-
-    callback();
   }
 
   _save() {

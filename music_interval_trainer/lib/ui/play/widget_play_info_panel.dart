@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../common/utils/constants.dart';
 import '../../common/ui/custom_icons.dart';
+import '../../common/utils/constants.dart';
 
 class WidgetPlayInfoPanel extends StatefulWidget {
   final WidgetPlayInfoPanelController controller;

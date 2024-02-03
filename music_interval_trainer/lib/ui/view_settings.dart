@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../common/environment/configuration_manager.dart';
 import '../common/environment/settings_manager.dart';
 import '../common/ui/custom_icons.dart';
 import '../common/ui/widget_icon_layout_ext.dart';
+import '../common/ui/widget_state_async.dart';
 import '../common/ui/widget_two_state_button.dart';
 import '../logic/engine/keys_manager.dart';
 
@@ -14,7 +16,8 @@ class ViewSettings extends StatefulWidget {
   ViewSettingsState createState() => ViewSettingsState();
 }
 
-class ViewSettingsState extends State<ViewSettings> {
+class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
+  final Configuration _configuration = Configuration();
   late List<String> _keyLabels;
   final SettingsManager _settingsManager = SettingsManager();
 
@@ -24,21 +27,12 @@ class ViewSettingsState extends State<ViewSettings> {
   final EdgeInsetsGeometry _otherListTilePadding = const EdgeInsets.only(left: 10, right: 10);
   final EdgeInsetsGeometry _sliderListTilePadding = const EdgeInsets.only(left: 10);
 
-  final int _intervalsSpeedQuantumDivisions = (SettingsManager.intervalsSpeedQuantumMax - SettingsManager.intervalsSpeedQuantumMin).toInt();
+  int _intervalsSpeedQuantumDivisions = -1;
+  double _intervalsSpeedQuantumMax = -1;
+  double _intervalsSpeedQuantumMin = -1;
 
   @override
-  void initState() {
-    super.initState();
-
-    _settingsManager.load(
-      () => setState(() {
-        // Refresh UI with loaded settings.
-      }),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget doBuild(BuildContext context) {
     _keyLabels = KeysManager(context).getList();
 
     return SingleChildScrollView(
@@ -71,6 +65,27 @@ class ViewSettingsState extends State<ViewSettings> {
           _buildUXFeedbackVibration(context),
         ],
       ),
+    );
+  }
+
+  @override
+  Future<void> doInitializeData() async {
+    await _configuration.load(context);
+    await _settingsManager.load();
+  }
+
+  @override
+  void onDataInitialized() {
+    setState(
+      () {
+        _intervalsSpeedQuantumDivisions =
+            ((_configuration.intervalsSpeedMaxSeconds - _configuration.intervalsSpeedMinSeconds) * SettingsManager.intervalsSpeedFactor);
+
+        _intervalsSpeedQuantumMax = (_configuration.intervalsSpeedMaxSeconds * SettingsManager.intervalsSpeedFactor).toDouble();
+        _intervalsSpeedQuantumMin = (_configuration.intervalsSpeedMinSeconds * SettingsManager.intervalsSpeedFactor).toDouble();
+
+        // Then refresh UI with loaded settings...
+      },
     );
   }
 
@@ -177,8 +192,8 @@ class ViewSettingsState extends State<ViewSettings> {
         Expanded(
           child: Slider(
             value: _settingsManager.intervalsQuantum.toDouble(),
-            min: SettingsManager.intervalsSpeedQuantumMin.toDouble(),
-            max: SettingsManager.intervalsSpeedQuantumMax.toDouble(),
+            min: _intervalsSpeedQuantumMin,
+            max: _intervalsSpeedQuantumMax,
             divisions: _intervalsSpeedQuantumDivisions,
             onChanged: _onIntervalsSpeedQuantumChanged,
           ),

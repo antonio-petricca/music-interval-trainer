@@ -1,4 +1,6 @@
 {
+  "intervals_speed_max_seconds": 15,
+  "intervals_speed_min_seconds": 1,
   "play_countdown_timeout": 3,
   "support_email": "antonio.petricca@gmail.com"
 }

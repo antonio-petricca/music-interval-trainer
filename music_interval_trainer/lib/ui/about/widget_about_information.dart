@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info/package_info.dart';
 
-import '../../common/environment/configuration.dart';
-import '../../common/environment/configuration_catalog.dart';
+import '../../common/environment/configuration_manager.dart';
 import '../../common/ui/widget_card_layout_ext.dart';
+import '../../common/ui/widget_state_async.dart';
 
 // https://chat.openai.com/share/451881ca-686c-4da7-a599-3f83e6b5b35f
 // https://chat.openai.com/share/451881ca-686c-4da7-a599-3f83e6b5b35f
@@ -16,31 +16,14 @@ class WidgetAboutInformation extends StatefulWidget {
   WidgetAboutInformationState createState() => WidgetAboutInformationState();
 }
 
-class WidgetAboutInformationState extends State<WidgetAboutInformation> {
+class WidgetAboutInformationState extends WidgetStateAsync<WidgetAboutInformation> {
   final Configuration _configuration = Configuration();
 
-  late String _appVersion = '?';
+  String _appVersion = "?";
+  String _supportEmail = "?";
 
   @override
-  void initState() {
-    super.initState();
-
-    _getAppVersion();
-    _configuration.load(context);
-  }
-
-  Future<void> _getAppVersion() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-    setState(() {
-      _appVersion = packageInfo.version;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final String supportEmail = _configuration.get(ConfigurationCatalog.supportEmail, "?");
-
+  Widget doBuild(BuildContext context) {
     return WidgetCardLayoutExt(
       icon: const Icon(Icons.info_outline_rounded),
       title: AppLocalizations.of(context)!.viewAbout_Information_Title,
@@ -60,12 +43,30 @@ class WidgetAboutInformationState extends State<WidgetAboutInformation> {
             ),
             const Divider(height: 5),
             Text(
-              AppLocalizations.of(context)!.viewAbout_Information_SupportEmail(supportEmail),
+              AppLocalizations.of(context)!.viewAbout_Information_SupportEmail(_supportEmail),
               style: Theme.of(context).textTheme.labelSmall,
             ),
           ],
         ),
       ],
     );
+  }
+
+  @override
+  Future<void> doInitializeData() async {
+    await _configuration.load(context);
+    await _getAppVersion();
+  }
+
+  @override
+  void onDataInitialized() {
+    setState(
+      () => _supportEmail = _configuration.supportEmail,
+    );
+  }
+
+  Future<void> _getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    _appVersion = packageInfo.version;
   }
 }

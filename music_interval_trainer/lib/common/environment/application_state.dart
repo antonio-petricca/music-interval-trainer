@@ -35,11 +35,13 @@ class ApplicationState with WidgetsBindingObserver {
     }
   }
 
-  void register() {
+  ApplicationState register() {
     WidgetsBinding.instance.addObserver(this);
+    return this;
   }
 
-  void unregister() {
+  ApplicationState unregister() {
     WidgetsBinding.instance.removeObserver(this);
+    return this;
   }
 }

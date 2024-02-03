@@ -1,9 +1,9 @@
-- https://www.buymeacoffee.com
+- _keyLabels = KeysManager(context).getList();
+- Credits (into configuration).
 - Full help (no more video).
 - Github: release APK by CI.
+- https://www.buymeacoffee.com
 - Keys as premium feature.
 - UI: nicer UI.
-- UI: separate about and
-- Rework configurations and settings.
+- UI: separate about/credits from the help.
 - Update Flutter Beep library (embedded for the moment).
-- Credits.
