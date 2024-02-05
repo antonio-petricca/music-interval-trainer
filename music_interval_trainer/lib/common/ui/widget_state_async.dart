@@ -1,3 +1,4 @@
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,11 @@ abstract class WidgetStateAsync<T extends StatefulWidget> extends State<T> {
   Widget _buildLoaderWidget() {
     Size size = MediaQuery.of(context).size;
 
+    double radius = min(
+      (size.height / 3),
+      (size.width / 3),
+    );
+
     return Stack(
       children: [
         Opacity(
@@ -40,9 +46,14 @@ abstract class WidgetStateAsync<T extends StatefulWidget> extends State<T> {
             color: Colors.black,
           ),
         ),
-        const Opacity(
+        Opacity(
           opacity: 0.75,
-          child: Center(child: null //TODO
+          child: Center(
+            child: SizedBox(
+              height: radius,
+              width: radius,
+              child: const CircularProgressIndicator(),
+            ),
           ),
         ),
       ],
