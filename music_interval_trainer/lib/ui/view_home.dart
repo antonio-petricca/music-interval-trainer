@@ -21,18 +21,39 @@ class ViewHomeState extends State<ViewHome> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.appTitle),
         ),
-        body: IndexedStack(
-          index: _selectedIndex,
+        body: Stack(
           children: [
-            const ViewAbout(),
-            const ViewSettings(),
-            ViewPlay(controller: _viewPlayController),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Opacity(
+                opacity: 0.1,
+                child: SizedBox(
+                  height: size.height,
+                  width: size.width,
+                  child: Image.asset(
+                    'assets/images/background.png',
+                    fit: BoxFit.fitHeight,
+                  ),
+                ),
+              ),
+            ),
+            IndexedStack(
+              index: _selectedIndex,
+              children: [
+                const ViewAbout(),
+                const ViewSettings(),
+                ViewPlay(controller: _viewPlayController),
+              ],
+            ),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
