@@ -42,52 +42,57 @@ class WidgetPlayToolbarState extends State<WidgetPlayToolbar> {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 20),
-        child: Material(
-          elevation: 4.0,
-          borderRadius: const BorderRadius.all(Radius.circular(6.0)),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Wrap(
-              direction: Axis.horizontal,
-              children: [
-                MaterialButton(
-                  onPressed: (_statusIsNot(WidgetPlayToolbarStatus.running) ? _onPlayButtonPressed : null),
-                  child: Column(
-                    children: [
-                      const Icon(Icons.directions_run),
-                      Text(
-                        AppLocalizations.of(context)!.viewPlay_Buttons_Play,
-                      ),
-                    ],
+    return Opacity(
+      opacity: 0.65,
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Material(
+            elevation: 4.0,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(6.0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Wrap(
+                direction: Axis.horizontal,
+                children: [
+                  MaterialButton(
+                    onPressed: (_statusIsNot(WidgetPlayToolbarStatus.running) ? _onPlayButtonPressed : null),
+                    child: Column(
+                      children: [
+                        const Icon(Icons.directions_run),
+                        Text(
+                          AppLocalizations.of(context)!.viewPlay_Buttons_Play,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                MaterialButton(
-                  onPressed: (_statusIs(WidgetPlayToolbarStatus.running) ? _onPauseButtonPressed : null),
-                  child: Column(
-                    children: [
-                      const Icon(Icons.pause),
-                      Text(
-                        AppLocalizations.of(context)!.viewPlay_Buttons_Pause,
-                      ),
-                    ],
+                  MaterialButton(
+                    onPressed: (_statusIs(WidgetPlayToolbarStatus.running) ? _onPauseButtonPressed : null),
+                    child: Column(
+                      children: [
+                        const Icon(Icons.pause),
+                        Text(
+                          AppLocalizations.of(context)!.viewPlay_Buttons_Pause,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                MaterialButton(
-                  onPressed: (_statusIsNot(WidgetPlayToolbarStatus.stopped) ? _onStopButtonPressed : null),
-                  child: Column(
-                    children: [
-                      const Icon(Icons.stop),
-                      Text(
-                        AppLocalizations.of(context)!.viewPlay_Buttons_Stop,
-                      ),
-                    ],
+                  MaterialButton(
+                    onPressed: (_statusIsNot(WidgetPlayToolbarStatus.stopped) ? _onStopButtonPressed : null),
+                    child: Column(
+                      children: [
+                        const Icon(Icons.stop),
+                        Text(
+                          AppLocalizations.of(context)!.viewPlay_Buttons_Stop,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

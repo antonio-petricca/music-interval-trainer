@@ -24,31 +24,34 @@ class WidgetAboutInformationState extends WidgetStateAsync<WidgetAboutInformatio
 
   @override
   Widget doBuild(BuildContext context) {
-    return WidgetCardLayoutExt(
-      icon: const Icon(Icons.info_outline_rounded),
-      title: AppLocalizations.of(context)!.viewAbout_Information_Title,
-      iconAlignment: ListTileTitleAlignment.top,
-      widgets: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocalizations.of(context)!.appTitle,
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
-            Text(
-              AppLocalizations.of(context)!.viewAbout_Information_Version(_appVersion),
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-            const Divider(height: 5),
-            Text(
-              AppLocalizations.of(context)!.viewAbout_Information_SupportEmail(_supportEmail),
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-          ],
-        ),
-      ],
+    return Opacity(
+      opacity: 0.75,
+      child: WidgetCardLayoutExt(
+        icon: const Icon(Icons.info_outline_rounded),
+        title: AppLocalizations.of(context)!.viewAbout_Information_Title,
+        iconAlignment: ListTileTitleAlignment.top,
+        widgets: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.appTitle,
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+              Text(
+                AppLocalizations.of(context)!.viewAbout_Information_Version(_appVersion),
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+              const Divider(height: 5),
+              Text(
+                AppLocalizations.of(context)!.viewAbout_Information_SupportEmail(_supportEmail),
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

@@ -11,52 +11,55 @@ class ViewAboutGuide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetCardLayoutExt(
-      icon: const Icon(Icons.help_outline_outlined),
-      iconAlignment: ListTileTitleAlignment.top,
-      title: AppLocalizations.of(context)!.viewAbout_Guide_Title,
-      widgets: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.viewAbout_Guide_Content,
-                style: Theme.of(context).textTheme.labelMedium,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15, bottom: 10),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: Colors.black.withOpacity(0.6),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
-                        blurRadius: 2,
-                        offset: const Offset(4, 4),
+    return Opacity(
+      opacity: 0.75,
+      child: WidgetCardLayoutExt(
+        icon: const Icon(Icons.help_outline_outlined),
+        iconAlignment: ListTileTitleAlignment.top,
+        title: AppLocalizations.of(context)!.viewAbout_Guide_Title,
+        widgets: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.viewAbout_Guide_Content,
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15, bottom: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.black.withOpacity(0.6),
                       ),
-                    ],
-                  ),
-                  child: YoutubePlayer(
-                    controller: YoutubePlayerController(
-                      initialVideoId: _videoId,
-                      flags: YoutubePlayerFlags(
-                        autoPlay: false,
-                        mute: false,
-                        hideControls: false,
-                        captionLanguage: AppLocalizations.of(context)!.localeName,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          blurRadius: 2,
+                          offset: const Offset(4, 4),
+                        ),
+                      ],
+                    ),
+                    child: YoutubePlayer(
+                      controller: YoutubePlayerController(
+                        initialVideoId: _videoId,
+                        flags: YoutubePlayerFlags(
+                          autoPlay: false,
+                          mute: false,
+                          hideControls: false,
+                          captionLanguage: AppLocalizations.of(context)!.localeName,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

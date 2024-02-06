@@ -27,38 +27,41 @@ class WidgetPlayInfoPanelState extends State<WidgetPlayInfoPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.only(left: 30, right: 30),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildRow(
-                const Icon(Icons.timer_outlined),
-                AppLocalizations.of(context)!.viewPlay_Info_ElapsedTime_Label,
-                _formatDuration(_elapsedTime, Constants.unsetValue),
-              ),
-              _buildRow(
-                const Icon(Icons.straighten),
-                AppLocalizations.of(context)!.viewPlay_Info_Count_Intervals_Label,
-                ((Duration.zero != _elapsedTime) ? widget.intervalsCount.toString() : Constants.unsetValue),
-              ),
-              Visibility(
-                maintainState: true,
-                visible: widget.keysActive,
-                child: _buildRow(
-                  const Icon(
-                    CustomIcons.musicViolinKey,
-                    size: 18,
-                  ),
-                  AppLocalizations.of(context)!.viewPlay_Info_Count_Keys_Label,
-                  ((Duration.zero != _elapsedTime) ? widget.keysCount.toString() : Constants.unsetValue),
+    return Opacity(
+      opacity: 0.65,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.only(left: 30, right: 30),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildRow(
+                  const Icon(Icons.timer_outlined),
+                  AppLocalizations.of(context)!.viewPlay_Info_ElapsedTime_Label,
+                  _formatDuration(_elapsedTime, Constants.unsetValue),
                 ),
-              ),
-            ],
+                _buildRow(
+                  const Icon(Icons.straighten),
+                  AppLocalizations.of(context)!.viewPlay_Info_Count_Intervals_Label,
+                  ((Duration.zero != _elapsedTime) ? widget.intervalsCount.toString() : Constants.unsetValue),
+                ),
+                Visibility(
+                  maintainState: true,
+                  visible: widget.keysActive,
+                  child: _buildRow(
+                    const Icon(
+                      CustomIcons.musicViolinKey,
+                      size: 18,
+                    ),
+                    AppLocalizations.of(context)!.viewPlay_Info_Count_Keys_Label,
+                    ((Duration.zero != _elapsedTime) ? widget.keysCount.toString() : Constants.unsetValue),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

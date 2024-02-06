@@ -62,24 +62,27 @@ class WidgetPlayChallengePanel extends StatelessWidget {
   }
 
   Widget _buildKeyPanel(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(5),
-          child: FittedBox(
-            fit: BoxFit.contain,
-            child: Padding(
-              padding: const EdgeInsets.all(5),
+    return Opacity(
+      opacity: 0.75,
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: FittedBox(
+              fit: BoxFit.contain,
               child: Padding(
-                padding: const EdgeInsets.only(top: 20), // Compensate "fontSize"
-                child: WidgetBlinkingText(
-                  textAlign: TextAlign.center,
-                  textNotifier: keyValueNotifier,
-                  style: TextStyle(
-                    color: Theme.of(context).buttonTheme.colorScheme?.error,
-                    fontFamily: FontsCatalog.roundedLedBoard7,
-                    fontSize: 20,
+                padding: const EdgeInsets.all(5),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20), // Compensate "fontSize"
+                  child: WidgetBlinkingText(
+                    textAlign: TextAlign.center,
+                    textNotifier: keyValueNotifier,
+                    style: TextStyle(
+                      color: Theme.of(context).buttonTheme.colorScheme?.error,
+                      fontFamily: FontsCatalog.roundedLedBoard7,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ),
