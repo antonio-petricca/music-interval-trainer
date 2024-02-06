@@ -109,10 +109,10 @@ flutter:
   fonts:
     - family: Rounded-Led-Board-7
       fonts:
-        - asset: fonts/rounded_led_board-7.ttf
+        - asset: assets/fonts/rounded_led_board-7.ttf
     - family: Tchaikovsky
       fonts:
-        - asset: fonts/Tchaikovsky-ax8DK.ttf
+        - asset: assets/fonts/Tchaikovsky-ax8DK.ttf
 
   generate: true
 
