@@ -33,7 +33,7 @@ class WrapperTimer {
       _doOnTimerElapsed();
     }
 
-    _timer = Timer.periodic(interval, _onTimerElapsed);
+    _timer = Timer.periodic(_interval, _onTimerElapsed);
 
     return true;
   }

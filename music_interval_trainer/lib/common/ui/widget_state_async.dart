@@ -3,10 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 abstract class WidgetStateAsync<T extends StatefulWidget> extends State<T> {
+  late final Future _initializeDataFuture;
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _initializeData(),
+      future: _initializeDataFuture,
       builder: (context, snapshot) => (!snapshot.hasData ? _buildLoaderWidget() : doBuild(context)),
     );
   }
@@ -14,7 +16,8 @@ abstract class WidgetStateAsync<T extends StatefulWidget> extends State<T> {
   @override
   void initState() {
     super.initState();
-    doInitializeData();
+
+    _initializeDataFuture = _initializeData();
   }
 
   @protected

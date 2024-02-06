@@ -7,3 +7,4 @@
 - UI: nicer UI.
 - UI: separate about/credits from the help.
 - Update Flutter Beep library (embedded for the moment).
+- Play: avoid repetitions.
