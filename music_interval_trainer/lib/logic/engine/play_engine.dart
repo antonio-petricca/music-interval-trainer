@@ -7,11 +7,14 @@ import 'keys_manager.dart';
 
 class PlayEngineAnswer {
   final String _interval;
+  final bool _intervalChanged;
   final String _key;
 
-  PlayEngineAnswer(this._interval, this._key);
+  PlayEngineAnswer(this._interval, this._intervalChanged, this._key);
 
   String get interval => _interval;
+
+  bool get intervalChanged => _intervalChanged;
 
   String get key => _key;
 }
@@ -40,10 +43,26 @@ class PlayEngine {
     ];
   }
 
-  PlayEngineAnswer next() => PlayEngineAnswer(
-        _nextInterval(),
-        (_needNewKey() ? _nextKey() : _prevKey),
-      );
+  PlayEngineAnswer next() {
+    bool intervalChanged;
+    bool needNewKey = _needNewKey();
+    String nextInterval;
+
+    if (_prevInterval.isEmpty || !needNewKey || (needNewKey && !_settingsManager.keysRepeatIntervalOnChange)) {
+      intervalChanged = true;
+      nextInterval = _nextInterval();
+    } else {
+      intervalChanged = false;
+      nextInterval = _prevInterval;
+      _intervalsCount++; // Required by "_needNewKey".
+    }
+
+    return PlayEngineAnswer(
+      nextInterval,
+      intervalChanged,
+      (needNewKey ? _nextKey() : _prevKey),
+    );
+  }
 
   int get intervalsCount => _intervalsCount;
 
@@ -58,61 +77,8 @@ class PlayEngine {
               &&
               (_keyList.length > 1) // More than one key are available for engaging
               &&
-              (0 == ((_intervalsCount - 1) % _settingsManager.keysChangeInterval) // Keys interval elapsed
+              (0 == (_intervalsCount % _settingsManager.keysChangeInterval) // Keys interval elapsed
               )));
-
-  /*bool _needNewKey() {
-    if (!_settingsManager.keysActive) {
-      developer.log(
-        "Keys challenge not enabled => false.",
-        name: (PlayEngine).toString(),
-      );
-
-      return false;
-    }
-
-    if (_prevKey.isEmpty) {
-      developer.log(
-        "Previous key not yet engaged => true.",
-        name: (PlayEngine).toString(),
-      );
-
-      return true;
-    }
-
-    if (_keyList.length <= 1) {
-      developer.log(
-        "More than one key needed for engaging => false.",
-        name: (PlayEngine).toString(),
-      );
-
-      return false;
-    }
-
-    int tmpCount = (_intervalsCount - 1);
-    int tmpQuotient = (tmpCount % _settingsManager.keysChangeInterval);
-
-    developer.log(
-      "Count = $tmpCount, Quotient = $tmpQuotient.",
-      name: (PlayEngine).toString(),
-    );
-
-    if (0 == tmpQuotient) {
-      developer.log(
-        "Keys interval elapsed => true.",
-        name: (PlayEngine).toString(),
-      );
-
-      return true;
-    }
-
-    developer.log(
-      "Key interval NOT yet elapsed => false.",
-      name: (PlayEngine).toString(),
-    );
-
-    return false;
-  }*/
 
   String _nextKey() {
     int index;

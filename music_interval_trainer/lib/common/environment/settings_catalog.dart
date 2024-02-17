@@ -9,6 +9,7 @@ class SettingsCatalog {
   static const String keysChangeInterval = "$_keys.change.interval";
   static const String keysList = "$_keys.list";
   static const String keysRandom = "$_keys.random";
+  static const String keysRepeatIntervalOnChange = "$_keys.repeat-interval-on-change";
 
   static const String _ux = "ux";
   static const String _uxFeedback = "$_ux.feedback";

@@ -4,6 +4,7 @@ import '../../common/ui/fonts_catalog.dart';
 import '../../common/ui/widget_blinking_text.dart';
 
 class WidgetPlayChallengePanel extends StatelessWidget {
+  final bool intervalChanged;
   final ValueNotifier<String> intervalValueNotifier;
   final bool keysActive;
   final ValueNotifier<String> keyValueNotifier;
@@ -11,6 +12,7 @@ class WidgetPlayChallengePanel extends StatelessWidget {
   const WidgetPlayChallengePanel({
     super.key,
     required this.intervalValueNotifier,
+    required this.intervalChanged,
     required this.keysActive,
     required this.keyValueNotifier,
   });
@@ -21,7 +23,7 @@ class WidgetPlayChallengePanel extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       child: Stack(
         children: [
-          _buildIntervalPanel(),
+          _buildIntervalPanel(context),
           Positioned(
             top: 10,
             right: 10,
@@ -40,7 +42,9 @@ class WidgetPlayChallengePanel extends StatelessWidget {
     );
   }
 
-  Widget _buildIntervalPanel() {
+  Widget _buildIntervalPanel(BuildContext context) {
+    ColorScheme? colorScheme = Theme.of(context).buttonTheme.colorScheme;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(bottom: 20, top: 90),
@@ -51,7 +55,7 @@ class WidgetPlayChallengePanel extends StatelessWidget {
             value,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Theme.of(context).buttonTheme.colorScheme?.primary,
+              color: (intervalChanged ? colorScheme?.primary : colorScheme?.secondary),
               fontFamily: FontsCatalog.roundedLedBoard7,
               fontSize: 60,
             ),

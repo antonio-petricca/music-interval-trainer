@@ -38,6 +38,7 @@ class ViewPlayState extends WidgetStateAsync<ViewPlay> {
   PlayEngine? _playEngine;
   WrapperTimer? _playTimer;
 
+  bool _intervalChanged = false;
   final _intervalValueNotifier = ValueNotifier<String>(Constants.unsetValue);
   final _keyValueNotifier = ValueNotifier<String>(Constants.unsetValue);
 
@@ -63,6 +64,7 @@ class ViewPlayState extends WidgetStateAsync<ViewPlay> {
           children: [
             WidgetPlayChallengePanel(
               intervalValueNotifier: _intervalValueNotifier,
+              intervalChanged: _intervalChanged,
               keysActive: _settingsManager.keysActive,
               keyValueNotifier: _keyValueNotifier,
             ),
@@ -191,6 +193,7 @@ class ViewPlayState extends WidgetStateAsync<ViewPlay> {
   void _doNextChallenge() {
     if (null != _playEngine) {
       var answer = _playEngine!.next();
+      _intervalChanged = answer.intervalChanged;
       _intervalValueNotifier.value = answer.interval;
 
       if (_settingsManager.keysActive) {

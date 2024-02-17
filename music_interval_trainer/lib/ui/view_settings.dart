@@ -22,7 +22,7 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
   final SettingsManager _settingsManager = SettingsManager();
 
   final EdgeInsetsGeometry _editorColumnPadding = const EdgeInsets.only(left: 20, right: 20);
-  final double _infoColumnWidth = 150;
+  final double _infoColumnWidth = 100;
   final EdgeInsetsGeometry _infoColumnPadding = const EdgeInsets.only(right: 10);
   final EdgeInsetsGeometry _otherListTilePadding = const EdgeInsets.only(left: 10, right: 10);
   final EdgeInsetsGeometry _sliderListTilePadding = const EdgeInsets.only(left: 10);
@@ -55,6 +55,7 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
           _buildKeysActive(context),
           _buildKeysList(context),
           _buildKeysRandom(context),
+          _buildKeysRepeatIntervalOnChange(context),
           _buildKeysInterval(context),
           _buildLabel(
             AppLocalizations.of(context)!.viewSettings_UX_Section_Caption,
@@ -331,6 +332,33 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
     );
   }
 
+  Widget _buildKeysRepeatIntervalOnChange(BuildContext context) {
+    return WidgetIconLayoutExt(
+      icon: const Icon(Icons.double_arrow),
+      iconAlignment: ListTileTitleAlignment.center,
+      contentPadding: _otherListTilePadding,
+      children: [
+        SizedBox(
+          width: _infoColumnWidth,
+          child: Padding(
+            padding: _infoColumnPadding,
+            child: Text(
+              AppLocalizations.of(context)!.viewSettings_Keys_RepeatIntervalOnChange,
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ),
+        Padding(
+          padding: _editorColumnPadding,
+          child: Switch(
+            value: _settingsManager.keysRepeatIntervalOnChange,
+            onChanged: _onKeysRepeatIntervalOnChangeChanged,
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildUXFeedbackSound(BuildContext context) {
     return WidgetIconLayoutExt(
       icon: const Icon(Icons.volume_up_outlined),
@@ -439,6 +467,12 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
   void _onKeysRandomChanged(bool? value) {
     setState(() {
       _settingsManager.keysRandom = (value ?? false);
+    });
+  }
+
+  void _onKeysRepeatIntervalOnChangeChanged(bool? value) {
+    setState(() {
+      _settingsManager.keysRepeatIntervalOnChange = (value ?? false);
     });
   }
 
