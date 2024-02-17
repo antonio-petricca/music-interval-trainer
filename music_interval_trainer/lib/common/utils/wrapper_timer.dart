@@ -31,9 +31,9 @@ class WrapperTimer {
 
     if (_fireImmediately) {
       _doOnTimerElapsed();
+    } else {
+      _doStart();
     }
-
-    _timer = Timer.periodic(_interval, _onTimerElapsed);
 
     return true;
   }
@@ -43,25 +43,35 @@ class WrapperTimer {
       return false;
     }
 
-    _timer!.cancel();
-
-    while (_timer!.isActive) {
-      sleep(Constants.oneMillisecond);
-    }
+    _doStop();
 
     _isRunning = false;
 
     return true;
   }
 
+  void _doStart() {
+    _timer = Timer.periodic(_interval, _onTimerElapsed);
+  }
+
+  void _doStop() {
+    _timer!.cancel();
+
+    while (_timer!.isActive) {
+      sleep(Constants.oneMillisecond);
+    }
+  }
+
   void _doOnTimerElapsed() {
-    if (onTimerElapsed(this)) {
-      start();
+    if (isRunning) {
+      if (onTimerElapsed(this)) {
+        _doStart();
+      }
     }
   }
 
   void _onTimerElapsed(Timer timer) {
-    stop();
+    _doStop();
     _doOnTimerElapsed();
   }
 }
