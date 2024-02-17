@@ -111,6 +111,8 @@ class ViewPlayState extends WidgetStateAsync<ViewPlay> {
   Future<void> initialize() async {
     await _configuration.load(context);
     await _settingsManager.load();
+
+    onDataInitialized();
   }
 
   @override

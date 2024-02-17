@@ -50,8 +50,69 @@ class PlayEngine {
   int get keysCount => _keysCount;
 
   bool _needNewKey() =>
-      _settingsManager.keysActive &&
-      (_prevKey.isEmpty || (_prevKey.isNotEmpty && (_keyList.length > 1) && (0 == ((_intervalsCount - 1) % _settingsManager.keysChangeInterval))));
+      _settingsManager.keysActive //
+      &&
+      (_prevKey.isEmpty // Previous key not yet engaged
+          ||
+          (_prevKey.isNotEmpty // Previous key already engaged
+              &&
+              (_keyList.length > 1) // More than one key are available for engaging
+              &&
+              (0 == ((_intervalsCount - 1) % _settingsManager.keysChangeInterval) // Keys interval elapsed
+              )));
+
+  /*bool _needNewKey() {
+    if (!_settingsManager.keysActive) {
+      developer.log(
+        "Keys challenge not enabled => false.",
+        name: (PlayEngine).toString(),
+      );
+
+      return false;
+    }
+
+    if (_prevKey.isEmpty) {
+      developer.log(
+        "Previous key not yet engaged => true.",
+        name: (PlayEngine).toString(),
+      );
+
+      return true;
+    }
+
+    if (_keyList.length <= 1) {
+      developer.log(
+        "More than one key needed for engaging => false.",
+        name: (PlayEngine).toString(),
+      );
+
+      return false;
+    }
+
+    int tmpCount = (_intervalsCount - 1);
+    int tmpQuotient = (tmpCount % _settingsManager.keysChangeInterval);
+
+    developer.log(
+      "Count = $tmpCount, Quotient = $tmpQuotient.",
+      name: (PlayEngine).toString(),
+    );
+
+    if (0 == tmpQuotient) {
+      developer.log(
+        "Keys interval elapsed => true.",
+        name: (PlayEngine).toString(),
+      );
+
+      return true;
+    }
+
+    developer.log(
+      "Key interval NOT yet elapsed => false.",
+      name: (PlayEngine).toString(),
+    );
+
+    return false;
+  }*/
 
   String _nextKey() {
     int index;
