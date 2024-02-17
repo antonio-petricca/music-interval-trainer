@@ -88,7 +88,7 @@ class PlayEngine {
 
     do {
       if (_settingsManager.keysRandom) {
-        index = random.nextInt(_keyList.length - 1);
+        index = random.nextInt(_keyList.length);
         value = _keyList[index];
       } else {
         value = _keyList[_keyIndex];
