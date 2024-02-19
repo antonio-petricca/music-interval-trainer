@@ -23,13 +23,14 @@
   "viewSettings_Intervals_Duration": "Select duration",
   "viewSettings_Intervals_Extended": "Extended (9, 11, 13)",
   "viewSettings_Intervals_Speed": "Intervals speed",
-  "viewSettings_Intervals_Speed_Slider_Label": "seconds",
+  "viewSettings_Intervals_Speed_Slider": "seconds",
   "viewSettings_Intervals_Section_Caption": "Intervals",
   "viewSettings_Intervals_Section_Tooltip": "Configuration parameters for how intervals are generated.",
   "viewSettings_Keys_Section_Caption": "Keys challenge",
   "viewSettings_Keys_Section_Tooltip": "Configuration parameters for how keys are generated",
   "viewSettings_Keys_Activation": "Activate / Deactivate",
-  "viewSettings_Keys_ChangeInterval": "Change each {intervals} intervals",
+  "viewSettings_Keys_ChangeInterval": "Change after intervals count",
+  "viewSettings_Keys_ChangeInterval_Slider": "interval(s)",
   "viewSettings_Keys_Keys": "Keys selection",
   "viewSettings_Keys_Random": "Random progression",
   "viewSettings_Keys_RepeatIntervalOnChange": "Repeat interval on key change",
@@ -49,13 +50,6 @@
     "placeholders": {
       "email": {
         "type": "String"
-      }
-    }
-  },
-  "@viewSettings_Keys_Interval": {
-    "placeholders": {
-      "intervals": {
-        "type": "int"
       }
     }
   }

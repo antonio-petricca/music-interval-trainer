@@ -55,8 +55,8 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
           _buildKeysActive(context),
           _buildKeysList(context),
           _buildKeysRandom(context),
-          _buildKeysRepeatIntervalOnChange(context),
           _buildKeysInterval(context),
+          _buildKeysRepeatIntervalOnChange(context),
           _buildLabel(
             AppLocalizations.of(context)!.viewSettings_UX_Section_Caption,
             AppLocalizations.of(context)!.viewSettings_UX_Section_Tooltip,
@@ -189,8 +189,8 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
           child: SleekCircularSlider(
               appearance: CircularSliderAppearance(
                 infoProperties: InfoProperties(
-                  modifier: _speedQuantumToSeconds,
-                  bottomLabelText: AppLocalizations.of(context)!.viewSettings_Intervals_Speed_Slider_Label,
+                  modifier: _intervalSpeedQuantumToSeconds,
+                  bottomLabelText: AppLocalizations.of(context)!.viewSettings_Intervals_Speed_Slider,
                 ),
               ),
               initialValue: _settingsManager.intervalsQuantum.toDouble(),
@@ -240,20 +240,23 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
           child: Padding(
             padding: _infoColumnPadding,
             child: Text(
-              AppLocalizations.of(context)!.viewSettings_Keys_ChangeInterval(
-                _settingsManager.keysChangeInterval,
-              ),
+              AppLocalizations.of(context)!.viewSettings_Keys_ChangeInterval,
               textAlign: TextAlign.right,
             ),
           ),
         ),
         Expanded(
-          child: Slider(
-            value: _settingsManager.keysChangeInterval.toDouble(),
-            min: SettingsManager.keyChangeIntervalMin.toDouble(),
-            max: SettingsManager.keyChangeIntervalMax.toDouble(),
-            onChanged: _onKeysIntervalChanged,
-          ),
+          child: SleekCircularSlider(
+              appearance: CircularSliderAppearance(
+                infoProperties: InfoProperties(
+                  modifier: _keyChangeIntervalToInteger,
+                  bottomLabelText: AppLocalizations.of(context)!.viewSettings_Keys_ChangeInterval_Slider,
+                ),
+              ),
+              initialValue: _settingsManager.keysChangeInterval.toDouble(),
+              min: SettingsManager.keyChangeIntervalMin.toDouble(),
+              max: SettingsManager.keyChangeIntervalMax.toDouble(),
+              onChange: _onKeysIntervalChanged),
         ),
       ],
     );
@@ -412,6 +415,14 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
     );
   }
 
+  String _intervalSpeedQuantumToSeconds(double value) {
+    return (_settingsManager.intervalsQuantum / SettingsManager.intervalsSpeedFactor).toString();
+  }
+
+  String _keyChangeIntervalToInteger(double value) {
+    return _settingsManager.keysChangeInterval.toString();
+  }
+
   void _onIntervalsAccidentalsChanged(bool? value) {
     setState(() {
       _settingsManager.intervalsAccidentals = (value ?? false);
@@ -447,7 +458,7 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
 
   Future<void> _onKeysIntervalChanged(double value) async {
     setState(() {
-      _settingsManager.keysChangeInterval = value.toInt();
+      _settingsManager.keysChangeInterval = value.round().toInt();
     });
   }
 
@@ -473,9 +484,5 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
     setState(() {
       _settingsManager.uxFeedbackVibration = (value ?? false);
     });
-  }
-
-  String _speedQuantumToSeconds(double value) {
-    return (_settingsManager.intervalsQuantum / SettingsManager.intervalsSpeedFactor).toString();
   }
 }
