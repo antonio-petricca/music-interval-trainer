@@ -23,7 +23,7 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
   final SettingsManager _settingsManager = SettingsManager();
 
   final EdgeInsetsGeometry _editorColumnPadding = const EdgeInsets.only(left: 20, right: 20);
-  final double _infoColumnWidth = 110;
+  final double _infoColumnWidth = 100;
   final EdgeInsetsGeometry _infoColumnPadding = const EdgeInsets.only(right: 10);
   final EdgeInsetsGeometry _otherListTilePadding = const EdgeInsets.only(left: 10, right: 10);
   final EdgeInsetsGeometry _sliderListTilePadding = const EdgeInsets.only(left: 10);
