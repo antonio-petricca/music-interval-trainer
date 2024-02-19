@@ -205,7 +205,6 @@ class ViewPlayState extends WidgetStateAsync<ViewPlay> {
   void _doPlay(bool resume) {
     setState(() {
       _stopCountDown();
-      _resetElapsedTimeSegment();
 
       if (!resume) {
         _intervalValueNotifier.value = Constants.unsetValue;
@@ -256,6 +255,7 @@ class ViewPlayState extends WidgetStateAsync<ViewPlay> {
     if (_applicationState.isActive) {
       setState(() {
         _stopCountDown();
+        _resetElapsedTimeSegment();
         _playTimer!.start();
       });
     }
