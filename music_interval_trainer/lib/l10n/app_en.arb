@@ -22,7 +22,8 @@
   "viewSettings_Intervals_Accidentals": "Include accidentals",
   "viewSettings_Intervals_Duration": "Select duration",
   "viewSettings_Intervals_Extended": "Extended (9, 11, 13)",
-  "viewSettings_Intervals_Speed": "One at {seconds} seconds",
+  "viewSettings_Intervals_Speed": "Intervals speed",
+  "viewSettings_Intervals_Speed_Slider_Label": "seconds",
   "viewSettings_Intervals_Section_Caption": "Intervals",
   "viewSettings_Intervals_Section_Tooltip": "Configuration parameters for how intervals are generated.",
   "viewSettings_Keys_Section_Caption": "Keys challenge",
@@ -47,13 +48,6 @@
   "@viewAbout_Information_SupportEmail": {
     "placeholders": {
       "email": {
-        "type": "String"
-      }
-    }
-  },
-  "@viewSettings_Intervals_Speed": {
-    "placeholders": {
-      "seconds": {
         "type": "String"
       }
     }

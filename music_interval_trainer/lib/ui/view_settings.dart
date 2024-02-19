@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../common/environment/configuration_manager.dart';
 import '../common/environment/settings_manager.dart';
@@ -22,12 +23,11 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
   final SettingsManager _settingsManager = SettingsManager();
 
   final EdgeInsetsGeometry _editorColumnPadding = const EdgeInsets.only(left: 20, right: 20);
-  final double _infoColumnWidth = 100;
+  final double _infoColumnWidth = 110;
   final EdgeInsetsGeometry _infoColumnPadding = const EdgeInsets.only(right: 10);
   final EdgeInsetsGeometry _otherListTilePadding = const EdgeInsets.only(left: 10, right: 10);
   final EdgeInsetsGeometry _sliderListTilePadding = const EdgeInsets.only(left: 10);
 
-  int _intervalsSpeedQuantumDivisions = -1;
   double _intervalsSpeedQuantumMax = -1;
   double _intervalsSpeedQuantumMin = -1;
 
@@ -79,9 +79,6 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
   void onDataInitialized() {
     setState(
       () {
-        _intervalsSpeedQuantumDivisions =
-            ((_configuration.intervalsSpeedMaxSeconds - _configuration.intervalsSpeedMinSeconds) * SettingsManager.intervalsSpeedFactor);
-
         _intervalsSpeedQuantumMax = (_configuration.intervalsSpeedMaxSeconds * SettingsManager.intervalsSpeedFactor).toDouble();
         _intervalsSpeedQuantumMin = (_configuration.intervalsSpeedMinSeconds * SettingsManager.intervalsSpeedFactor).toDouble();
 
@@ -183,21 +180,23 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
           child: Padding(
             padding: _infoColumnPadding,
             child: Text(
-              AppLocalizations.of(context)!.viewSettings_Intervals_Speed(
-                _getIntervalsSpeed(),
-              ),
+              AppLocalizations.of(context)!.viewSettings_Intervals_Speed,
               textAlign: TextAlign.right,
             ),
           ),
         ),
         Expanded(
-          child: Slider(
-            value: _settingsManager.intervalsQuantum.toDouble(),
-            min: _intervalsSpeedQuantumMin,
-            max: _intervalsSpeedQuantumMax,
-            divisions: _intervalsSpeedQuantumDivisions,
-            onChanged: _onIntervalsSpeedQuantumChanged,
-          ),
+          child: SleekCircularSlider(
+              appearance: CircularSliderAppearance(
+                infoProperties: InfoProperties(
+                  modifier: _speedQuantumToSeconds,
+                  bottomLabelText: AppLocalizations.of(context)!.viewSettings_Intervals_Speed_Slider_Label,
+                ),
+              ),
+              initialValue: _settingsManager.intervalsQuantum.toDouble(),
+              min: _intervalsSpeedQuantumMin,
+              max: _intervalsSpeedQuantumMax,
+              onChange: _onIntervalsSpeedQuantumChanged),
         ),
       ],
     );
@@ -413,18 +412,6 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
     );
   }
 
-  String _getIntervalsSpeed() {
-    Duration duration = Duration(
-      milliseconds: (_settingsManager.intervalsQuantum / SettingsManager.intervalsSpeedFactor * 1000).toInt(),
-    );
-
-    int secs = duration.inSeconds;
-    int mils = (duration.inMilliseconds - (secs * 1000));
-    int milsFraction = mils ~/ 100;
-
-    return '${secs.toString()}.${milsFraction.toString()}';
-  }
-
   void _onIntervalsAccidentalsChanged(bool? value) {
     setState(() {
       _settingsManager.intervalsAccidentals = (value ?? false);
@@ -439,7 +426,7 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
 
   Future<void> _onIntervalsSpeedQuantumChanged(double value) async {
     setState(() {
-      _settingsManager.intervalsQuantum = value.toInt();
+      _settingsManager.intervalsQuantum = value.round().toInt();
     });
   }
 
@@ -486,5 +473,9 @@ class ViewSettingsState extends WidgetStateAsync<ViewSettings> {
     setState(() {
       _settingsManager.uxFeedbackVibration = (value ?? false);
     });
+  }
+
+  String _speedQuantumToSeconds(double value) {
+    return (_settingsManager.intervalsQuantum / SettingsManager.intervalsSpeedFactor).toString();
   }
 }

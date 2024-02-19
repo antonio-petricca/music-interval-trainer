@@ -1,5 +1,6 @@
 - _keyLabels = KeysManager(context).getList();
 - Credits (into configuration).
+- Embed: package_info.
 - Full help (no more video).
 - Github: release APK by CI.
 - https://www.buymeacoffee.com

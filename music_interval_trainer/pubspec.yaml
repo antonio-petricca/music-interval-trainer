@@ -31,17 +31,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_beep:
+    path: lib/third_party/flutter_beep
   flutter_localizations:
     sdk: flutter
   intl: any
   package_info: any
+  percent_indicator: any
   pubspec: any
   shared_preferences: any
+  sleek_circular_slider: any
   vibration: any
-
-  flutter_beep:
-    path: lib/third_party/flutter_beep
-  percent_indicator: any
   youtube_player_flutter: any
 
   # The following adds the Cupertino Icons font to your application.
